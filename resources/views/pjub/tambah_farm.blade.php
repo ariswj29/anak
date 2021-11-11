@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/admin/farm/store" method="POST">
+    <form action="/pjub/farm/store" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row"> 
@@ -85,7 +85,7 @@
         </div>
         <div class="col-6 mb-3">
             <button class="btn btn-success mt-2">Tambah Data</button>
-            <a href="/admin/farm" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/farm" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

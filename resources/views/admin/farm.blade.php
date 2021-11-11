@@ -52,7 +52,7 @@
                             {{ $no }}
                         </td>
                         <td>
-                            {{ $farm->mitra->nama }}
+                            {{ $farm->nama }}
                         </td>
                         <td>
                             {{ $farm->nama_farm }}

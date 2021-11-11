@@ -70,8 +70,16 @@ class MitraController extends Controller
     public function create()
     {
         //
-        // $pjubs = Pjub::all();
-        return view('pjub/tambah_mitra')->with('pjubs', Pjub::all());
+        $pjubs = \DB::select(\DB::raw("
+        SELECT
+            pjub.nama,
+            pjub.pjub_id 
+        FROM
+            pjub
+        WHERE
+            pjub.email = '".Auth::user()->email."' "));
+
+        return view('pjub/tambah_mitra')->with('pjubs', $pjubs);
     }
 
     /**
@@ -101,7 +109,7 @@ class MitraController extends Controller
         $data = request();
 
         $mitra = new Mitra();
-        $mitra->pjub_id = $data->input('pjub_id', '2');
+        $mitra->pjub_id = $data['pjub_id'];
         $mitra->nama = $data['nama'];
         $mitra->nik = $data['nik'];
         $mitra->tempat_lahir = $data['tempat_lahir'];
@@ -143,7 +151,7 @@ class MitraController extends Controller
                
         // $pjubs = array((object)array('id'=>1,'nama'=>'om aris'),(object)array('id'=>2,'nama'=>'aris'),(object)array('id'=>3,'nama'=>'abcd'));
 
-        return view('admin/edit_mitra')->with('mitras', $mitras)->with('pjubs', $pjubs);
+        return view('pjub/edit_mitra')->with('mitras', $mitras)->with('pjubs', $pjubs);
     }
 
     /**
@@ -157,7 +165,7 @@ class MitraController extends Controller
     {
         //
         $this->validate(request(),[
-            'pjub_id' => 'required',
+            'pjub_id' => '',
             'nama' => 'required',
             'nik' => 'required|max:16',
             'tempat_lahir' => 'required',
@@ -167,10 +175,10 @@ class MitraController extends Controller
             'email' => 'required',
         ]);
 
-        $data = request()->all();
+        $data = request();
 
         $mitra = Mitra::Find($mitra_id);
-        $mitra->pjub_id = $data['pjub_id'];
+        $mitra->pjub_id = $data->input('pjub_id', '2');
         $mitra->nama = $data['nama'];
         $mitra->nik = $data['nik'];
         $mitra->tempat_lahir = $data['tempat_lahir'];
@@ -183,7 +191,7 @@ class MitraController extends Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/admin/mitra')->with('status', 'Data farm berhasil diubah');
+        return redirect('/pjub/mitra')->with('status', 'Data farm berhasil diubah');
     }
 
     /**
@@ -201,6 +209,6 @@ class MitraController extends Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/admin/mitra');
+        return redirect('/pjub/mitra');
     }
 }

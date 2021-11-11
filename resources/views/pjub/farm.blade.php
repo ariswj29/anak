@@ -21,7 +21,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro;" href="/mitra/farm/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro;" href="/pjub/farm/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -76,8 +76,8 @@
                         {{ $record->kapasitas_kandang_grower }}
                     </td>
                     <td class="">
-                        <a class="btn btn-info btn-sm my-1" href="/mitra/farm/{{ $record->farm_id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-sm my-1" href="/mitra/farm/{{ $record->farm_id }}/destroy"><i class="fas fa-trash"></i></a>
+                        <a class="btn btn-info btn-sm my-1" href="/pjub/farm/{{ $record->farm_id }}/edit"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm my-1" href="/pjub/farm/{{ $record->farm_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach

@@ -76,8 +76,8 @@
                         {{ $record->email }}
                     </td>
                     <td class="">
-                        <a class="btn btn-info btn-sm my-1" href="/mitra/farm/{{ $record->mitra_id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-sm my-1" href="/mitra/farm/{{ $record->mitra_id }}/destroy"><i class="fas fa-trash"></i></a>
+                        <a class="btn btn-info btn-sm my-1" href="/pjub/mitra/{{ $record->mitra_id }}/edit"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm my-1" href="/pjub/mitra/{{ $record->mitra_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
                 @endforeach

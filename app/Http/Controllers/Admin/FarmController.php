@@ -17,10 +17,26 @@ class FarmController extends Controller
      */
     public function index()
     {
-        $farms = Farm::all();
-        $mitras = mitra::all();
+        $farms = \DB::select(\DB::raw("
+        SELECT ROW_NUMBER
+            ( ) OVER ( ORDER BY farm ASC ) AS NO,
+            farm.farm_id,
+            farm.nama_farm,
+            farm.alamat_farm,
+            farm.mata_uang,
+            farm.satuan_berat,
+            farm.kapasitas_kandang_doc,
+            farm.kapasitas_kandang_grower,
+            farm.kapasitas_rak_telur,
+            mitra.nama 
+        FROM
+            farm
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id 
+        "));
+        
 
-        return view('admin/farm')->with(array('farms'=> $farms, 'mitras'=>$mitras));
+        return view('admin/farm')->with('farms', $farms);
     }
 
     /**

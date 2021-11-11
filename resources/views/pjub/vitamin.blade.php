@@ -21,7 +21,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style="font-family: Source Sans Pro"; href="/mitra/vitamin/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style="font-family: Source Sans Pro"; href="/pjub/vitamin/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -66,8 +66,8 @@
                     {{ $record->nama }}
                 </td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="/mitra/vitamin/{{ $record->vitamin_id }}/edit"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm" href="/mitra/vitamin/{{ $record->vitamin_id }}/destroy"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-info btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/destroy"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach

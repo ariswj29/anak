@@ -57,10 +57,11 @@ class FarmController extends Controller
             mitra.mitra_id 
         FROM
             mitra
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id 
         WHERE
-            mitra.email = '".Auth::user()->email."' "));
+            pjub.email = '".Auth::user()->email."' "));
 
-        return view('mitra/tambah_farm')->with('mitras', $mitras);
+        return view('pjub/tambah_farm')->with('mitras', $mitras);
     }
 
     /**
@@ -99,7 +100,7 @@ class FarmController extends Controller
 
         session()->flash('success', 'Data Berhasil Ditambah');
 
-        return redirect('/mitra/farm')->with('status', 'Data farm berhasil ditambahkan');
+        return redirect('/pjub/farm')->with('status', 'Data farm berhasil ditambahkan');
     }
 
     /**
@@ -134,7 +135,7 @@ class FarmController extends Controller
         WHERE 
             farm.farm_id = 1 "));
 
-        return view('mitra/edit_farm')->with('farms', $farms)->with('mitras', $mitras);
+        return view('pjub/edit_farm')->with('farms', $farms)->with('mitras', $mitras);
     }
 
     /**
@@ -178,7 +179,7 @@ class FarmController extends Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/mitra/farm');
+        return redirect('/pjub/farm');
         // ->with('status', 'Data farm berhasil diubah');
     }
     
@@ -198,6 +199,6 @@ class FarmController extends Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/mitra/farm');
+        return redirect('/pjub/farm');
     }
 }

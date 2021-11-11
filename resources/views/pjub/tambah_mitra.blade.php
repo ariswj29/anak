@@ -36,7 +36,16 @@
     <form action="/pjub/mitra/store" method="POST">
 		@csrf
     <div class="card-body">
-      <div class="row">   
+      <div class="row">    
+        <div class="col-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">PJUB</label>
+            <!-- <input type="number" class="form-control" id="exampleControlInput1" name="pjub_id" placeholder="Isi PJUB ID"> -->
+            <select name="pjub_id" id="pjub_id" class="form-control">
+                @foreach ($pjubs as $pjub)
+                    <option value="{{ $pjub->pjub_id }}"> {{ $pjub->nama }} </option>
+                @endforeach
+            </select>
+        </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nama</label>
             <input type="text" class="form-control" id="exampleControlInput1" name="nama" placeholder="Isi Nama!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -67,7 +76,7 @@
         </div>
         <div class="col-6 mb-3">
             <br><button class="btn btn-success mt-2">Tambah Data</button>
-            <a href="/admin/mitra" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/mitra" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

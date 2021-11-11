@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/admin/farm/{{ $farms->farm_id }}/update" method="POST">
+    <form action="/pjub/farm/{{ $farms->farm_id }}/update" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row">
@@ -85,7 +85,7 @@
         </div>
         <div class="col-6 mb-3">
             <button class="btn btn-success mt-2">Update Data</button>
-            <a href="/admin/farm" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/farm" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

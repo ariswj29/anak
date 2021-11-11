@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->belongsTo(Mitra::class,'mitra_id');
     }
 
+    public function Pjub()
+    {
+        return $this->belongsTo(Mitra::class,'pjub_id');
+    }
+
     public function isAdmin()
     {
         return $this->hak_akses == 'administrator';
