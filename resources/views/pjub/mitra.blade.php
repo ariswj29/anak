@@ -64,7 +64,7 @@
                         {{ $record->tempat_lahir }}
                     </td>
                     <td class="">
-                        {{ $record->tanggal_lahir }}
+                        {{ \Carbon\Carbon::parse($record->tanggal_lahir)->format('j F Y') }}
                     </td>
                     <td class="">
                         {{ $record->alamat }}

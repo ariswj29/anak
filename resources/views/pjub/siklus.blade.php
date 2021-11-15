@@ -21,7 +21,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/mitra/siklus/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/siklus/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -49,13 +49,13 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ $record->nama_farm }}
+                    {{ $record->nama_farm }} - {{ $record->nama }}
                 </td>
                 <td>
-                    {{ $record->nama_siklus }}
+                    {{ $record->nama_siklus }} 
                 </td>
                 <td>
-                    {{ $record->tanggal }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y') }}
                 </td>
                 <td>
                     {{ $record->jenis_ternak }}
@@ -70,7 +70,8 @@
                     {{ $record->supplier }}
                 </td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="/mitra/siklus/{{ $record->siklus_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-info btn-sm" href="/pjub/siklus/{{ $record->siklus_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/pjub/siklus/{{ $record->siklus_id }}/delete"><i class="fas fa-trash" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"></i></a>
                 </td>
             </tr>
             @endforeach

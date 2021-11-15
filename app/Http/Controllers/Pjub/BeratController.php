@@ -34,7 +34,8 @@ class BeratController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."'"));
+            pjub.email = '".Auth::user()->email."'
+            and berat.deleted_at IS Null"));
 
         $berats = Berat::all();
         $sikluses = Siklus::all();
@@ -52,13 +53,16 @@ class BeratController extends Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             siklus.nama_siklus,
-            siklus.siklus_id 
+            siklus.siklus_id,
+            farm.nama_farm
         FROM
-            berat
-            JOIN siklus ON berat.siklus_id = siklus.siklus_id
+            siklus
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            berat.siklus_id = 1 "));
-        return view('mitra/tambah_berat')->with('sikluses', $sikluses);
+            pjub.email = '".Auth::user()->email."' "));
+        return view('pjub/tambah_berat')->with('sikluses', $sikluses);
     }
 
     /**
@@ -86,7 +90,7 @@ class BeratController extends Controller
 
         session()->flash('success', 'Data Berhasil Ditambah');
 
-        return redirect('/mitra/berat')->with('status', 'Data berat berhasil ditambahkan');
+        return redirect('/pjub/berat')->with('status', 'Data berat berhasil ditambahkan');
     }
 
     /**
@@ -112,14 +116,16 @@ class BeratController extends Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             siklus.nama_siklus,
-            siklus.siklus_id 
+            siklus.siklus_id,
+            farm.nama_farm 
         FROM
             berat
             JOIN siklus ON berat.siklus_id = siklus.siklus_id
+            JOIN farm ON siklus.farm_id = farm.farm_id
         WHERE
-            berat.siklus_id = 1 "));
+            berat.berat_id = $berat_id "));
         
-        return view('mitra/edit_berat')->with('berats', $berats)->with('sikluses', $sikluses);
+        return view('pjub/edit_berat')->with('berats', $berats)->with('sikluses', $sikluses);
     }
 
     /**
@@ -148,7 +154,7 @@ class BeratController extends Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/mitra/berat')->with('status', 'Data berat berhasil ditambahkan');
+        return redirect('/pjub/berat')->with('status', 'Data berat berhasil ditambahkan');
     }
 
     /**
@@ -165,6 +171,6 @@ class BeratController extends Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/mitra/berat');
+        return redirect('/pjub/berat');
     }
 }

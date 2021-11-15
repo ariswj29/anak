@@ -36,7 +36,7 @@ class FarmController extends Controller
         JOIN mitra ON farm.mitra_id = mitra.mitra_id
         LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id 
     WHERE
-	    pjub.email = '".Auth::user()->email."'"));
+	    pjub.email = '".Auth::user()->email."' AND farm.deleted_at IS Null"));
 
         // $farms = Farm::all();
         // $mitras = mitra::all();
@@ -132,8 +132,9 @@ class FarmController extends Controller
         FROM 
             farm 
             JOIN mitra on farm.mitra_id =  mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE 
-            farm.farm_id = 1 "));
+            farm.farm_id = $farm_id "));
 
         return view('pjub/edit_farm')->with('farms', $farms)->with('mitras', $mitras);
     }

@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/mitra/minum/{{ $minums->minum_id }}/update" method="POST">
+    <form action="/pjub/minum/{{ $minums->minum_id }}/update" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row">
@@ -50,7 +50,7 @@
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Minum (l)</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="jumlah_minum" value="{{ $minums->jumlah_minum }}" pattern="[0-9-,]{5}" autofocus required oninvalid="setCustomValidity('Tolong Isi dengan angka untuk jumlah air minum!')" onchange="try{setCustomValidity('')}catch(e){}"/>
+            <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_minum" value="{{ $minums->jumlah_minum }}" pattern="[0-9-,]{5}" autofocus required oninvalid="setCustomValidity('Tolong Isi dengan angka untuk jumlah air minum!')" onchange="try{setCustomValidity('')}catch(e){}"/>
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
@@ -58,7 +58,7 @@
         </div>
         <div class="col-6 mb-3">
             <br><button class="btn btn-success mt-2">Update Data</button>
-            <a href="/mitra/minum" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/minum" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

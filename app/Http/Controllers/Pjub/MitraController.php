@@ -38,7 +38,7 @@ class MitraController extends Controller
         mitra
         JOIN pjub ON mitra.pjub_id = pjub.pjub_id 
     WHERE
-	    pjub.email = '".Auth::user()->email."'"));
+	    pjub.email = '".Auth::user()->email."' and mitra.deleted_at IS Null"));
 
         // var_dump($mitras);
         // die;
@@ -147,7 +147,14 @@ class MitraController extends Controller
     {
         //
         $mitras = Mitra::find($mitra_id);        
-        $pjubs = Pjub::all();
+        $pjubs = \DB::select(\DB::raw("
+        SELECT
+            pjub.nama,
+            pjub.pjub_id 
+        FROM
+            pjub
+        WHERE
+            pjub.email = '".Auth::user()->email."' "));
                
         // $pjubs = array((object)array('id'=>1,'nama'=>'om aris'),(object)array('id'=>2,'nama'=>'aris'),(object)array('id'=>3,'nama'=>'abcd'));
 
@@ -178,7 +185,7 @@ class MitraController extends Controller
         $data = request();
 
         $mitra = Mitra::Find($mitra_id);
-        $mitra->pjub_id = $data->input('pjub_id', '2');
+        $mitra->pjub_id = $data['pjub_id'];
         $mitra->nama = $data['nama'];
         $mitra->nik = $data['nik'];
         $mitra->tempat_lahir = $data['tempat_lahir'];

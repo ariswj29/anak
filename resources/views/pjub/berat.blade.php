@@ -21,7 +21,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style="" href="/mitra/berat/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style="" href="/pjub/berat/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -35,8 +35,6 @@
                 <th class="header-tabel-data" scope="col">Tanggal</th>
                 <th class="header-tabel-data" scope="col">Rata-rata Berat Ternak (g)</th>
                 <th class="header-tabel-data" scope="col">Siklus</th>
-                <th class="header-tabel-data" scope="col">Farm</th>
-                <th class="header-tabel-data" scope="col">Mitra</th>
                 <th class="header-tabel-data" scope="col">Aksi</th>
             </tr>
             </thead>
@@ -47,23 +45,17 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ $record->tanggal }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y') }}
                 </td>
                 <td>
                     {{ $record->rata_rata_berat }}
                 </td>
                 <td>
-                    {{ $record->nama_siklus }}
+                    {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                 </td>
                 <td>
-                    {{ $record->nama_farm }}
-                </td>
-                <td>
-                    {{ $record->nama }}
-                </td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="/mitra/berat/{{ $record->berat_id }}/edit"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm" href="/mitra/berat/{{ $record->berat_id }}/destroy"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-info btn-sm" href="/pjub/berat/{{ $record->berat_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/pjub/berat/{{ $record->berat_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach

@@ -24,6 +24,7 @@ class SiklusController extends Controller
         SELECT
             row_number() over(ORDER BY siklus ASC) AS no,
             siklus.siklus_id,
+            mitra.nama,
             farm.nama_farm,
             siklus.nama_siklus,
             siklus.tanggal,
@@ -37,7 +38,7 @@ class SiklusController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-	        pjub.email = '".Auth::user()->email."'"));
+	        pjub.email = '".Auth::user()->email."' and siklus.deleted_at IS Null"));
             $sikluses = Siklus::all();
             $farms = farm::all();
 
@@ -67,14 +68,16 @@ class SiklusController extends Controller
         $farms = \DB::select(\DB::raw("
         SELECT
             farm.nama_farm,
-            farm.farm_id 
+            farm.farm_id,
+            mitra.nama 
         FROM
-            siklus
-            JOIN farm ON siklus.farm_id = farm.farm_id
+            farm
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            siklus.siklus_id = 1 "));
+            pjub.email = '".Auth::user()->email."' "));
 
-        return view('mitra/tambah_siklus')->with('farms', $farms)->with('mitras', $mitras);
+        return view('pjub/tambah_siklus')->with('farms', $farms)->with('mitras', $mitras);
     }
 
     /**
@@ -111,7 +114,7 @@ class SiklusController extends Controller
 
         session()->flash('success', 'Data Berhasil Ditambah');
 
-        return redirect('/mitra/siklus')->with('status', 'Data siklus berhasil ditambahkan');
+        return redirect('/pjub/siklus')->with('status', 'Data siklus berhasil ditambahkan');
     }
 
     /**
@@ -138,14 +141,16 @@ class SiklusController extends Controller
         $farms = \DB::select(\DB::raw("
         SELECT
             farm.nama_farm,
-            farm.farm_id 
+            farm.farm_id,
+            mitra.nama 
         FROM
             siklus
             JOIN farm ON siklus.farm_id = farm.farm_id
+            LEFT JOIN mitra ON mitra.mitra_id = farm.mitra_id
         WHERE
-            siklus.siklus_id = 1 "));
+            siklus.siklus_id = $siklus_id "));
 
-        return view('mitra/edit_siklus')->with('sikluses', $sikluses)->with('farms', $farms);
+        return view('pjub/edit_siklus')->with('sikluses', $sikluses)->with('farms', $farms);
     }
 
     /**
@@ -183,7 +188,7 @@ class SiklusController extends Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/mitra/siklus')->with('status', 'Data siklus berhasil diubah');
+        return redirect('/pjub/siklus')->with('status', 'Data siklus berhasil diubah');
 
     }
 
@@ -202,6 +207,6 @@ class SiklusController extends Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/mitra/siklus');
+        return redirect('/pjub/siklus');
     }
 }

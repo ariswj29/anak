@@ -34,7 +34,8 @@ class MinumController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."'"));
+            pjub.email = '".Auth::user()->email."'
+            and minum.deleted_at IS Null"));
 
         $minums = Minum::all();
         $sikluses = Siklus::all();
@@ -51,15 +52,18 @@ class MinumController extends Controller
     {
         $sikluses = \DB::select(\DB::raw("
         SELECT
-            minum.siklus_id,
-            siklus.nama_siklus
+            siklus.siklus_id,
+            siklus.nama_siklus,
+            farm.nama_farm
         FROM
-            minum
-            JOIN siklus on minum.siklus_id = siklus.siklus_id
+            siklus
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            minum.siklus_id = 1 "));
+            pjub.email = '".Auth::user()->email."' "));
 
-        return view('mitra/tambah_minum')->with('sikluses', $sikluses);;
+        return view('pjub/tambah_minum')->with('sikluses', $sikluses);;
     }
 
     /**
@@ -87,7 +91,7 @@ class MinumController extends Controller
 
         session()->flash('success', 'Data Berhasil Ditambah');
 
-        return redirect('/mitra/minum')->with('status', 'Data minum berhasil ditambahkan');
+        return redirect('/pjub/minum')->with('status', 'Data minum berhasil ditambahkan');
     }
 
     /**
@@ -120,9 +124,9 @@ class MinumController extends Controller
             JOIN farm ON siklus.farm_id = farm.farm_id
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
         WHERE
-            mitra.email = '".Auth::user()->email."' "));
+            minum.minum_id = $minum_id "));
         
-        return view('mitra/edit_minum')->with('minums', $minums)->with('sikluses', $sikluses);
+        return view('pjub/edit_minum')->with('minums', $minums)->with('sikluses', $sikluses);
     }
 
     /**
@@ -151,7 +155,7 @@ class MinumController extends Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/mitra/minum')->with('status', 'Data minum berhasil ditambahkan');
+        return redirect('/pjub/minum')->with('status', 'Data minum berhasil ditambahkan');
     }
 
     /**
@@ -168,6 +172,6 @@ class MinumController extends Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/mitra/minum');
+        return redirect('/pjub/minum');
     }
 }

@@ -75,7 +75,7 @@
             <input type="email" class="form-control" id="exampleControlInput1" name="email" placeholder="Isi Email!" autofocus required oninvalid="setCustomValidity('Tolong Gunakan '@' untuk email!')" onchange="try{setCustomValidity('')}catch(e){}"/>
         </div>
         <div class="col-6 mb-3">
-            <br><button class="btn btn-success mt-2">Tambah Data</button>
+            <button class="btn btn-success mt-2">Tambah Data</button>
             <a href="/pjub/mitra" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>

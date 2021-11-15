@@ -21,12 +21,12 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" href="/mitra/pakan/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" href="/pjub/pakan/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
     <div class="table-responsive">
-    <div class="row">
+      <div class="row">
         <div class="col">
             <table class="table table-hover" border="1" cellspacing="0" cellpadding="0">
             <thead>
@@ -37,8 +37,6 @@
                     <td class="header-tabel-data" scope="col">Jumlah Pakan (kg)</td>
                     <td class="header-tabel-data" scope="col">Pakan yang digunakan (kg)</td>
                     <td class="header-tabel-data" scope="col">Siklus</td>
-                    <td class="header-tabel-data" scope="col">Farm</td>
-                    <td class="header-tabel-data" scope="col">Mitra</td>
                     <td class="header-tabel-data" scope="col">Aksi</td>
                 </tr>
             </thead>
@@ -48,9 +46,9 @@
                 <tr>
                     <td class="px-6 py-3 leading-6 text-center whitespace-nowrap">
                     {{ $record->no }}
-                </td>
+                    </td>
                     <td>
-                        {{ $record->tanggal }}
+                        {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y') }}
                     </td>
                     <td>
                         {{ $record->jenis_pakan }}
@@ -62,17 +60,11 @@
                         {{ $record->pakan_digunakan }}
                     </td>
                     <td>
-                        {{ $record->nama_siklus }}
+                        {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                     </td>
                     <td>
-                        {{ $record->nama_farm }}
-                    </td>
-                    <td>
-                        {{ $record->nama }}
-                    </td>
-                    <td>
-                        <a class="btn btn-info btn-sm" href="/mitra/pakan/{{ $record->pakan_id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-sm" href="/mitra/pakan/{{ $record->pakan_id }}/destroy"><i class="fas fa-trash"></i></a>
+                        <a class="btn btn-info btn-sm" href="/pjub/pakan/{{ $record->pakan_id }}/edit"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm" href="/pjub/pakan/{{ $record->pakan_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach
@@ -80,6 +72,6 @@
             </tbody>
             </table>
         </div>
-        </div>
+      </div>
     </div>
 @stop

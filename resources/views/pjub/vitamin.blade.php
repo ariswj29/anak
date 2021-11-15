@@ -48,7 +48,7 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ $record->tanggal }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y')  }}
                 </td>
                 <td>
                     {{ $record->jenis_vitamin }}
@@ -67,7 +67,7 @@
                 </td>
                 <td>
                     <a class="btn btn-info btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/edit"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/destroy"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach

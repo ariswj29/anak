@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/mitra/pakan/store" method="POST">
+    <form action="/pjub/pakan/store" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row"> 
@@ -52,13 +52,13 @@
             <input type="text" class="form-control" id="exampleControlInput1" name="jenis_pakan" placeholder="Isi Jenis Pakan" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jumlah Stok Pakan (g)</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="jumlah_pakan" placeholder="Isi Jumlah Pakan" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <label for="exampleFormControlInput1" class="form-label">Tambah Stok Pakan (g)</label>
+            <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_pakan" placeholder="Isi Jika Tambah Stok Pakan">
             </input>
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Pakan Yang Digunakan (g)</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="pakan_digunakan" placeholder="Isi Pakan yang digunakan!">
+            <input type="number" class="form-control" id="exampleControlInput1" name="pakan_digunakan" placeholder="Isi Pakan yang digunakan!">
             </input>
         </div>
         <div class="col-6 mb-3">
@@ -67,7 +67,7 @@
         </div>
         <div class="col-6 mb-3">
             <br><button class="btn btn-success mt-2">Tambah Data</button>
-            <a href="/mitra/pakan" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/pakan" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

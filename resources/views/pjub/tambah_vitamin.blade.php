@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/mitra/vitamin/store" method="POST">
+    <form action="/pjub/vitamin/store" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row">
@@ -44,7 +44,7 @@
                 <option value="" selected disabled>Pilih Siklus </option>
                 @foreach ($sikluses as $siklus)
                     <option value="{{ $siklus->siklus_id }}">
-                        {{ $siklus->nama_siklus }}  
+                        {{ $siklus->nama_siklus }} - {{ $siklus->nama_farm }}  
                     </option>
                 @endforeach
             </select>
@@ -54,7 +54,7 @@
             <input type="text" class="form-control" id="exampleControlInput1" name="jenis_vitamin" placeholder="Isi Jenis Vitamin!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jumlah Vitamin</label>
+            <label for="exampleFormControlInput1" class="form-label">Jumlah Vitamin (butir/l)</label>
             <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_vitamin" placeholder="Isi Jumlah Vitamin!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
@@ -63,7 +63,7 @@
         </div>
         <div class="col-6 mb-3">
             <button class="btn btn-success mt-2">Tambah Data</button>
-            <a href="/mitra/vitamin" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/vitamin" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/mitra/siklus/{{ $sikluses->siklus_id }}/update" method="POST">
+    <form action="/pjub/siklus/{{ $sikluses->siklus_id }}/update" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row"> 
@@ -43,7 +43,7 @@
             <select name="farm_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($farms as $farm)
                     <option value="{{ $farm->farm_id }}">{{ $farm->nama_farm == $farm->farm_id ? 'selected' : '' }}  
-                        {{ $farm->nama_farm }} 
+                        {{ $farm->nama_farm }} - {{ $farm->nama }}
                     </option>
                 @endforeach
             </select>
@@ -74,7 +74,7 @@
         </div>
         <div class="col-6 mb-3">
             <br><button class="btn btn-success mt-2">Update Data</button>
-            <a href="/mitra/siklus" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/siklus" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

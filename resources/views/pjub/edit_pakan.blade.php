@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/mitra/pakan/{{ $pakans->pakan_id }}/update" method="POST">
+    <form action="/pjub/pakan/{{ $pakans->pakan_id }}/update" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row">  
@@ -58,7 +58,7 @@
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Pakan yang digunakan (kg)</label>
-            <input type="number" class="form-control" id="exampleControlInput1" name="pakan_digunakan" placeholder="Isi jika pakan sudah dipakai!">
+            <input type="number" class="form-control" id="exampleControlInput1" name="pakan_digunakan" value="{{ $pakans->pakan_digunakan }}" placeholder="Isi jika pakan sudah dipakai!">
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
@@ -66,7 +66,7 @@
         </div>
         <div class="col-6 mb-3">
             <br><button class="btn btn-success mt-2">Update Data</button>
-            <a href="/mitra/pakan" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <a href="/pjub/pakan" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>

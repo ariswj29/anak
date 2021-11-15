@@ -7,6 +7,7 @@ use App\Models\Pakan;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class PakanController extends Controller
@@ -18,6 +19,8 @@ class PakanController extends Controller
      */
     public function index()
     {
+        // $batas = 10;
+        // $data = Pakan::orderBy('pakan_id', 'desc')->paginate($batas);
         $recording = \DB::select(\DB::raw("
         SELECT
             row_number() over(ORDER BY pakan.tanggal ASC) AS no,
@@ -36,11 +39,13 @@ class PakanController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."'"));
+            pjub.email = '".Auth::user()->email."' 
+            and pakan.deleted_at IS Null
+            "));
         $pakans = Pakan::all();
         $sikluses = Siklus::all();
 
-        return view('pjub/pakan')->with(array('pakans'=> $pakans, 'recording'=> $recording, 'sikluses'=> $sikluses));
+        return view('pjub/pakan', ['pakan' => DB::table('pakan')->paginate(10)])->with(array('pakans'=> $pakans, 'recording'=> $recording, 'sikluses'=> $sikluses));
     }
 
     /**
@@ -52,16 +57,17 @@ class PakanController extends Controller
     {
         $sikluses = \DB::select(\DB::raw("
         SELECT
-            siklus.nama_siklus,
             siklus.siklus_id, 
+            siklus.nama_siklus,
             farm.nama_farm 
         FROM
-            pakan
-            JOIN siklus ON pakan.siklus_id = siklus.siklus_id
-            JOIN farm ON pakan.farm_id = farm.farm_id
+            siklus
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pakan.siklus_id = 1 "));
-        return view('mitra/tambah_pakan')->with('sikluses', $sikluses);
+            pjub.email = '".Auth::user()->email."' "));
+        return view('pjub/tambah_pakan')->with('sikluses', $sikluses);
     }
 
     /**
@@ -75,12 +81,13 @@ class PakanController extends Controller
         $this->validate(request(),[
             'siklus_id' => 'required',
             'jenis_pakan' => 'required',
-            'jumlah_pakan' => 'required',
+            'jumlah_pakan' => '',
             'pakan_digunakan' => '',
             'tanggal' => 'required',
             ]);
 
         $data = request()->all();
+        $data['jumlah_pakan'] = request()->get('jumlah_pakan') ?  request()->get('jumlah_pakan') : '0' ;
 
         $pakan = new Pakan();
         $pakan->siklus_id = $data['siklus_id'];
@@ -93,7 +100,7 @@ class PakanController extends Controller
 
         session()->flash('success', 'Data Berhasil Ditambah');
 
-        return redirect('/mitra/pakan')->with('status', 'Data pakan berhasil ditambahkan');
+        return redirect('/pjub/pakan')->with('status', 'Data pakan berhasil ditambahkan');
     }
 
     /**
@@ -124,9 +131,9 @@ class PakanController extends Controller
             pakan
             JOIN siklus ON pakan.siklus_id = siklus.siklus_id
         WHERE
-            pakan.siklus_id = 1 "));
+            pakan.pakan_id = $pakan_id "));
         
-        return view('mitra/edit_pakan')->with('pakans', $pakans)->with('sikluses', $sikluses);
+        return view('pjub/edit_pakan')->with('pakans', $pakans)->with('sikluses', $sikluses);
     }
 
     /**
@@ -159,7 +166,7 @@ class PakanController extends Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/mitra/pakan')->with('status', 'Data pakan berhasil ditambahkan');
+        return redirect('/pjub/pakan')->with('status', 'Data pakan berhasil ditambahkan');
     }
 
     /**
@@ -174,8 +181,8 @@ class PakanController extends Controller
 
         $pakan->delete();
 
-        session()->flash('success', 'Data Berhasil Dihapus');
+        session()->flash('success', 'Data Berhasil Dihapus ABC '.$pakan_id);
 
-        return redirect('/mitra/pakan');
+        return redirect('/pjub/pakan');
     }
 }

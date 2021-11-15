@@ -35,7 +35,8 @@ class VitaminController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."'"));
+            pjub.email = '".Auth::user()->email."'
+            and vitamin.deleted_at IS Null"));
 
         $vitamins = Vitamin::all();
         $sikluses = Siklus::all();
@@ -53,13 +54,16 @@ class VitaminController extends Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             siklus.nama_siklus,
-            siklus.siklus_id 
+            siklus.siklus_id,
+            farm.nama_farm
         FROM
-            vitamin
-            JOIN siklus ON vitamin.siklus_id = siklus.siklus_id
+            siklus
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            vitamin.siklus_id = 1 "));
-        return view('mitra/tambah_vitamin')->with('sikluses', $sikluses);
+            pjub.email = '".Auth::user()->email."'  "));
+        return view('pjub/tambah_vitamin')->with('sikluses', $sikluses);
     }
 
     /**
@@ -89,7 +93,7 @@ class VitaminController extends Controller
 
         session()->flash('success', 'Data Berhasil Ditambah');
 
-        return redirect('/mitra/vitamin')->with('status', 'Data vitamin berhasil ditambahkan');
+        return redirect('/pjub/vitamin')->with('status', 'Data vitamin berhasil ditambahkan');
     }
 
     /**
@@ -115,16 +119,15 @@ class VitaminController extends Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             siklus.nama_siklus,
-            siklus.siklus_id 
+            siklus.siklus_id,
+            farm.nama_farm 
         FROM
             vitamin
             JOIN siklus ON vitamin.siklus_id = siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id
         WHERE
-            mitra.email = '".Auth::user()->email."'"));
+            vitamin.vitamin_id = $vitamin_id"));
         
-        return view('mitra/edit_vitamin')->with('vitamins', $vitamins)->with('sikluses', $sikluses);
+        return view('pjub/edit_vitamin')->with('vitamins', $vitamins)->with('sikluses', $sikluses);
     }
 
     /**
@@ -155,7 +158,7 @@ class VitaminController extends Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/mitra/vitamin')->with('status', 'Data vitamin berhasil ditambahkan');
+        return redirect('/pjub/vitamin')->with('status', 'Data vitamin berhasil ditambahkan');
     }
 
     /**
@@ -172,6 +175,6 @@ class VitaminController extends Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/mitra/vitamin');
+        return redirect('/pjub/vitamin');
     }
 }

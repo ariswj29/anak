@@ -22,7 +22,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/mitra/minum/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/minum/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -36,8 +36,6 @@
                     <th class="header-tabel-data" scope="col">Tanggal</th>
                     <th class="header-tabel-data" scope="col">Jumlah Minum (l)</th>
                     <th class="header-tabel-data" scope="col">Siklus</th>
-                    <th class="header-tabel-data" scope="col">Farm</th>
-                    <th class="header-tabel-data" scope="col">Mitra</th>
                     <th class="header-tabel-data" scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -48,23 +46,17 @@
                         {{ $record->no }}
                     </td>
                     <td class="">
-                        {{ $record->tanggal }}
+                        {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y') }}
                     </td>
                     <td class="">
                         {{ $record->jumlah_minum }}
                     </td>
                     <td class="">
-                        {{ $record->nama_siklus }}
+                        {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                     </td>
                     <td class="">
-                        {{ $record->nama_farm }}
-                    </td>
-                    <td class="">
-                        {{ $record->nama }}
-                    </td>
-                    <td class="">
-                        <a class="btn btn-info btn-sm my-1" href="/mitra/minum/{{ $record->minum_id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-sm my-1" href="/mitra/minum/{{ $record->minum_id }}/destroy"><i class="fas fa-trash"></i></a>
+                        <a class="btn btn-info btn-sm my-1" href="/pjub/minum/{{ $record->minum_id }}/edit"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm my-1" href="/pjub/minum/{{ $record->minum_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach
