@@ -45,7 +45,7 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y') }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('D MMMM Y') }}
                 </td>
                 <td>
                     {{ $record->rata_rata_berat }}

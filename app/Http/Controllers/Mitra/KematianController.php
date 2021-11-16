@@ -25,14 +25,16 @@ class KematianController extends Controller
             siklus.nama_siklus,
             kematian.jumlah_kematian,
             kematian.tanggal, 
-            kematian.penyebab 
+            kematian.penyebab,
+            farm.nama_farm
         FROM
             kematian
             JOIN siklus ON kematian.siklus_id = siklus.siklus_id
             JOIN farm ON siklus.farm_id = farm.farm_id
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
         WHERE
-            mitra.email = '".Auth::user()->email."'"));
+            mitra.email = '".Auth::user()->email."'
+            AND kematian.deleted_at IS NULL"));
 
         $kematians = Kematian::all();
         $sikluses = Siklus::all();

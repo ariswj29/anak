@@ -124,6 +124,7 @@ class VitaminController extends Controller
         FROM
             vitamin
             JOIN siklus ON vitamin.siklus_id = siklus.siklus_id
+            JOIN farm ON siklus.farm_id = farm.farm_id
         WHERE
             vitamin.vitamin_id = $vitamin_id"));
         

@@ -21,7 +21,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/mitra/kematian/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/kematian/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -36,8 +36,6 @@
                 <th class="header-tabel-data col-1" scope="col">Jumlah Kematian</th>
                 <th class="header-tabel-data" scope="col">Penyebab</th>
                 <th class="header-tabel-data" scope="col">Siklus</th>
-                <th class="header-tabel-data" scope="col">Farm</th>
-                <th class="header-tabel-data" scope="col">Mitra</th>
                 <th class="header-tabel-data" scope="col">Aksi</th>
             </tr>
             </thead>
@@ -48,7 +46,7 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ $record->tanggal }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('D MMMM Y') }}
                 </td>
                 <td>
                     {{ $record->jumlah_kematian }}
@@ -57,17 +55,11 @@
                     {{ $record->penyebab }}
                 </td>
                 <td>
-                    {{ $record->nama_siklus }}
+                    {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                 </td>
                 <td>
-                    {{ $record->nama_farm }}
-                </td>
-                <td>
-                    {{ $record->nama }}
-                </td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="/mitra/kematian/{{ $record->kematian_id }}/edit"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm" href="/mitra/kematian/{{ $record->kematian_id }}/destroy"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-info btn-sm my-1" href="/pjub/kematian/{{ $record->kematian_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm my-1" href="/pjub/kematian/{{ $record->kematian_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach

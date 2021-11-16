@@ -36,8 +36,6 @@
                 <th class="header-tabel-data" scope="col">Jenis Vitamin</th>
                 <th class="header-tabel-data" scope="col">Jumlah Vitamin</th>
                 <th class="header-tabel-data" scope="col">Siklus</th>
-                <th class="header-tabel-data" scope="col">Farm</th>
-                <th class="header-tabel-data" scope="col">Mitra</th>
                 <th class="header-tabel-data" scope="col">Aksi</th>
             </tr>
             </thead>
@@ -48,7 +46,7 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y')  }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('D MMMM Y')  }}
                 </td>
                 <td>
                     {{ $record->jenis_vitamin }}
@@ -57,13 +55,7 @@
                     {{ $record->jumlah_vitamin }}
                 </td>
                 <td>
-                    {{ $record->nama_siklus }}
-                </td>
-                <td>
-                    {{ $record->nama_farm }}
-                </td>
-                <td>
-                    {{ $record->nama }}
+                    {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                 </td>
                 <td>
                     <a class="btn btn-info btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/edit"><i class="fas fa-edit"></i></a>

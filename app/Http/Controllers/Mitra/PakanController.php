@@ -23,6 +23,7 @@ class PakanController extends Controller
             row_number() over(ORDER BY pakan.tanggal ASC) AS no,
             pakan.pakan_id,
             siklus.nama_siklus,
+            farm.nama_farm,
             pakan.tanggal,
             pakan.jenis_pakan,
             pakan.jumlah_pakan,
@@ -33,7 +34,8 @@ class PakanController extends Controller
             JOIN farm ON siklus.farm_id = farm.farm_id
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
         WHERE
-            mitra.email = '".Auth::user()->email."'"));
+            mitra.email = '".Auth::user()->email."'
+            AND pakan.deleted_at IS NULL"));
         $pakans = Pakan::all();
         $sikluses = Siklus::all();
 

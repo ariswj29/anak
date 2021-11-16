@@ -111,6 +111,9 @@ class MenuFilter implements FilterInterface
             }
             
             if($user->isMitra()){
+                if($item['text']=='Dasbor'){
+                    return false;
+                }
                 if($item['text']=='Data Mitra'){
                     return false;
                 }

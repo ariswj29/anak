@@ -43,7 +43,7 @@
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($sikluses as $siklus)
                     <option value="{{ $siklus->siklus_id }}">{{ $siklus->nama_siklus == $siklus->siklus_id ? 'selected' : '' }}  
-                         {{ $siklus->nama_siklus }} 
+                         {{ $siklus->nama_siklus }} - {{ $siklus->nama_farm }} 
                     </option>
                 @endforeach
             </select>

@@ -24,14 +24,16 @@ class MinumController extends Controller
             minum.minum_id,
             siklus.nama_siklus,
             minum.jumlah_minum,
-            minum.tanggal
+            minum.tanggal,
+            farm.nama_farm
         FROM
             minum
             JOIN siklus on minum.siklus_id = siklus.siklus_id
             JOIN farm ON siklus.farm_id = farm.farm_id
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
         WHERE
-            mitra.email = '".Auth::user()->email."'"));
+            mitra.email = '".Auth::user()->email."'
+            AND minum.deleted_at IS NULL"));
 
         $minums = Minum::all();
         $sikluses = Siklus::all();

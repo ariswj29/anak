@@ -25,14 +25,16 @@ class VitaminController extends Controller
             siklus.nama_siklus,
             vitamin.jenis_vitamin,
             vitamin.jumlah_vitamin,
-            vitamin.tanggal 
+            vitamin.tanggal,
+            farm.nama_farm
         FROM
             vitamin
             JOIN siklus ON vitamin.siklus_id = siklus.siklus_id
             JOIN farm ON siklus.farm_id = farm.farm_id
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
         WHERE
-            mitra.email = '".Auth::user()->email."'"));
+            mitra.email = '".Auth::user()->email."'
+            AND vitamin.deleted_at IS NULL"));
 
         $vitamins = Vitamin::all();
         $sikluses = Siklus::all();

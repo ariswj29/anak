@@ -45,13 +45,13 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ $record->tanggal }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                 </td>
                 <td>
                     {{ $record->rata_rata_berat }}
                 </td>
                 <td>
-                    {{ $record->nama_siklus }}
+                    {{ $record->nama_siklus }} - {{ $record->nama_farm }}
                 </td>
                 <!-- <td>
                     <a class="btn btn-info btn-sm" href="/mitra/berat/{{ $record->berat_id }}/edit"><i class="fas fa-edit"></i></a>

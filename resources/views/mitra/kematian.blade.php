@@ -33,9 +33,9 @@
             <tr class="thead">
                 <th class="header-tabel-data" scope="col">No.</th>
                 <th class="header-tabel-data" scope="col">Tanggal</th>
-                <th class="header-tabel-data" scope="col">Siklus</th>
                 <th class="header-tabel-data" scope="col">Jumlah Kematian</th>
                 <th class="header-tabel-data" scope="col">Penyebab</th>
+                <th class="header-tabel-data" scope="col">Siklus</th>
                 <!-- <th class="header-tabel-data" scope="col">Aksi</th> -->
             </tr>
             </thead>
@@ -46,16 +46,16 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ $record->tanggal }}
-                </td>
-                <td>
-                    {{ $record->nama_siklus }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                 </td>
                 <td>
                     {{ $record->jumlah_kematian }}
                 </td>
                 <td>
                     {{ $record->penyebab }}
+                </td>
+                <td>
+                    {{ $record->nama_siklus }} - {{ $record->nama_farm }}
                 </td>
                 <!-- <td>
                     <a class="btn btn-info btn-sm" href="/mitra/kematian/{{ $record->kematian_id }}/edit"><i class="fas fa-edit"></i></a>

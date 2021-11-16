@@ -142,7 +142,7 @@ class IndexController extends \app\Http\Controllers\Controller
         LEFT JOIN kematian ON ( kematian.siklus_id = pakan.siklus_id AND kematian.tanggal = pakan.tanggal ) 
         
     WHERE
-        pakan.siklus_id = $siklus_id"
+        pakan.siklus_id = $siklus_id AND pakan.deleted_at IS Null"
         ));
 
         $pjub = Pjub::where('pjub_id')->first();
@@ -197,7 +197,12 @@ class IndexController extends \app\Http\Controllers\Controller
         $minum = Minum::where('siklus_id', $siklus_id)->first();
         $vitamin = Vitamin::where('siklus_id', $siklus_id)->first();
         $currentDateTime = \Carbon\Carbon::now();
-        $data['jenis_pakan'] = request()->get('jenis_pakan') ?  request()->get('jenis_pakan') : 'Grower' ;  
+        $data['jenis_pakan'] = request()->get('jenis_pakan') ?  request()->get('jenis_pakan') : 'Grower' ;
+        $data['jumlah_pakan'] = request()->get('jumlah_pakan') ?  request()->get('jumlah_pakan') : '0' ;
+        $data['jumlah_kematian'] = request()->get('jumlah_kematian') ?  request()->get('jumlah_kematian') : '0' ;
+        $data['penyebab'] = request()->get('penyebab') ?  request()->get('penyebab') : 'Yo Ndak Tau Kok Tanya Saya' ;   
+        $data['jumlah_vitamin'] = request()->get('jumlah_vitamin') ?  request()->get('jumlah_vitamin') : '0' ;
+        $data['jenis_vitamin'] = request()->get('jenis_vitamin') ?  request()->get('jenis_vitamin') : 'Tidak memakai vitamin' ;   
         $data['created_at'] = request()->get('created_at') ?  request()->get('created_at') : $currentDateTime ;  
         $data['updated_at'] = request()->get('updated_at') ?  request()->get('updated_at') : $currentDateTime ;  
         $recording = \DB::select(\DB::raw(" 

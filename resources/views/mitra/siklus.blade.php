@@ -34,7 +34,7 @@
                 <th class="header-tabel-data" scope="col">No.</th>
                 <th class="header-tabel-data" scope="col">Farm</th>
                 <th class="header-tabel-data" scope="col">Nama Siklus</th>
-                <th class="header-tabel-data" scope="col">Tanggal</th>
+                <th class="header-tabel-data" scope="col">Tanggal Mulai</th>
                 <th class="header-tabel-data" scope="col">Jenis Ternak</th>
                 <th class="header-tabel-data" scope="col">Jumlah Ternak</th>
                 <th class="header-tabel-data" scope="col">Harga Satuan DOC</th>
@@ -55,7 +55,7 @@
                     {{ $record->nama_siklus }}
                 </td>
                 <td>
-                    {{ $record->tanggal }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                 </td>
                 <td>
                     {{ $record->jenis_ternak }}

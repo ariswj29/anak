@@ -46,7 +46,7 @@
                         {{ $record->no }}
                     </td>
                     <td class="">
-                        {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y') }}
+                        {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('D MMMM Y') }}
                     </td>
                     <td class="">
                         {{ $record->jumlah_minum }}

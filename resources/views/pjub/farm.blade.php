@@ -42,7 +42,7 @@
                     <th class="header-tabel-data" scope="col">Kapasitas Rak Telur</th>
                     <th class="header-tabel-data" scope="col">Kapasitas Kandang DOC</th>
                     <th class="header-tabel-data" scope="col">Kapasitas Kandang Grower</th>
-                    <th class="header-tabel-data" scope="col">Aksi</th>
+                    <th class="header-tabel-data">Aksi</th>
                 </tr>
             </thead>
             <tbody> 

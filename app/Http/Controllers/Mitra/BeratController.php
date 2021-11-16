@@ -24,14 +24,16 @@ class BeratController extends Controller
             berat.berat_id,
             siklus.nama_siklus,
             berat.rata_rata_berat,
-            berat.tanggal 
+            berat.tanggal,
+            farm.nama_farm
         FROM
             berat
             JOIN siklus ON berat.siklus_id = siklus.siklus_id
             JOIN farm ON siklus.farm_id = farm.farm_id
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
         WHERE
-            mitra.email = '".Auth::user()->email."'"));
+            mitra.email = '".Auth::user()->email."'
+            AND berat.deleted_at IS NULL"));
 
         $berats = Berat::all();
         $sikluses = Siklus::all();

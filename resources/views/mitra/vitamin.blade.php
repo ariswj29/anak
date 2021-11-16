@@ -34,7 +34,7 @@
                 <th class="header-tabel-data" scope="col">No.</th>
                 <th class="header-tabel-data" scope="col">Tanggal</th>
                 <th class="header-tabel-data" scope="col">Jenis Vitamin</th>
-                <!-- <th class="header-tabel-data" scope="col">Jumlah Vitamin</th> -->
+                <th class="header-tabel-data" scope="col">Jumlah Vitamin (l/butir)</th>
                 <th class="header-tabel-data" scope="col">Siklus</th>
                 <!-- <th class="header-tabel-data" scope="col">Aksi</th> -->
             </tr>
@@ -46,16 +46,16 @@
                     {{ $record->no }}
                 </td>
                 <td>
-                    {{ $record->tanggal }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                 </td>
                 <td>
                     {{ $record->jenis_vitamin }}
                 </td>
-                <!-- <td>
-                    {{ $record->jumlah_vitamin }}
-                </td> -->
                 <td>
-                    {{ $record->nama_siklus }}
+                    {{ $record->jumlah_vitamin }}
+                </td>
+                <td>
+                    {{ $record->nama_siklus }} - {{ $record->nama_farm }}
                 </td>
                 <!-- <td>
                     <a class="btn btn-info btn-sm" href="/mitra/vitamin/{{ $record->vitamin_id }}/edit"><i class="fas fa-edit"></i></a>

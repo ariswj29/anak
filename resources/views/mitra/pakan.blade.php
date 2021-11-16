@@ -33,10 +33,10 @@
                 <tr class="thead">
                     <td class="header-tabel-data" scope="col">No.</td>
                     <td class="header-tabel-data" scope="col">Tanggal</td>
-                    <td class="header-tabel-data" scope="col">Siklus</td>
                     <td class="header-tabel-data" scope="col">Jenis Pakan</td>
                     <td class="header-tabel-data" scope="col">Jumlah Pakan (kg)</td>
                     <td class="header-tabel-data" scope="col">Pakan yang digunakan (kg)</td>
+                    <td class="header-tabel-data" scope="col">Siklus</td>
                     <!-- <td class="header-tabel-data" scope="col">Aksi</td> -->
                 </tr>
             </thead>
@@ -48,10 +48,7 @@
                     {{ $record->no }}
                 </td>
                     <td>
-                        {{ $record->tanggal }}
-                    </td>
-                    <td>
-                        {{ $record->nama_siklus }}
+                        {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                     </td>
                     <td>
                         {{ $record->jenis_pakan }}
@@ -61,6 +58,9 @@
                     </td>
                     <td>
                         {{ $record->pakan_digunakan }}
+                    </td>
+                    <td>
+                        {{ $record->nama_siklus }} - {{ $record->nama_farm }} 
                     </td>
                     <!-- <td>
                         <a class="btn btn-info btn-sm" href="/mitra/pakan/{{ $record->pakan_id }}/edit"><i class="fas fa-edit"></i></a>

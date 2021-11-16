@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/app.css">
 @stop
 
-@if(auth()->user()->isMitra())
+@if(auth()->user()->isPjub())
 
 @section('content_header')
     <h1 class="m-0 text-dark">Detail</h1>
@@ -59,7 +59,7 @@
 
         </div>
         
-        <a href="/mitra/perbarui" class="btn btn-primary">Update</a>
+        <a href="/pjub/perbarui" class="btn btn-primary">Update</a>
         <p>
         
         <div class="card">
@@ -85,7 +85,7 @@
                                     {{ $record->hari_ke }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $record->tanggal }}
+                                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                                 </td>
                                 <td class="text-center">
                                     {{ number_format($record->rata_rata_berat, 0, ',', '.' ) }}
@@ -121,7 +121,7 @@
                     <div class="row">
                         <div class="col">Tanggal Mulai</div>
                         <div class="col-1">:</div>
-                        <div class="col"><b>{{ \Carbon\Carbon::parse($siklus->tanggal)->format('j F Y') }}</b></div>
+                        <div class="col"><b>{{ \Carbon\Carbon::parse($siklus->tanggal)->isoFormat(' D MMMM Y') }}</b></div>
                     </div>
                     <div class="row">
                         <div class="col">Jumlah Ternak</div>

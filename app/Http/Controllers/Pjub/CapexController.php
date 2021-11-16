@@ -16,7 +16,7 @@ use App\Models\Minum;
 use Auth;
 // user DB;
 
-class IndexController extends \app\Http\Controllers\Controller
+class CapexController extends \app\Http\Controllers\Controller
 {   
     
     /**
@@ -95,7 +95,7 @@ class IndexController extends \app\Http\Controllers\Controller
         siklus.jumlah_ternak"
         ));
 
-        return view('pjub/index')->with('summary', $summary);
+        return view('pjub/capex')->with('summary', $summary);
     }
 
     public function detail($siklus_id)

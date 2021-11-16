@@ -126,10 +126,12 @@ class PakanController extends Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             siklus.nama_siklus,
-            siklus.siklus_id 
+            siklus.siklus_id,
+            farm.nama_farm 
         FROM
             pakan
             JOIN siklus ON pakan.siklus_id = siklus.siklus_id
+            JOIN farm ON siklus.farm_id = farm.farm_id
         WHERE
             pakan.pakan_id = $pakan_id "));
         

@@ -35,7 +35,8 @@ class KematianController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."'"));
+            pjub.email = '".Auth::user()->email."'
+            and kematian.deleted_at IS Null"));
 
         $kematians = Kematian::all();
         $sikluses = Siklus::all();
@@ -53,13 +54,16 @@ class KematianController extends Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             siklus.nama_siklus,
-            siklus.siklus_id 
+            siklus.siklus_id,
+            farm.nama_farm 
         FROM
-            kematian
-            JOIN siklus ON kematian.siklus_id = siklus.siklus_id
+            siklus
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            kematian.siklus_id = 1 "));
-        return view('mitra/tambah_kematian')->with('sikluses', $sikluses);
+            pjub.email = '".Auth::user()->email."' "));
+        return view('pjub/tambah_kematian')->with('sikluses', $sikluses);
     }
 
     /**
@@ -74,6 +78,7 @@ class KematianController extends Controller
             'siklus_id' => 'required',
             'tanggal' => 'required',
             'jumlah_kematian' => 'required',
+            'penyebab' => '',
             ]);
 
         $data = request()->all();
@@ -82,12 +87,13 @@ class KematianController extends Controller
         $kematian->siklus_id = $data['siklus_id'];
         $kematian->tanggal = $data['tanggal'];
         $kematian->jumlah_kematian = $data['jumlah_kematian'];
+        $kematian->penyebab = $data['penyebab'];
 
         $kematian->save();
 
         session()->flash('success', 'Data Berhasil Ditambah');
 
-        return redirect('/mitra/kematian')->with('status', 'Data kematian berhasil ditambahkan');
+        return redirect('/pjub/kematian')->with('status', 'Data kematian berhasil ditambahkan');
     }
 
     /**
@@ -113,16 +119,16 @@ class KematianController extends Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             siklus.nama_siklus,
-            siklus.siklus_id 
+            siklus.siklus_id,
+            farm.nama_farm 
         FROM
             kematian
             JOIN siklus ON kematian.siklus_id = siklus.siklus_id
             JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id
         WHERE
-            mitra.email = '".Auth::user()->email."' "));
+            kematian.kematian_id = $kematian_id "));
         
-        return view('mitra/edit_kematian')->with('kematians', $kematians)->with('sikluses', $sikluses);
+        return view('pjub/edit_kematian')->with('kematians', $kematians)->with('sikluses', $sikluses);
     }
 
     /**
@@ -138,6 +144,7 @@ class KematianController extends Controller
             'siklus_id' => 'required',
             'tanggal' => 'required',
             'jumlah_kematian' => 'required',
+            'penyebab' => 'required',
             ]);
 
         $data = request()->all();
@@ -146,12 +153,13 @@ class KematianController extends Controller
         $kematian->siklus_id = $data['siklus_id'];
         $kematian->tanggal = $data['tanggal'];
         $kematian->jumlah_kematian = $data['jumlah_kematian'];
+        $kematian->penyebab = $data['penyebab'];
 
         $kematian->save();
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/mitra/kematian')->with('status', 'Data kematian berhasil ditambahkan');
+        return redirect('/pjub/kematian')->with('status', 'Data kematian berhasil ditambahkan');
     }
 
     /**
@@ -168,6 +176,6 @@ class KematianController extends Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/mitra/kematian');
+        return redirect('/pjub/kematian');
     }
 }

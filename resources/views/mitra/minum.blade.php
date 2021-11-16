@@ -34,8 +34,8 @@
                 <tr class="thead">
                     <th class="header-tabel-data" scope="col">No.</th>
                     <th class="header-tabel-data" scope="col">Tanggal</th>
-                    <th class="header-tabel-data" scope="col">Siklus</th>
                     <th class="header-tabel-data" scope="col">Jumlah Minum (l)</th>
+                    <th class="header-tabel-data" scope="col">Siklus</th>
                     <!-- <th class="header-tabel-data" scope="col">Aksi</th> -->
                 </tr>
             </thead>
@@ -46,13 +46,13 @@
                         {{ $record->no }}
                     </td>
                     <td class="">
-                        {{ $record->tanggal }}
-                    </td>
-                    <td class="">
-                        {{ $record->nama_siklus }}
+                        {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                     </td>
                     <td class="">
                         {{ $record->jumlah_minum }}
+                    </td>
+                    <td class="">
+                        {{ $record->nama_siklus }} - {{ $record->nama_farm }}
                     </td>
                     <!-- <td class="">
                         <a class="btn btn-info btn-sm my-1" href="/mitra/minum/{{ $record->minum_id }}/edit"><i class="fas fa-edit"></i></a>

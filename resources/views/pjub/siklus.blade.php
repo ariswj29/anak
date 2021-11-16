@@ -34,7 +34,7 @@
                 <th class="header-tabel-data" scope="col">No.</th>
                 <th class="header-tabel-data" scope="col">Farm</th>
                 <th class="header-tabel-data" scope="col">Nama Siklus</th>
-                <th class="header-tabel-data" scope="col">Tanggal</th>
+                <th class="header-tabel-data" scope="col">Tanggal Mulai</th>
                 <th class="header-tabel-data" scope="col">Jenis Ternak</th>
                 <th class="header-tabel-data" scope="col">Jumlah Ternak</th>
                 <th class="header-tabel-data" scope="col">Harga Satuan DOC</th>
@@ -55,7 +55,7 @@
                     {{ $record->nama_siklus }} 
                 </td>
                 <td>
-                    {{ \Carbon\Carbon::parse($record->tanggal)->format('j F Y') }}
+                    {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('dddd, D MMMM Y') }}
                 </td>
                 <td>
                     {{ $record->jenis_ternak }}
@@ -70,8 +70,8 @@
                     {{ $record->supplier }}
                 </td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="/pjub/siklus/{{ $record->siklus_id }}/edit"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm" href="/pjub/siklus/{{ $record->siklus_id }}/delete"><i class="fas fa-trash" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"></i></a>
+                    <a class="btn btn-info btn-sm my-1" href="/pjub/siklus/{{ $record->siklus_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm my-1" href="/pjub/siklus/{{ $record->siklus_id }}/delete"><i class="fas fa-trash" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"></i></a>
                 </td>
             </tr>
             @endforeach

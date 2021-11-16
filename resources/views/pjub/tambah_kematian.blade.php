@@ -33,7 +33,7 @@
         </div>
     @endif
 
-    <form action="/mitra/kematian/store" method="POST">
+    <form action="/pjub/kematian/store" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row">
@@ -43,7 +43,7 @@
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 <option value="" selected disabled>Pilih Siklus </option>
                 @foreach ($sikluses as $siklus)
-                    <option value="{{ $siklus->siklus_id }}"> {{ $siklus->nama_siklus }} </option>
+                    <option value="{{ $siklus->siklus_id }}"> {{ $siklus->nama_siklus }} - {{ $siklus->nama_farm }} </option>
                 @endforeach
             </select>
         </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="col-6 mb-3">
             <button class="btn btn-success">Tambah Data</button>
-            <a href="/mitra/kematian" class="btn btn-danger ml-2">Kembali</a>
+            <a href="/pjub/kematian" class="btn btn-danger ml-2">Kembali</a>
         </div>
       </div>
     </div>
