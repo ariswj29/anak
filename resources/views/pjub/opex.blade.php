@@ -9,7 +9,7 @@
 @if(auth()->user()->isPjub())
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Pembelanjaan Modal</h1>
+    <h1 class="m-0 text-dark">Pembelanjaan Operasional</h1>
 @stop
 
 @section('content')
@@ -29,14 +29,15 @@
         @foreach($summary as $sum)
         <div class="card">
             <div class="card-header">
-                <b>{{ $sum->nama_farm }}</b>
-                <br>{{ $sum->alamat_farm }}
+                <b>{{ $sum->nama_siklus }}</b>
+                <div class="jdlskls"><b>{{ $sum->nama_farm }}</b></div>
+                {{ $sum->alamat_farm }}
             </div>
             <div class="card-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col" style="color:grey">Mitra</div>    
-                        <div class="col" style="color:grey">Subtotal Modal</div>
+                        <div class="col" style="color:grey">Mitra</div>   
+                        <div class="col" style="color:grey">Subtotal Operasional</div>
                     </div> 
                     <div class="row">
                         <div class="col"><b>{{ $sum->nama  }}</b></div>  
@@ -45,7 +46,7 @@
                 </div>
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
-                <center><a href="/pjub/capex/{{ $sum->farm_id }}/detail" class="btn btn-primary">Detail Modal</a></center>
+                <center><a href="/pjub/opex/{{ $sum->siklus_id }}/detail" class="btn btn-primary">Detail Operasional</a></center>
             </div>
         </div>
         @endforeach

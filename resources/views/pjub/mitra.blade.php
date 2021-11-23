@@ -28,7 +28,9 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/mitra/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/mitra/tambah" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin menambah mitra baru"><i class="fas fa-plus"></i> Tambah Data</i></a>
+        </div>
+        <div class=""><i class="fas fa-info-circle" title="So nice to see you!"></i>
         </div>
     </div>
 

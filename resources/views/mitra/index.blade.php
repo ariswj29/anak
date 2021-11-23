@@ -13,12 +13,6 @@
 @stop
 
 @section('content')
-    @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{ session()->get('success') }}
-        </div>
-    @endif    
 
     <div class="home-mitra">
         <!-- <a href="" class="btn btn-outline-primary"></a>

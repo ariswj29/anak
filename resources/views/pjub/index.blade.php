@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col"><b>{{ $sum->pjub  }}</b></div>
                         <div class="col"><b>{{ number_format($sum->jml_rata, 0, ',', '.') }} g </b></div>
-                        <div class="col"> <b>{{ $sum->jenis_ternak }}</b></div>  
+                        <div class="col"><b>{{ $sum->jenis_ternak }}</b></div>  
                     </div> <p>
                     <div class="row">                               
                         <div class="col" style="color:grey">Jumlah Ternak</div>
@@ -68,7 +68,7 @@
                 </div>
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
-                <center><a href="/pjub/{{ $sum->siklus_id }}/detail" class="btn btn-primary">Detail dan Update</a></center>
+                <center><a href="/pjub/{{ $sum->siklus_id }}/detail" class="btn btn-primary">Detail dan Input Harian</a></center>
             </div>
         </div>
         @endforeach

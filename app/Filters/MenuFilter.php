@@ -68,6 +68,18 @@ class MenuFilter implements FilterInterface
                 }
                 if($item['text']=='Update Harian'){
                     return false;
+                }elseif ($item['text']=='DATA UTAMA') {
+                    return false;
+                }elseif ($item['text']=='DATA KEUANGAN'){
+                    return false;
+                }elseif ($item['text']=='DATA HARIAN'){
+                    return false;
+                }elseif ($item['text']=='DATA UTAMA FARM') {
+                    return false;
+                }elseif ($item['text']=='DATA KEUANGAN FARM'){
+                    return false;
+                }elseif ($item['text']=='DATA HARIAN FARM'){
+                    return false;
                 }
             }
 
@@ -107,11 +119,17 @@ class MenuFilter implements FilterInterface
                     return false;
                 }elseif ($item['text']=='Update Harian'){
                     return false;
+                }elseif ($item['text']=='DATA UTAMA') {
+                    return false;
+                }elseif ($item['text']=='DATA KEUANGAN'){
+                    return false;
+                }elseif ($item['text']=='DATA HARIAN'){
+                    return false;
                 }
             }
             
             if($user->isMitra()){
-                if($item['text']=='Dasbor'){
+                if($item['text']=='Home'){
                     return false;
                 }
                 if($item['text']=='Data Mitra'){
@@ -147,6 +165,12 @@ class MenuFilter implements FilterInterface
                 }elseif ($item['text']=='DATA OPERASIONAL'){
                     return false;
                 }elseif ($item['text']=='Mitra'){
+                    return false;
+                }elseif ($item['text']=='DATA UTAMA FARM') {
+                    return false;
+                }elseif ($item['text']=='DATA KEUANGAN FARM'){
+                    return false;
+                }elseif ($item['text']=='DATA HARIAN FARM'){
                     return false;
                 }
             }

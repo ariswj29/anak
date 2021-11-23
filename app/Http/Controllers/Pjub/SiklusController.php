@@ -26,6 +26,7 @@ class SiklusController extends Controller
             siklus.siklus_id,
             mitra.nama,
             farm.nama_farm,
+            farm.mata_uang,
             siklus.nama_siklus,
             siklus.tanggal,
             siklus.jenis_ternak,

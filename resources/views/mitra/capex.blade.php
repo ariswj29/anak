@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/app.css">
 @stop
 
-@if(auth()->user()->isPjub())
+@if(auth()->user()->isMitra())
 
 @section('content_header')
     <h1 class="m-0 text-dark">Pembelanjaan Modal</h1>
@@ -45,7 +45,7 @@
                 </div>
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
-                <center><a href="/pjub/capex/{{ $sum->farm_id }}/detail" class="btn btn-primary">Detail Modal</a></center>
+                <center><a href="/mitra/capex/{{ $sum->farm_id }}/detail" class="btn btn-primary">Detail Modal</a></center>
             </div>
         </div>
         @endforeach

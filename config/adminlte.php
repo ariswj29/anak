@@ -329,92 +329,192 @@ return [
             'icon' => 'fas fa-fw fa-home',
         ],
         [
-            'text' => 'Update Harian',
-            'url'  => 'mitra/perbarui',
-            'icon' => 'fas fa-fw fa-calendar-week
-            ',
+            'text' => 'DATA UTAMA',
+            'icon'    => 'fas fa-fw fa-calendar-day',
+            'submenu' => [
+                [
+                    'text' => 'Update Harian',
+                    'url'  => 'mitra/perbarui',
+                    'icon' => 'fas fa-fw fa-calendar-week',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Ternak',
+                    'url'  => 'mitra/farm',
+                    'icon' => 'fas fa-fw fa-warehouse',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Siklus',
+                    'url'  => 'mitra/siklus',
+                    'icon' => 'fa fa-fw fa-th',
+                    'shift'   => 'ml-2',
+                ],
+            ],    
+        ],    
+        [
+            'text' => 'DATA KEUANGAN',
+            'icon'    => 'fas fa-fw fa-coins',
+            'submenu' => [
+                [
+                    'text' => 'Data Modal',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                    'shift'   => 'ml-2',
+                    'url'  => 'mitra/capex',
+                    'icon' => 'fas fa-fw fa-donate',
+                ],
+                [
+                    'text' => 'Data Operasional',
+                    'url'  => 'mitra/opex',
+                    'shift'   => 'ml-2',
+                    'icon' => 'fas fa-fw fa-dolly',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                ],
+                [
+                    'text' => 'Data Kas',
+                    'url'  => 'mitra/opex',
+                    'shift'   => 'ml-2',
+                    'icon' => 'fas fa-fw fa-clipboard-check',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                ],
+            ],
         ],
         [
-            'text' => 'Ternak',
-            'url'  => 'mitra/farm',
-            'icon' => 'fas fa-fw fa-warehouse',
-        ],
-        [
-            'text' => 'Siklus',
-            'url'  => 'mitra/siklus',
-            'icon' => 'fa fa-fw fa-th',
-        ],
-        [
-            'text' => 'Konsumsi Pakan',
-            'url'  => 'mitra/pakan',
-            'icon' => 'fas fa-fw fa-box',
-        ],
-        [
-            'text' => 'Konsumsi Minum',
-            'url'  => 'mitra/minum',
-            'icon' => 'fas fa-fw fa-prescription-bottle',
-        ],
-        [
-            'text' => 'Berat Ayam',
-            'url'  => 'mitra/berat',
-            'icon' => 'fa fa-fw fa-weight',
-        ],
-        [
-            'text' => 'Vitamin',
-            'url'  => 'mitra/vitamin',
-            'icon' => 'fa fa-fw fa-prescription-bottle-alt',
-        ],
-        [
-            'text' => 'Kematian',
-            'url'  => 'mitra/kematian',
-            'icon' => 'fa fa-fw fa-book-dead',
+            'text' => 'DATA HARIAN',
+            'icon'    => 'fas fa-fw fa-calendar-day',
+            'submenu' => [
+                [
+                    'text' => 'Konsumsi Pakan',
+                    'url'  => 'mitra/pakan',
+                    'icon' => 'fas fa-fw fa-box',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Konsumsi Minum',
+                    'url'  => 'mitra/minum',
+                    'icon' => 'fas fa-fw fa-prescription-bottle',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Berat Ayam',
+                    'url'  => 'mitra/berat',
+                    'icon' => 'fa fa-fw fa-weight',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Vitamin',
+                    'url'  => 'mitra/vitamin',
+                    'icon' => 'fa fa-fw fa-prescription-bottle-alt',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Kematian',
+                    'url'  => 'mitra/kematian',
+                    'icon' => 'fa fa-fw fa-book-dead',
+                    'shift'   => 'ml-2',
+                ],
+            ],
         ],
             // NAVBAR PJUB 
-        [
-            'text'        => 'Dasbor',
-            'url'         => 'pjub/index',
-            'icon'        => 'fas fa-fw fa-home',
+            [    
+                'text'        => 'Home',
+                'url'         => 'pjub/index',
+                'icon'        => 'fas fa-fw fa-home',
+            ],
+            [
+                'text' => 'DATA UTAMA FARM',
+                'icon'    => 'fas fa-fw fa-table',
+                'submenu' => [
+            
+                [
+                    'text' => 'Data Mitra',
+                    'url'  => 'pjub/mitra',
+                    'icon' => 'fa fa-fw fa-handshake',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Data Farm',
+                    'url'  => 'pjub/farm',
+                    'icon' => 'fas fa-fw fa-warehouse',
+                    'shift'   => 'ml-2',
+                ],
+                [
+                    'text' => 'Data Siklus',
+                    'url'  => 'pjub/siklus',
+                    'icon' => 'fa fa-fw fa-recycle',
+                    'shift'   => 'ml-2',
+                ],
+            ],
         ],
         [
-            'text' => 'Data Mitra',
-            'url'  => 'pjub/mitra',
-            'icon' => 'fa fa-fw fa-handshake',
+            'text' => 'DATA KEUANGAN FARM',
+            'icon'    => 'fas fa-fw fa-coins',
+            'submenu' => [
+                [
+                    'text' => 'Data Modal',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                    'shift'   => 'ml-2',
+                    'url'  => 'pjub/capex',
+                    'icon' => 'fas fa-fw fa-donate',
+                ],
+                [
+                    'text' => 'Data Operasional',
+                    'url'  => 'pjub/opex',
+                    'shift'   => 'ml-2',
+                    'icon' => 'fas fa-fw fa-dolly',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                ],
+                [
+                    'text' => 'Data Kas',
+                    'url'  => 'pjub/opex',
+                    'shift'   => 'ml-2',
+                    'icon' => 'fas fa-fw fa-clipboard-check',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                ],
+            ],
         ],
         [
-            'text' => 'Data Farm',
-            'url'  => 'pjub/farm',
-            'icon' => 'fas fa-fw fa-warehouse',
-        ],
+            'text' => 'DATA HARIAN FARM',
+            'icon'    => 'fas fa-fw fa-calendar-day',
+            'submenu' => [
         [
-            'text' => 'Data Siklus',
-            'url'  => 'pjub/siklus',
-            'icon' => 'fa fa-fw fa-th',
+                'text' => 'Data Konsumsi Pakan',
+                'url'  => 'pjub/pakan',
+                'icon' => 'fas fa-fw fa-box',
+                'shift'   => 'ml-2',
+            ],
+            [
+                'text'  => 'Data Konsumsi Minum',
+                'url'   => 'pjub/minum',
+                'icon'  => 'fas fa-fw fa-prescription-bottle',
+                'shift'   => 'ml-2',
+            ],
+            [
+                'text' => 'Data Berat Ayam',
+                'url'  => 'pjub/berat',
+                'icon' => 'fa fa-fw fa-weight',
+                'shift'   => 'ml-2',
+            ],
+            [
+                'text' => 'Data Vitamin',
+                'url'  => 'pjub/vitamin',
+                'icon' => 'fa fa-fw fa-prescription-bottle-alt',
+                'shift'   => 'ml-2',
+            ],
+            [
+                'text' => 'Data Kematian',
+                'url'  => 'pjub/kematian',
+                'icon' => 'fa fa-fw fa-book-dead',
+                'shift'   => 'ml-2',
+            ],
         ],
-        [
-            'text' => 'Data Konsumsi Pakan',
-            'url'  => 'pjub/pakan',
-            'icon' => 'fas fa-fw fa-box',
-        ],
-        [
-            'text'  => 'Data Konsumsi Minum',
-            'url'   => 'pjub/minum',
-            'icon'  => 'fas fa-fw fa-prescription-bottle',
-        ],
-        [
-            'text' => 'Data Berat Ayam',
-            'url'  => 'pjub/berat',
-            'icon' => 'fa fa-fw fa-weight',
-        ],
-        [
-            'text' => 'Data Vitamin',
-            'url'  => 'pjub/vitamin',
-            'icon' => 'fa fa-fw fa-prescription-bottle-alt',
-        ],
-        [
-            'text' => 'Data Kematian',
-            'url'  => 'pjub/kematian',
-            'icon' => 'fa fa-fw fa-book-dead',
-        ],
+    ],
     ],
 
     /*

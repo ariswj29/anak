@@ -104,7 +104,7 @@ class IndexController extends \app\Http\Controllers\Controller
     SELECT
         mitra.mitra_id,
         pjub.nama pjub,
-        mitra.nama mitra,
+        mitra.nama,
         siklus.jenis_ternak,
         siklus.jumlah_ternak,
         sum(pakan.jumlah_pakan) jml_pakan,

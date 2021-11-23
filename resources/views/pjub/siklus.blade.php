@@ -64,7 +64,7 @@
                     {{ $record->jumlah_ternak }}
                 </td>
                 <td>
-                    {{ $record->harga_satuan_doc }}
+                {{ $record->mata_uang }}. {{ number_format($record->harga_satuan_doc, 0, ',', '.') }}
                 </td>
                 <td>
                     {{ $record->supplier }}

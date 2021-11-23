@@ -189,6 +189,28 @@ Route::get('/mitra/index', function() {
     // Route::resource('siklus', 'SiklusController');
 // });
 
+// Capex Mitra
+// Route::middleware(['auth','mitra'])->group(function () {
+    Route::get('/mitra/capex', [App\Http\Controllers\Mitra\CapexController::class, 'index'])->name('mitra/capex');
+    Route::get('/mitra/capex/{capex}/detail', [App\Http\Controllers\Mitra\CapexController::class, 'detail'])->name('mitra/detail_capex');
+    Route::get('/mitra/capex/{farm}/tambah', [App\Http\Controllers\Mitra\CapexController::class, 'create'])->name('mitra/tambah_capex');
+    Route::post('/mitra/capex/store', [App\Http\Controllers\Mitra\CapexController::class, 'store'])->name('mitra/tambah_capex');
+    Route::get('/mitra/capex/{capex}/edit', [App\Http\Controllers\Mitra\CapexController::class, 'edit'])->name('mitra/edit_capex');
+    Route::post('/mitra/capex/{capex}/update', [App\Http\Controllers\Mitra\CapexController::class, 'update'])->name('mitra/edit_capex');
+    Route::get('/mitra/capex/{capex}/{farm}/delete', [App\Http\Controllers\Mitra\CapexController::class, 'destroy']);
+// });
+
+// Opex Mitra
+// Route::middleware(['auth','mitra'])->group(function () {
+    Route::get('/mitra/opex', [App\Http\Controllers\Mitra\OpexController::class, 'index'])->name('mitra/opex');
+    Route::get('/mitra/opex/{opex}/detail', [App\Http\Controllers\Mitra\OpexController::class, 'detail'])->name('mitra/detail_opex');
+    Route::get('/mitra/opex/{siklus}/tambah', [App\Http\Controllers\Mitra\OpexController::class, 'create'])->name('mitra/tambah_opex');
+    Route::post('/mitra/opex/store', [App\Http\Controllers\Mitra\OpexController::class, 'store'])->name('mitra/tambah_opex');
+    Route::get('/mitra/opex/{opex}/edit', [App\Http\Controllers\Mitra\OpexController::class, 'edit'])->name('mitra/edit_opex');
+    Route::post('/mitra/opex/{opex}/update', [App\Http\Controllers\Mitra\OpexController::class, 'update'])->name('mitra/edit_opex');
+    Route::get('/mitra/opex/{opex}/{siklus}/delete', [App\Http\Controllers\Mitra\OpexController::class, 'destroy']);
+// });
+
 // Pakan Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/pakan', [App\Http\Controllers\Mitra\PakanController::class, 'index'])->name('mitra/pakan');
@@ -271,6 +293,28 @@ Route::get('/mitra/index', function() {
     Route::get('/pjub/farm/{farm}/edit', [App\Http\Controllers\Pjub\FarmController::class, 'edit'])->name('pjub/edit_farm');
     Route::post('/pjub/farm/{farm}/update', [App\Http\Controllers\Pjub\FarmController::class, 'update'])->name('pjub/edit_farm');
     Route::get('/pjub/farm/{farm}/delete', [App\Http\Controllers\Pjub\FarmController::class, 'destroy']);
+// });
+
+// Capex PJUB
+// Route::middleware(['auth','pjub'])->group(function () {
+    Route::get('/pjub/capex', [App\Http\Controllers\Pjub\CapexController::class, 'index'])->name('pjub/capex');
+    Route::get('/pjub/capex/{capex}/detail', [App\Http\Controllers\Pjub\CapexController::class, 'detail'])->name('pjub/detail_capex');
+    Route::get('/pjub/capex/{farm}/tambah', [App\Http\Controllers\Pjub\CapexController::class, 'create'])->name('pjub/tambah_capex');
+    Route::post('/pjub/capex/store', [App\Http\Controllers\Pjub\CapexController::class, 'store'])->name('pjub/tambah_capex');
+    Route::get('/pjub/capex/{capex}/edit', [App\Http\Controllers\Pjub\CapexController::class, 'edit'])->name('pjub/edit_capex');
+    Route::post('/pjub/capex/{capex}/{farm}/update', [App\Http\Controllers\Pjub\CapexController::class, 'update'])->name('pjub/edit_capex');
+    Route::get('/pjub/capex/{capex}/{farm}/delete', [App\Http\Controllers\Pjub\CapexController::class, 'destroy']);
+// });
+
+// Opex PJUB
+// Route::middleware(['auth','pjub'])->group(function () {
+    Route::get('/pjub/opex', [App\Http\Controllers\Pjub\OpexController::class, 'index'])->name('pjub/opex');
+    Route::get('/pjub/opex/{opex}/detail', [App\Http\Controllers\Pjub\OpexController::class, 'detail'])->name('pjub/detail_opex');
+    Route::get('/pjub/opex/{siklus}/tambah', [App\Http\Controllers\Pjub\OpexController::class, 'create'])->name('pjub/tambah_opex');
+    Route::post('/pjub/opex/store', [App\Http\Controllers\Pjub\OpexController::class, 'store'])->name('pjub/tambah_opex');
+    Route::get('/pjub/opex/{opex}/edit', [App\Http\Controllers\Pjub\OpexController::class, 'edit'])->name('pjub/edit_opex');
+    Route::post('/pjub/opex/{opex}/update', [App\Http\Controllers\Pjub\OpexController::class, 'update'])->name('pjub/edit_opex');
+    Route::get('/pjub/opex/{opex}/{siklus}/delete', [App\Http\Controllers\Pjub\OpexController::class, 'destroy']);
 // });
 
 // Siklus PJUB

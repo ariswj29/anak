@@ -40,8 +40,8 @@
                     <th class="header-tabel-data" scope="col">Mata Uang</th>
                     <th class="header-tabel-data" scope="col">Satuan Berat</th>
                     <th class="header-tabel-data" scope="col">Kapasitas Rak Telur</th>
-                    <th class="header-tabel-data" scope="col">Kapasitas Kandang DOC</th>
-                    <th class="header-tabel-data" scope="col">Kapasitas Kandang Grower</th>
+                    <th class="header-tabel-data" scope="col">Kapasitas Kandang DOC (Anak Ayam)</th>
+                    <th class="header-tabel-data" scope="col">Kapasitas Kandang Grower (Pembesaran)</th>
                     <th class="header-tabel-data">Aksi</th>
                 </tr>
             </thead>

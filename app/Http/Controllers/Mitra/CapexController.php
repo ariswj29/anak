@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Pjub;
+namespace App\Http\Controllers\Mitra;
 
 use Illuminate\Http\Request;
 use App\Models\Pjub;
@@ -73,11 +73,8 @@ class CapexController extends \app\Http\Controllers\Controller
         farm
         LEFT JOIN capex ON farm.farm_id = capex.farm_id
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
-        LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id ) 
     WHERE
-        pjub.email = '".Auth::user()->email."' 
-        AND farm.deleted_at is NULL
-        AND capex.deleted_at IS NULL
+        mitra.email = '".Auth::user()->email."' AND farm.deleted_at is NULL
     GROUP BY
         mitra.mitra_id,
         mitra.nama,
@@ -87,7 +84,7 @@ class CapexController extends \app\Http\Controllers\Controller
         farm.mata_uang"
         ));
 
-        return view('pjub/capex')->with('summary', $summary);
+        return view('mitra/capex')->with('summary', $summary);
     }
 
     public function detail($farm_id)
@@ -135,7 +132,7 @@ class CapexController extends \app\Http\Controllers\Controller
         // $minum = Minum::where('siklus_id', $siklus_id)->first();
         // $vitamin = Vitamin::where('siklus_id', $siklus_id)->first();
 
-        return view('pjub/detail_capex')->with('pjub', $pjub)->with('mitras', $mitras)->with('farms', $farms)->with('farming', $farming)->with('recording', $recording);
+        return view('mitra/detail_capex')->with('pjub', $pjub)->with('mitras', $mitras)->with('farms', $farms)->with('farming', $farming)->with('recording', $recording);
     }
 
     public function create($farm_id)
@@ -158,7 +155,7 @@ class CapexController extends \app\Http\Controllers\Controller
         WHERE    
             farm.farm_id = $farm_id"));
 
-        return view('pjub/tambah_capex')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('pakans', $pakans)->with('berats', $berats)->with('farms', $farms)->with('sikluses', $sikluses)->with('kematians', $kematians)->with('minums', $minums)->with('vitamins', $vitamins);
+        return view('mitra/tambah_capex')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('pakans', $pakans)->with('berats', $berats)->with('farms', $farms)->with('sikluses', $sikluses)->with('kematians', $kematians)->with('minums', $minums)->with('vitamins', $vitamins);
     }
 
     public function store(Request $request)
@@ -198,10 +195,10 @@ class CapexController extends \app\Http\Controllers\Controller
         
         session()->flash('success', 'Data Harian Berhasil Ditambah');
         
-        return redirect('pjub/capex/'. $farm_id .'/detail');
+        return redirect('mitra/capex/'. $farm_id .'/detail');
     }
     
-    public function edit($capex_id, $farm_id)
+    public function edit($capex_id)
     {
         $pjubs = Pjub::all();
         $mitras = Mitra::all();
@@ -210,15 +207,15 @@ class CapexController extends \app\Http\Controllers\Controller
         $sikluses = \DB::select(\DB::raw("
         SELECT
             farm.farm_id,
-            farm.nama_farm
+            farm.nama_farm,
+            capex.capex_id 
         FROM
-            farm
-            JOIN siklus on siklus.siklus_id = siklus.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id
-        WHERE    
-            farm.farm_id = $farm_id"));
+            capex
+            JOIN farm ON farm.farm_id = capex.farm_id
+        WHERE
+            capex.capex_id = $capex_id"));
 
-        return view('pjub/edit_capex')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('farms', $farms)->with('sikluses', $sikluses)->with('capexs', $capexs);
+        return view('mitra/edit_capex')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('farms', $farms)->with('sikluses', $sikluses)->with('capexs', $capexs);
     }
     
     public function update(Request $request, $capex_id)
@@ -247,7 +244,7 @@ class CapexController extends \app\Http\Controllers\Controller
 
         session()->flash('success', 'Data Berhasil Diubah');
 
-        return redirect('/pjub/capex/'. $farm_id .'/detail')->with('status', 'Data pakan berhasil ditambahkan');
+        return redirect('/mitra/capex/'. $farm_id .'/detail')->with('status', 'Data pakan berhasil ditambahkan');
     }
 
     public function show()
@@ -267,7 +264,7 @@ class CapexController extends \app\Http\Controllers\Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/pjub/capex/'. $farm_id .'/detail');
+        return redirect('/mitra/capex/'. $farm_id .'/detail');
     }
 
 }

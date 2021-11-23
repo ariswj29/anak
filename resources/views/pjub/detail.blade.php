@@ -9,7 +9,7 @@
 @if(auth()->user()->isPjub())
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Detail</h1>
+    <h1 class="m-0 text-dark">Detail Data Harian</h1>
 @stop
 
 @section('content')
@@ -59,7 +59,7 @@
 
         </div>
         
-        <a href="/pjub/perbarui" class="btn btn-primary">Update</a>
+        <a href="/pjub/perbarui" class="btn btn-primary">Input Data Harian</a>
         <p>
         
         <div class="card">
@@ -114,7 +114,7 @@
         <p>
         <div class="card">
             <div class="card-header text-center">
-                <b>Entri Data Awal</b>
+                <b> Data Awal</b>
             </div>
             <div class="card-body">
                 <div class="container">
