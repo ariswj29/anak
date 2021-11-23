@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Data Farm | Aplikasi Ternak')
+@section('title', 'Tambah Data Operasional | Aplikasi Ternak')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css">
@@ -35,9 +35,8 @@
                     <option value="{{ $siklus->siklus_id }}">{{ $siklus->nama_siklus == $siklus->siklus_id ? 'selected' : '' }}  
                         {{ $siklus->nama_siklus }} 
                     </option>
-                @endforeach
-            </select>
-        </div>
+                </select>
+            </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Perlengkapan</label>
             <input type="text" class="form-control" id="exampleControlInput1" name="opex" placeholder="Isi Perlengkapan!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -59,8 +58,9 @@
             <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Isi Keterangan">
         </div>
         <div class="col-6 mb-3">
-            <button class="btn btn-success mt-2">Tambah Data</button>
-            <a href="/mitra/opex/detail" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <button class="btn btn-success mt-2">Simpan Data</button>
+            <a href="/mitra/opex/{{ $siklus->siklus_id }}/detail" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            @endforeach
         </div>
       </div>
     </div>

@@ -66,18 +66,19 @@ class CapexController extends \app\Http\Controllers\Controller
         farm.farm_id,
         farm.nama_farm,
         farm.alamat_farm,
-        mitra.nama,
+        pjub.nama,
         farm.mata_uang,
         SUM ( capex.harga * capex.jumlah ) jml_subtotal
     FROM
         farm
         LEFT JOIN capex ON farm.farm_id = capex.farm_id
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
+        LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )
     WHERE
-        mitra.email = '".Auth::user()->email."' AND farm.deleted_at is NULL
+        mitra.email = '".Auth::user()->email."' AND capex.deleted_at is NULL
     GROUP BY
         mitra.mitra_id,
-        mitra.nama,
+        pjub.nama,
         farm.farm_id,
         farm.nama_farm,
         farm.alamat_farm,

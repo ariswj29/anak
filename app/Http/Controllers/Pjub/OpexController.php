@@ -199,21 +199,53 @@ class OpexController extends \app\Http\Controllers\Controller
         return redirect('pjub/opex/'. $siklus_id .'/detail');
     }
     
-    public function edit()
+    public function edit($opex_id)
     {
-        
+        $pjubs = Pjub::all();
+        $mitras = Mitra::all();
+        $farms = Farm::all();
+        $opexs = opex::find($opex_id);
+        $sikluses = \DB::select(\DB::raw("
+        SELECT
+            siklus.siklus_id,
+            siklus.nama_siklus,
+            opex.opex_id 
+        FROM
+            opex
+            JOIN siklus ON siklus.siklus_id = opex.siklus_id
+        WHERE
+            opex.opex_id = $opex_id"));
+
+            return view('pjub/edit_opex')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('farms', $farms)->with('sikluses', $sikluses)->with('opexs', $opexs);
     }
     
-    public function update(Request $request)
+    public function update(Request $request, $opex_id)
     {
+        $siklus_id = request('siklus_id');
+        $this->validate(request(),[
+            'siklus_id' => 'required',
+            'opex' => 'required',
+            'harga' => '',
+            'jumlah' => '',
+            'satuan' => '',
+            'keterangan' => '',
+        ]);
+
+        $data = request()->all();
+
+        $opex = Opex::find($opex_id);
+        $opex->siklus_id = $data['siklus_id'];
+        $opex->opex = $data['opex'];
+        $opex->harga = $data['harga'];
+        $opex->jumlah = $data['jumlah'];
+        $opex->satuan = $data['satuan'];
+        $opex->keterangan = $data['keterangan'];
+
+        $opex->save();
         
-        // $request->validate([
-        //     'current_password' => ['required', new MatchOldPassword],
-        //     'new_password' => ['required'],
-        //     'new_confirm_password' => ['same:new_password'],
-        // ]);
-   
-        // User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        session()->flash('success', 'Data Harian Berhasil Diubah');
+        
+        return redirect('pjub/opex/'. $siklus_id .'/detail');
     }
 
     public function show()

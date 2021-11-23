@@ -302,7 +302,7 @@ Route::get('/mitra/index', function() {
     Route::get('/pjub/capex/{farm}/tambah', [App\Http\Controllers\Pjub\CapexController::class, 'create'])->name('pjub/tambah_capex');
     Route::post('/pjub/capex/store', [App\Http\Controllers\Pjub\CapexController::class, 'store'])->name('pjub/tambah_capex');
     Route::get('/pjub/capex/{capex}/edit', [App\Http\Controllers\Pjub\CapexController::class, 'edit'])->name('pjub/edit_capex');
-    Route::post('/pjub/capex/{capex}/{farm}/update', [App\Http\Controllers\Pjub\CapexController::class, 'update'])->name('pjub/edit_capex');
+    Route::post('/pjub/capex/{capex}/update', [App\Http\Controllers\Pjub\CapexController::class, 'update'])->name('pjub/edit_capex');
     Route::get('/pjub/capex/{capex}/{farm}/delete', [App\Http\Controllers\Pjub\CapexController::class, 'destroy']);
 // });
 

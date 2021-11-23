@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Data Farm | Aplikasi Ternak')
+@section('title', 'Tambah Data Modal | Aplikasi Ternak')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css">
@@ -35,11 +35,10 @@
                     <option value="{{ $siklus->farm_id }}">
                         {{ $siklus->nama_farm }} 
                     </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Perlengkapan</label>
+                </select>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Perlengkapan</label>
             <input type="text" class="form-control" id="exampleControlInput1" name="capex" placeholder="Isi Perlengkapan!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
@@ -59,8 +58,9 @@
             <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Isi Keterangan">
         </div>
         <div class="col-6 mb-3">
-            <button class="btn btn-success mt-2">Tambah Data</button>
-            <a href="/mitra/capex/detail" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <button class="btn btn-success mt-2">Simpan Data</button>
+            <a href="/mitra/capex/{{ $siklus->farm_id }}/detail" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            @endforeach
         </div>
       </div>
     </div>

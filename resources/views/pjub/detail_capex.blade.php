@@ -28,7 +28,7 @@
                     <table class="table">
                         <thead>
                             <tr class="thead">
-                                <th class="header-tabel-data" scope="col" >No</th>
+                            <th class="header-tabel-data" scope="col" >No</th>
                             <th class="header-tabel-data text-center" scope="col" >Perlengkapan</th>
                             <th class="header-tabel-data" scope="col" >Jumlah</th>
                             <th class="header-tabel-data" scope="col" >Harga</th>
@@ -64,7 +64,7 @@
                                     {{ $record->keterangan }}
                                 </td>
                                 <td class="text-center">
-                                <a class="btn btn-info btn-sm my-1" href="/pjub/capex/{{ $record->capex_id }}/{{ $record->farm_id }}/edit"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-info btn-sm my-1" href="/pjub/capex/{{ $record->capex_id }}/edit"><i class="fas fa-edit"></i></a>
                                 <a class="btn btn-danger btn-sm my-1" href="/pjub/capex/{{ $record->capex_id }}/{{ $record->farm_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>

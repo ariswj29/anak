@@ -201,7 +201,7 @@ class CapexController extends \app\Http\Controllers\Controller
         return redirect('pjub/capex/'. $farm_id .'/detail');
     }
     
-    public function edit($capex_id, $farm_id)
+    public function edit($capex_id)
     {
         $pjubs = Pjub::all();
         $mitras = Mitra::all();
@@ -212,11 +212,10 @@ class CapexController extends \app\Http\Controllers\Controller
             farm.farm_id,
             farm.nama_farm
         FROM
-            farm
-            JOIN siklus on siklus.siklus_id = siklus.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id
+            capex
+            JOIN farm ON farm.farm_id = capex.farm_id
         WHERE    
-            farm.farm_id = $farm_id"));
+            capex.capex_id = $capex_id"));
 
         return view('pjub/edit_capex')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('farms', $farms)->with('sikluses', $sikluses)->with('capexs', $capexs);
     }

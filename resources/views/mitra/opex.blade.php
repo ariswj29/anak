@@ -36,7 +36,7 @@
             <div class="card-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col" style="color:grey">Mitra</div>   
+                        <div class="col" style="color:grey">PJUB</div>   
                         <div class="col" style="color:grey">Subtotal Operasional</div>
                     </div> 
                     <div class="row">

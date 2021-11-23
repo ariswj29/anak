@@ -69,20 +69,20 @@ class OpexController extends \app\Http\Controllers\Controller
         siklus.siklus_id,
         farm.mata_uang,
         farm.alamat_farm,
-        mitra.nama,
+        pjub.nama,
         SUM ( opex.harga ) jml_harga,
         SUM ( opex.jumlah ) jml_jumlah,
-        SUM ( opex.harga ) * SUM ( opex.jumlah ) jml_total
+        SUM ( opex.harga * opex.jumlah ) jml_total
     FROM
         siklus
         LEFT JOIN opex ON ( siklus.siklus_id = opex.siklus_id )  
         JOIN farm ON farm.farm_id = siklus.farm_id 
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
-    WHERE mitra.email =  '".Auth::user()->email."'
+    WHERE mitra.email =  '".Auth::user()->email."' AND opex.deleted_at IS NULL
     GROUP BY 
         mitra.mitra_id,
-        mitra.nama,
+        pjub.nama,
         farm.farm_id,
         farm.nama_farm,
         farm.alamat_farm,
@@ -216,16 +216,33 @@ class OpexController extends \app\Http\Controllers\Controller
         return view('mitra/edit_opex')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('farms', $farms)->with('sikluses', $sikluses)->with('opexs', $opexs);
     }
     
-    public function update(Request $request)
+    public function update(Request $request, $opex_id)
     {
+        $siklus_id = request('siklus_id');
+        $this->validate(request(),[
+            'siklus_id' => 'required',
+            'opex' => 'required',
+            'harga' => '',
+            'jumlah' => '',
+            'satuan' => '',
+            'keterangan' => '',
+        ]);
+
+        $data = request()->all();
+
+        $opex = Opex::find($opex_id);
+        $opex->siklus_id = $data['siklus_id'];
+        $opex->opex = $data['opex'];
+        $opex->harga = $data['harga'];
+        $opex->jumlah = $data['jumlah'];
+        $opex->satuan = $data['satuan'];
+        $opex->keterangan = $data['keterangan'];
+
+        $opex->save();
         
-        // $request->validate([
-        //     'current_password' => ['required', new MatchOldPassword],
-        //     'new_password' => ['required'],
-        //     'new_confirm_password' => ['same:new_password'],
-        // ]);
-   
-        // User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        session()->flash('success', 'Data Harian Berhasil Diubah');
+        
+        return redirect('mitra/opex/'. $siklus_id .'/detail');
     }
 
     public function show()
@@ -245,7 +262,7 @@ class OpexController extends \app\Http\Controllers\Controller
 
         session()->flash('success', 'Data Berhasil Dihapus');
 
-        return redirect('/pjub/opex/'. $siklus_id .'/detail');
+        return redirect('/mitra/opex/'. $siklus_id .'/detail');
     }
 }
 

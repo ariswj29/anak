@@ -66,7 +66,7 @@
                                 </td>
                                 <td class="text-center">
                                 <a class="btn btn-info btn-sm my-1" href="/mitra/opex/{{ $record->opex_id }}/edit"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-danger btn-sm my-1" href="/mitra/opex/{{ $record->opex_id }}/{{ $record->opex_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
+                                <a class="btn btn-danger btn-sm my-1" href="/mitra/opex/{{ $record->opex_id }}/{{ $record->siklus_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             

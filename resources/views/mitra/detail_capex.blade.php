@@ -20,7 +20,7 @@
         
             <div class="card">
                 <div class="card-body">
-                <h5>Nama Farm : {{ $farm->nama_farm }}</h5> 
+                <h6>Nama Farm : {{ $farm->nama_farm }}</h6> 
                 @endforeach 
                 <div class="table-responsive-sm">
                     <!-- <h5>Hai</h5> -->
