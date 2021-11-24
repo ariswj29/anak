@@ -11,15 +11,6 @@
 @stop
 
 @section('content')
-    <div class="row ">
-        <div class="col offset-md-4">
-            <div class="card w-50" style="background-color:#007bff; color:white;">
-                <div class="card-body">
-                    <center><p class="mb-0">Tambah Data Konsumsi Pakan</p></center>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -66,7 +57,7 @@
             <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal" placeholder="Isi Tanggal" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
-            <br><button class="btn btn-success mt-2">Tambah Data</button>
+            <br><button class="btn btn-success mt-2">Simpan Data</button>
             <a href="/pjub/pakan" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>

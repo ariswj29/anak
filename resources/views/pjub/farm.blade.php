@@ -21,7 +21,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro;" href="/pjub/farm/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro;" href="/pjub/farm/tambah" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin menambah farm baru"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
                     <th class="header-tabel-data" scope="col">No.</th>
                     <th class="header-tabel-data" scope="col">Mitra</th>
                     <th class="header-tabel-data" scope="col">Nama Farm</th>
-                    <th class="header-tabel-data" scope="col">Alamat Farm</th>
+                    <th class="header-tabel-data" scope="col-3">Alamat Farm</th>
                     <!-- <th class="header-tabel-data" scope="col">No Handphone</th>
                     <th class="header-tabel-data" scope="col">Email</th> -->
                     <th class="header-tabel-data" scope="col">Mata Uang</th>
@@ -57,7 +57,7 @@
                     <td class="">
                         {{ $record->nama_farm }}
                     </td>
-                    <td class="">
+                    <td class="" scope="col-3">
                         {{ $record->alamat_farm }}
                     </td>
                     <td class="">
@@ -76,8 +76,8 @@
                         {{ $record->kapasitas_kandang_grower }}
                     </td>
                     <td class="">
-                        <a class="btn btn-info btn-sm my-1" href="/pjub/farm/{{ $record->farm_id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-sm my-1" href="/pjub/farm/{{ $record->farm_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
+                        <a class="btn btn-info btn-sm my-1" href="/pjub/farm/{{ $record->farm_id }}/edit" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin mengubah data farm"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm my-1" href="/pjub/farm/{{ $record->farm_id }}/delete" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin menghapus data mitra"onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach

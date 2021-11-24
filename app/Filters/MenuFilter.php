@@ -15,58 +15,11 @@ class MenuFilter implements FilterInterface
         if(isset($item['text'])){
             
             if($user->isAdmin()){
-                if($item['text']=='Dasbor'){
-                    return false;
-                }
-                if($item['text']=='Data Mitra'){
-                    return false;
-                }
-                if($item['text']=='Data Farm'){
-                    return false;
-                }
-                if($item['text']=='Data Siklus'){
-                    return false;
-                }
-                if($item['text']=='Data Konsumsi Pakan'){
-                    return false;
-                }
-                if($item['text']=='Data Konsumsi Minum'){
-                    return false;
-                }
-                if($item['text']=='Data Berat Ayam'){
-                    return false;
-                }
-                if($item['text']=='Data Vitamin'){
-                    return false;
-                }
-                if($item['text']=='Data Kematian'){
-                    return false;
-                }
-                if($item['text']=='Beranda'){
-                    return false;
-                }
-                if($item['text']=='Ternak'){
-                    return false;
-                }
-                if($item['text']=='Siklus'){
-                    return false;
-                }
-                if($item['text']=='Konsumsi Pakan'){
-                    return false;
-                }
-                if($item['text']=='Konsumsi Minum'){
-                    return false;
-                }
-                if($item['text']=='Berat Ayam'){
-                    return false;
-                }
-                if($item['text']=='Vitamin'){
-                    return false;
-                }
-                if($item['text']=='Kematian'){
-                    return false;
-                }
                 if($item['text']=='Update Harian'){
+                    return false;
+                }if($item['text']=='Home'){
+                    return false;
+                }if($item['text']=='Beranda'){
                     return false;
                 }elseif ($item['text']=='DATA UTAMA') {
                     return false;
@@ -125,6 +78,8 @@ class MenuFilter implements FilterInterface
                     return false;
                 }elseif ($item['text']=='DATA HARIAN'){
                     return false;
+                }elseif ($item['text']=='DATA KEUANGAN MITRA'){
+                    return false;
                 }
             }
             
@@ -171,6 +126,8 @@ class MenuFilter implements FilterInterface
                 }elseif ($item['text']=='DATA KEUANGAN FARM'){
                     return false;
                 }elseif ($item['text']=='DATA HARIAN FARM'){
+                    return false;
+                }elseif ($item['text']=='DATA KEUANGAN MITRA'){
                     return false;
                 }
             }

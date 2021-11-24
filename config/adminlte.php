@@ -253,12 +253,12 @@ return [
                     'icon' => 'fa fa-fw fa-users',
                 ],
                 [
-                    'text' => 'Person Responsible',
+                    'text' => 'PJUB',
                     'url'  => 'admin/pjub',
                     'icon' => 'fa fa-fw fa-user',
                 ],
                 [
-                    'text' => 'Partner',
+                    'text' => 'Mitra',
                     'url'  => 'admin/mitra',
                     'icon' => 'fa fa-fw fa-handshake',
                 ],
@@ -268,9 +268,39 @@ return [
                     'icon' => 'fas fa-fw fa-warehouse',
                 ],
                 [
-                    'text' => 'Cycle',
+                    'text' => 'Siklus',
                     'url'  => 'admin/siklus',
                     'icon' => 'fa fa-fw fa-th',
+                ],
+            ]
+        ],
+        [
+            'text' => 'DATA KEUANGAN MITRA',
+            'icon' => 'fa fa-fw fa-coins',
+            'submenu' => [
+                [
+                    'text' => 'Data Modal',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                    'shift'   => 'ml-2',
+                    'url'  => 'admin/capex',
+                    'icon' => 'fas fa-fw fa-donate',
+                ],
+                [
+                    'text' => 'Data Operasional',
+                    'url'  => 'admin/opex',
+                    'shift'   => 'ml-2',
+                    'icon' => 'fas fa-fw fa-dolly',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                ],
+                [
+                    'text' => 'Data Kas',
+                    'url'  => 'admin/kas',
+                    'shift'   => 'ml-2',
+                    'icon' => 'fas fa-fw fa-clipboard-check',
+                    'label'       => 'new',
+                    'label_color' => 'success',
                 ],
             ]
         ],
@@ -279,38 +309,32 @@ return [
             'icon'    => 'fas fa-fw fa-table',
             'submenu' => [
                 [
-                    'text' => 'Feed Consumption',
+                    'text' => 'Konsumsi Pakan',
                     'url'  => 'admin/pakan',
                     'icon' => 'fas fa-fw fa-box',
                 ],
                 [
-                    'text'  => 'Drink Consumption',
+                    'text'  => 'Konsumsi Minum',
                     'url'   => 'admin/minum',
                     'icon'  => 'fas fa-fw fa-prescription-bottle',
                 ],
                 [
-                    'text' => 'Average Weight',
+                    'text' => 'Rata-rata Bobot',
                     'url'  => 'admin/berat',
                     'icon' => 'fa fa-fw fa-weight',
                 ],
                 [
-                    'text' => 'Vitamins',
+                    'text' => 'Vitamin',
                     'url'  => 'admin/vitamin',
                     'icon' => 'fa fa-fw fa-prescription-bottle-alt',
                 ],
                 [
-                    'text' => 'Mortality',
+                    'text' => 'Kematian',
                     'url'  => 'admin/kematian',
                     'icon' => 'fa fa-fw fa-book-dead',
                 ],
-                
                 [
-                    'text' => 'Cash Book',
-                    'url'  => 'admin/kas',
-                    'icon' => 'fas fa-fw fa-file-invoice-dollar',
-                ],
-                [
-                    'text' => 'Document',
+                    'text' => 'Dokumen',
                     'url'  => 'admin/dokumen',
                     'icon' => 'fas fa-fw fa-file',
                 ],
@@ -339,7 +363,7 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Ternak',
+                    'text' => 'Farm',
                     'url'  => 'mitra/farm',
                     'icon' => 'fas fa-fw fa-warehouse',
                     'shift'   => 'ml-2',
@@ -399,7 +423,7 @@ return [
                     'shift'   => 'ml-2',
                 ],
                 [
-                    'text' => 'Berat Ayam',
+                    'text' => 'Bobot Ternak',
                     'url'  => 'mitra/berat',
                     'icon' => 'fa fa-fw fa-weight',
                     'shift'   => 'ml-2',
@@ -496,7 +520,7 @@ return [
                 'shift'   => 'ml-2',
             ],
             [
-                'text' => 'Data Berat Ayam',
+                'text' => 'Data Bobot Ternak',
                 'url'  => 'pjub/berat',
                 'icon' => 'fa fa-fw fa-weight',
                 'shift'   => 'ml-2',

@@ -79,6 +79,27 @@ Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/farm/{farm}/delete', [App\Http\Controllers\Admin\FarmController::class, 'destroy']);
 });
 
+// Capex Admin
+// Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/admin/capex', [App\Http\Controllers\Admin\CapexController::class, 'index'])->name('admin/capex');
+    Route::get('/admin/capex/{capex}/detail', [App\Http\Controllers\Admin\CapexController::class, 'detail'])->name('admin/detail_capex');
+    Route::get('/admin/capex/{farm}/tambah', [App\Http\Controllers\Admin\CapexController::class, 'create'])->name('admin/tambah_capex');
+    Route::post('/admin/capex/store', [App\Http\Controllers\Admin\CapexController::class, 'store'])->name('admin/tambah_capex');
+    Route::get('/admin/capex/{capex}/edit', [App\Http\Controllers\Admin\CapexController::class, 'edit'])->name('admin/edit_capex');
+    Route::post('/admin/capex/{capex}/update', [App\Http\Controllers\Admin\CapexController::class, 'update'])->name('admin/edit_capex');
+    Route::get('/admin/capex/{capex}/{farm}/delete', [App\Http\Controllers\Admin\CapexController::class, 'destroy']);
+// });
+
+// Opex Admin
+// Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/admin/opex', [App\Http\Controllers\Admin\OpexController::class, 'index'])->name('admin/opex');
+    Route::get('/admin/opex/{opex}/detail', [App\Http\Controllers\Admin\OpexController::class, 'detail'])->name('admin/detail_opex');
+    Route::get('/admin/opex/{siklus}/tambah', [App\Http\Controllers\Admin\OpexController::class, 'create'])->name('admin/tambah_opex');
+    Route::post('/admin/opex/store', [App\Http\Controllers\Admin\OpexController::class, 'store'])->name('admin/tambah_opex');
+    Route::get('/admin/opex/{opex}/edit', [App\Http\Controllers\Admin\OpexController::class, 'edit'])->name('admin/edit_opex');
+    Route::post('/admin/opex/{opex}/update', [App\Http\Controllers\Admin\OpexController::class, 'update'])->name('admin/edit_opex');
+    Route::get('/admin/opex/{opex}/{siklus}/delete', [App\Http\Controllers\Admin\OpexController::class, 'destroy']);
+// });
 
 // Siklus Admin
 Route::middleware(['auth','administrator'])->group(function () {

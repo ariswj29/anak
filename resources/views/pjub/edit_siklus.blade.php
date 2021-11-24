@@ -11,15 +11,6 @@
 @stop
 
 @section('content')
-<div class="row ">
-        <div class="col offset-md-4">
-            <div class="card w-50" style="background-color:#007bff; color:white;">
-                <div class="card-body">
-                    <center><p class="mb-0">Edit Data Siklus</p></center>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -73,7 +64,7 @@
             <input type="text" class="form-control" id="exampleControlInput1" name="supplier" value="{{ $sikluses->supplier }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
-            <br><button class="btn btn-success mt-2">Update Data</button>
+            <br><button class="btn btn-success mt-2">Perbarui Data</button>
             <a href="/pjub/siklus" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>

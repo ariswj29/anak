@@ -30,10 +30,11 @@
         <div class="col-md-2">
             <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/mitra/tambah" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin menambah mitra baru"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
-        <div class=""><i class="fas fa-info-circle" title="So nice to see you!"></i>
+        <!-- <div class=""><i class="fas fa-info-circle" title="So nice to see you!"></i> -->
         </div>
     </div>
 
+    <div class="table-responsive">
     <div class="row">
         <div class="col">
             <table class="table table-hover" border="1" cellspacing="0" cellpadding="0">
@@ -44,7 +45,7 @@
                     <th class="header-tabel-data" scope="col" >NIK</th>
                     <th class="header-tabel-data" scope="col" >Tempat Lahir</th>
                     <th class="header-tabel-data" scope="col" >Tanggal Lahir</th>
-                    <th class="header-tabel-data" scope="col" >Alamat</th>
+                    <th class="header-tabel-data" scope="col-2" >Alamat</th>
                     <th class="header-tabel-data" scope="col" >No HP</th>
                     <th class="header-tabel-data" scope="col" >Email</th>
                     <th class="header-tabel-data" scope="col" >Aksi</th>
@@ -68,7 +69,7 @@
                     <td class="">
                         {{ \Carbon\Carbon::parse($record->tanggal_lahir)->isoFormat('D MMMM Y') }}
                     </td>
-                    <td class="">
+                    <td class="" scope="col-2">
                         {{ $record->alamat }}
                     </td>
                     <td class="">
@@ -78,14 +79,15 @@
                         {{ $record->email }}
                     </td>
                     <td class="">
-                        <a class="btn btn-info btn-sm my-1" href="/pjub/mitra/{{ $record->mitra_id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-sm my-1" href="/pjub/mitra/{{ $record->mitra_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
+                        <a class="btn btn-info btn-sm my-1" href="/pjub/mitra/{{ $record->mitra_id }}/edit" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin mengubah data mitra"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm my-1" href="/pjub/mitra/{{ $record->mitra_id }}/delete" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin mennghapus data mitra" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 @stop
 

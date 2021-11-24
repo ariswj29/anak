@@ -9,7 +9,7 @@
 @if(auth()->user()->isAdmin())
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Dasbor</h1>
+    <h1 class="m-0 text-dark">Dashboard</h1>
 @stop
 
 @section('content')

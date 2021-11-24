@@ -21,7 +21,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/siklus/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/pjub/siklus/tambah" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin menambah siklus baru"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -70,8 +70,8 @@
                     {{ $record->supplier }}
                 </td>
                 <td>
-                    <a class="btn btn-info btn-sm my-1" href="/pjub/siklus/{{ $record->siklus_id }}/edit"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm my-1" href="/pjub/siklus/{{ $record->siklus_id }}/delete"><i class="fas fa-trash" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"></i></a>
+                    <a class="btn btn-info btn-sm my-1" href="/pjub/siklus/{{ $record->siklus_id }}/edit" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin mengubah data siklus"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm my-1" href="/pjub/siklus/{{ $record->siklus_id }}/delete" data-toggle="tooltip" data-placement="bottom" title="Isi ketika ingin menghapus data siklus"><i class="fas fa-trash" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"></i></a>
                 </td>
             </tr>
             @endforeach

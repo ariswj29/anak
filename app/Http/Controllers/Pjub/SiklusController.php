@@ -76,7 +76,7 @@ class SiklusController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."' "));
+            pjub.email = '".Auth::user()->email."' AND farm.deleted_at IS NULL "));
 
         return view('pjub/tambah_siklus')->with('farms', $farms)->with('mitras', $mitras);
     }

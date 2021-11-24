@@ -82,7 +82,7 @@ class IndexController extends \app\Http\Controllers\Controller
         LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
-    WHERE pjub.email = '".Auth::user()->email."'
+    WHERE pjub.email = '".Auth::user()->email."' AND siklus.deleted_at IS NULL
     GROUP BY
         mitra.mitra_id,
         farm.nama_farm,

@@ -36,7 +36,7 @@
                     <td class="header-tabel-data" scope="col">Jenis Pakan</td>
                     <td class="header-tabel-data" scope="col">Jumlah Pakan (kg)</td>
                     <td class="header-tabel-data" scope="col">Pakan yang digunakan (kg)</td>
-                    <td class="header-tabel-data" scope="col">Siklus</td>
+                    <td class="header-tabel-data" scope="col-5">Siklus</td>
                     <td class="header-tabel-data" scope="col">Aksi</td>
                 </tr>
             </thead>
@@ -63,8 +63,8 @@
                         {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                     </td>
                     <td>
-                        <a class="btn btn-info btn-sm" href="/pjub/pakan/{{ $record->pakan_id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-sm" href="/pjub/pakan/{{ $record->pakan_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
+                        <a class="btn btn-info btn-sm my-1" href="/pjub/pakan/{{ $record->pakan_id }}/edit"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm my-1" href="/pjub/pakan/{{ $record->pakan_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach
