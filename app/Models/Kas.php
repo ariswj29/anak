@@ -6,25 +6,41 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Kas extends Model
+class kas extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $primaryKey = 'kas_id';
+    protected $primaryKey = 'id';
     protected $table = 'kas';
 
     protected $fillable = [
-        'kas_id',
+        'id',
         'siklus_id',
         'tanggal',
-        'jenis_transaksi',
-        'kategori',
-        'nominal',
-        'catatan',
+        'nama',
+        'vol',
+        'satuan_id',
+        'harga_satuan',
+        'kategori_id',
+        'jenis_kategori_id',
+        'saldo',
+        'keterangan',
     ];
 
-    public function Siklus()
-    {
-        return $this->belongsTo(Siklus::class,'siklus_id');
-    }
+    // public function User()
+    // {
+    //    return $this->belongsTo(User::class,'id');
+    // }
+    // public function Farm()
+    // {
+    //     return $this->belongsTo(Mitra::class,'mitra_id');
+    // }
+    // public function Siklus()
+    // {
+    //     return $this->hasOne('app\models\Siklus', 'siklus_id');
+    // }
+
+    // function total_rows() {
+    //     return $this->db->get('farm')->num_rows();
+    //   }
 }

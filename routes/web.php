@@ -232,6 +232,18 @@ Route::get('/mitra/index', function() {
     Route::get('/mitra/opex/{opex}/{siklus}/delete', [App\Http\Controllers\Mitra\OpexController::class, 'destroy']);
 // });
 
+// Kas Mitra
+// Route::middleware(['auth','mitra'])->group(function () {
+    Route::get('/mitra/kas', [App\Http\Controllers\Mitra\KasController::class, 'index'])->name('mitra/kas');
+    Route::get('/mitra/kas/{siklus}/detail', [App\Http\Controllers\Mitra\KasController::class, 'detail'])->name('mitra/detail_kas');
+    Route::get('/mitra/kas/{siklus}/lpj', [App\Http\Controllers\Mitra\KasController::class, 'lpj'])->name('mitra/lpj_kas');
+    Route::get('/mitra/kas/{siklus}/tambah', [App\Http\Controllers\Mitra\KasController::class, 'create'])->name('mitra/tambah_kas');
+    Route::post('/mitra/kas/store', [App\Http\Controllers\Mitra\KasController::class, 'store'])->name('mitra/tambah_kas');
+    Route::get('/mitra/kas/{kas}/edit', [App\Http\Controllers\Mitra\KasController::class, 'edit'])->name('mitra/edit_kas');
+    Route::post('/mitra/kas/{kas}/update', [App\Http\Controllers\Mitra\KasController::class, 'update'])->name('mitra/edit_kas');
+    Route::get('/mitra/kas/{kas}/{siklus}/delete', [App\Http\Controllers\Mitra\KasController::class, 'destroy']);
+// });
+
 // Pakan Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/pakan', [App\Http\Controllers\Mitra\PakanController::class, 'index'])->name('mitra/pakan');

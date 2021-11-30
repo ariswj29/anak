@@ -226,11 +226,11 @@ return [
 
     'menu' => [
 
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'Cari',
-        ],
+        // // Sidebar items:
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'Cari',
+        // ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -398,7 +398,7 @@ return [
                 ],
                 [
                     'text' => 'Data Kas',
-                    'url'  => 'mitra/opex',
+                    'url'  => 'mitra/kas',
                     'shift'   => 'ml-2',
                     'icon' => 'fas fa-fw fa-clipboard-check',
                     'label'       => 'new',
