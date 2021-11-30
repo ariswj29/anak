@@ -49,7 +49,7 @@ jobs:
         script: | 
           cd /usr/share/nginx/www/anak
           sudo chmod -R 777 storage 
-          composer install
+          php74 composer.phar install
 #          git pull origin master
 #          git status
           
