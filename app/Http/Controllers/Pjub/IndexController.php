@@ -61,6 +61,7 @@ class IndexController extends \app\Http\Controllers\Controller
         
         $summary = \DB::select(\DB::raw(" 
     SELECT
+        row_number() over(ORDER BY siklus.siklus_id DESC),
         mitra.mitra_id,
         farm.nama_farm,
         farm.alamat_farm,

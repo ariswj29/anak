@@ -61,7 +61,8 @@ class OpexController extends \app\Http\Controllers\Controller
         }
         
         $summary = \DB::select(\DB::raw(" 
-    SELECT
+    SELECT ROW_NUMBER
+        ( ) OVER ( ORDER BY siklus.siklus_id DESC ),
         mitra.mitra_id,
         siklus.nama_siklus,
         farm.nama_farm,
