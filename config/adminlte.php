@@ -354,6 +354,8 @@ return [
                     'url'  => 'admin/penjualan',
                     'icon' => 'fas fa-fw fa-store',
                     'shift'   => 'ml-2',
+                    'label'       => 'new',
+                    'label_color' => 'success',
                 ],
             ],
         ],
