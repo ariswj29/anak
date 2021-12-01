@@ -351,7 +351,7 @@ return [
                 // ],
                 [
                     'text' => 'Penjualan',
-                    'url'  => 'admin/pemasaran',
+                    'url'  => 'admin/penjualan',
                     'icon' => 'fas fa-fw fa-store',
                     'shift'   => 'ml-2',
                 ],

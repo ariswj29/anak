@@ -164,7 +164,7 @@ Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kematian/{kematian}/delete', [App\Http\Controllers\Admin\KematianController::class, 'destroy']);
 });
 
-// Buku Kas
+// Buku Kas Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kas', [App\Http\Controllers\Admin\KasController::class, 'index'])->name('admin/kas');
     Route::get('/admin/kas/tambah', [App\Http\Controllers\Admin\KasController::class, 'create'])->name('admin/tambah_kas');
@@ -172,6 +172,16 @@ Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kas/{kas}/edit', [App\Http\Controllers\Admin\KasController::class, 'edit'])->name('admin/edit_kas');
     Route::post('/admin/kas/{kas}/update', [App\Http\Controllers\Admin\KasController::class, 'update'])->name('admin/edit_kas');
     Route::get('/admin/kas/{kas}/delete', [App\Http\Controllers\Admin\KasController::class, 'destroy']);
+});
+
+// Penjualan Admin
+Route::middleware(['auth','administrator'])->group(function () {
+    Route::get('/admin/penjualan', [App\Http\Controllers\Admin\PenjualanController::class, 'index'])->name('admin/penjualan');
+    Route::get('/admin/penjualan/tambah', [App\Http\Controllers\Admin\PenjualanController::class, 'create'])->name('admin/tambah_penjualan');
+    Route::post('/admin/penjualan/store', [App\Http\Controllers\Admin\PenjualanController::class, 'store'])->name('admin/tambah_penjualan');
+    Route::get('/admin/penjualan/{penjualan}/edit', [App\Http\Controllers\Admin\PenjualanController::class, 'edit'])->name('admin/edit_penjualan');
+    Route::post('/admin/penjualan/{penjualan}/update', [App\Http\Controllers\Admin\PenjualanController::class, 'update'])->name('admin/edit_penjualan');
+    Route::get('/admin/penjualan/{penjualan}/delete', [App\Http\Controllers\Admin\PenjualanController::class, 'destroy']);
 });
 
 Route::get('/admin/dokumen', [App\Http\Controllers\Admin\DokumenController::class, 'index'])->name('admin/dokumen');
