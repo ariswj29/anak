@@ -69,10 +69,10 @@
                                     {{ $record->kategori }}
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($record->pemasukan, 0, ',', '.' ) }}
+                                    {{ number_format($record->pemasukans, 0, ',', '.' ) }}
                                 </td>
                                 <td class="text-center">
-                                    {{ number_format($record->pengeluaran, 0, ',', '.' ) }}
+                                    {{ number_format($record->pengeluarans, 0, ',', '.' ) }}
                                 </td>
                                 <td class="text-right"> 
                                     {{ number_format($record->jml_saldo, 0, ',', '.' ) }}

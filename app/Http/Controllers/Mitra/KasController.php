@@ -127,16 +127,17 @@ class KasController extends \app\Http\Controllers\Controller
         kas.harga_satuan,
         kategori.kategori,
     --         jenis_transaksi.jenis_transaksi,
-        CASE
-            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
-            saldo ELSE 0 
-        END  as pengeluaran,
-            
         CASE 
             WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
             saldo ELSE 0 
-        END as pemasukan,
-        ( saldo ) as jml_saldo,
+        END as pemasukans,
+
+        CASE
+            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
+            saldo ELSE 0 
+        END  as pengeluarans,
+        
+        ( saldo - (kas.vol * kas.harga_satuan ) + (kas.vol * kas.harga_satuan ) ) as jml_saldo,
         kas.keterangan 
     FROM
         kas
@@ -227,18 +228,27 @@ class KasController extends \app\Http\Controllers\Controller
     WHERE
         siklus.siklus_id = $siklus_id"));
 
+        $kategories = \DB::select(\DB::raw("
+    SELECT
+        kategori.kategori_id,
+        kategori.kategori,
+        CASE
+            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
+            saldo ELSE 0 
+        END  as pengeluaran,
+            
+        CASE 
+            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
+            saldo ELSE 0 
+        END as pemasukan,
+    FROM
+        kategori"));
         $satuanes = \DB::select(\DB::raw("
     SELECT
         satuan.satuan_id,
         satuan.satuan
     FROM
         satuan"));
-        $kategories = \DB::select(\DB::raw("
-    SELECT
-        kategori.kategori_id,
-        kategori.kategori
-    FROM
-        kategori"));
         $transaksies = \DB::select(\DB::raw("
     SELECT
         jenis_transaksi.jenis_transaksi_id,

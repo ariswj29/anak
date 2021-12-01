@@ -299,8 +299,8 @@ return [
                     'url'  => 'admin/kas',
                     'shift'   => 'ml-2',
                     'icon' => 'fas fa-fw fa-clipboard-check',
-                    'label'       => 'new',
-                    'label_color' => 'success',
+                    'label'       => 'Pengembangan',
+                    'label_color' => 'warning',
                 ],
             ]
         ],
