@@ -3,7 +3,7 @@
 @section('title', 'Tambah Data Konsumsi Pakan | Aplikasi Ternak')
 
 @section('css')
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')

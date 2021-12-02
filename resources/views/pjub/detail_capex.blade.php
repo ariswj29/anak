@@ -3,7 +3,7 @@
 @section('title', 'Aplikasi Ternak')
 
 @section('css')
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @if(auth()->user()->isPjub())
