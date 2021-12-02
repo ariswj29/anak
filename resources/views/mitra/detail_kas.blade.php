@@ -81,7 +81,6 @@
                                     {{ $record->keterangan }}
                                 </td>
                                 <td class="text-center">
-                                <a class="btn btn-success btn-sm my-1" href="/mitra/kas/{{ $record->id }}/lpj"><i class="fas fa-print"></i></a>
                                 <a class="btn btn-info btn-sm my-1" href="/mitra/kas/{{ $record->id }}/edit"><i class="fas fa-edit"></i></a>
                                 <a class="btn btn-danger btn-sm my-1" href="/mitra/kas/{{ $record->id }}/{{ $record->siklus_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                                 </td>

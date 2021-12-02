@@ -360,6 +360,16 @@ Route::get('/mitra/index', function() {
     Route::get('/pjub/opex/{opex}/{siklus}/delete', [App\Http\Controllers\Pjub\OpexController::class, 'destroy']);
 // });
 
+// Penjualan PJUB
+// Route::middleware(['auth','pjub'])->group(function () {
+    Route::get('/pjub/penjualan', [App\Http\Controllers\Pjub\PenjualanController::class, 'index'])->name('pjub/penjualan');
+    Route::get('/pjub/penjualan/tambah', [App\Http\Controllers\Pjub\PenjualanController::class, 'create'])->name('pjub/tambah_penjualan');
+    Route::post('/pjub/penjualan/store', [App\Http\Controllers\Pjub\PenjualanController::class, 'store'])->name('pjub/tambah_penjualan');
+    Route::get('/pjub/penjualan/{penjualan}/edit', [App\Http\Controllers\Pjub\PenjualanController::class, 'edit'])->name('pjub/edit_penjualan');
+    Route::post('/pjub/penjualan/{penjualan}/update', [App\Http\Controllers\Pjub\PenjualanController::class, 'update'])->name('pjub/edit_penjualan');
+    Route::get('/pjub/penjualan/{penjualan}/delete', [App\Http\Controllers\Pjub\PenjualanController::class, 'destroy']);
+// });
+
 // Siklus PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/siklus', [App\Http\Controllers\Pjub\SiklusController::class, 'index'])->name('pjub/siklus');

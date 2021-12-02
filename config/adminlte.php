@@ -147,8 +147,8 @@ return [
 
     'sidebar_mini' => 'lg',
     'sidebar_collapse' => false,
-    'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_auto_size' => true,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
@@ -230,6 +230,7 @@ return [
         [
             'type' => 'sidebar-menu-search',
             'text' => 'Cari',
+            // 'color' => 'grey',
         ],
         [
             'text' => 'blog',
@@ -418,6 +419,14 @@ return [
                     'label'       => 'new',
                     'label_color' => 'success',
                 ],
+                [
+                    'text' => 'Penjualan',
+                    'url'  => 'mitra/penjualan',
+                    'icon' => 'fas fa-fw fa-store',
+                    'shift'   => 'ml-2',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                ],
             ],
         ],
         [
@@ -514,6 +523,14 @@ return [
                     'icon' => 'fas fa-fw fa-clipboard-check',
                     'label'       => 'pengembangan',
                     'label_color' => 'warning',
+                ],
+                [
+                    'text' => 'Penjualan',
+                    'url'  => 'pjub/penjualan',
+                    'icon' => 'fas fa-fw fa-store',
+                    'shift'   => 'ml-2',
+                    'label'       => 'new',
+                    'label_color' => 'success',
                 ],
             ],
         ],
