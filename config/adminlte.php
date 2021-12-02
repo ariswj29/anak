@@ -227,10 +227,10 @@ return [
     'menu' => [
 
         // // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'Cari',
-        // ],
+        [
+            'type' => 'sidebar-menu-search',
+            'text' => 'Cari',
+        ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -679,6 +679,7 @@ return [
         'default_tab' => [
             'url' => null,
             'title' => null,
+
         ],
         'buttons' => [
             'close' => true,
