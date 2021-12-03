@@ -164,14 +164,16 @@ Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kematian/{kematian}/delete', [App\Http\Controllers\Admin\KematianController::class, 'destroy']);
 });
 
-// Buku Kas Admin
+// Kas Mitra
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kas', [App\Http\Controllers\Admin\KasController::class, 'index'])->name('admin/kas');
-    Route::get('/admin/kas/tambah', [App\Http\Controllers\Admin\KasController::class, 'create'])->name('admin/tambah_kas');
+    Route::get('/admin/kas/{siklus}/detail', [App\Http\Controllers\Admin\KasController::class, 'detail'])->name('admin/detail_kas');
+    Route::get('/admin/kas/{siklus}/lpj', [App\Http\Controllers\Admin\KasController::class, 'lpj'])->name('admin/lpj_kas');
+    Route::get('/admin/kas/{siklus}/tambah', [App\Http\Controllers\Admin\KasController::class, 'create'])->name('admin/tambah_kas');
     Route::post('/admin/kas/store', [App\Http\Controllers\Admin\KasController::class, 'store'])->name('admin/tambah_kas');
     Route::get('/admin/kas/{kas}/edit', [App\Http\Controllers\Admin\KasController::class, 'edit'])->name('admin/edit_kas');
     Route::post('/admin/kas/{kas}/update', [App\Http\Controllers\Admin\KasController::class, 'update'])->name('admin/edit_kas');
-    Route::get('/admin/kas/{kas}/delete', [App\Http\Controllers\Admin\KasController::class, 'destroy']);
+    Route::get('/admin/kas/{kas}/{siklus}/delete', [App\Http\Controllers\Admin\KasController::class, 'destroy']);
 });
 
 // Penjualan Admin
@@ -368,6 +370,18 @@ Route::get('/mitra/index', function() {
     Route::get('/pjub/opex/{opex}/edit', [App\Http\Controllers\Pjub\OpexController::class, 'edit'])->name('pjub/edit_opex');
     Route::post('/pjub/opex/{opex}/update', [App\Http\Controllers\Pjub\OpexController::class, 'update'])->name('pjub/edit_opex');
     Route::get('/pjub/opex/{opex}/{siklus}/delete', [App\Http\Controllers\Pjub\OpexController::class, 'destroy']);
+// });
+
+// Kas PJUB
+// Route::middleware(['auth','pjub'])->group(function () {
+    Route::get('/pjub/kas', [App\Http\Controllers\Pjub\KasController::class, 'index'])->name('pjub/kas');
+    Route::get('/pjub/kas/{siklus}/detail', [App\Http\Controllers\Pjub\KasController::class, 'detail'])->name('pjub/detail_kas');
+    Route::get('/pjub/kas/{siklus}/lpj', [App\Http\Controllers\Pjub\KasController::class, 'lpj'])->name('pjub/lpj_kas');
+    Route::get('/pjub/kas/{siklus}/tambah', [App\Http\Controllers\Pjub\KasController::class, 'create'])->name('pjub/tambah_kas');
+    Route::post('/pjub/kas/store', [App\Http\Controllers\Pjub\KasController::class, 'store'])->name('pjub/tambah_kas');
+    Route::get('/pjub/kas/{kas}/edit', [App\Http\Controllers\Pjub\KasController::class, 'edit'])->name('pjub/edit_kas');
+    Route::post('/pjub/kas/{kas}/update', [App\Http\Controllers\Pjub\KasController::class, 'update'])->name('pjub/edit_kas');
+    Route::get('/pjub/kas/{kas}/{siklus}/delete', [App\Http\Controllers\Pjub\KasController::class, 'destroy']);
 // });
 
 // Penjualan PJUB

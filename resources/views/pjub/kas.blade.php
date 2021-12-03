@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
-@if(auth()->user()->isAdmin())
+@if(auth()->user()->isPjub())
 
 @section('content_header')
     <h1 class="m-0 text-dark">Buku Kas</h1>
@@ -46,7 +46,7 @@
                 </div>
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
-                <center><a href="/admin/kas/{{ $sum->siklus_id }}/detail" class="btn btn-primary">Detail Buku Kas</a></center>
+                <center><a href="/pjub/kas/{{ $sum->siklus_id }}/detail" class="btn btn-primary">Detail Buku Kas</a></center>
             </div>
         </div>
         @endforeach

@@ -1,25 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Data Kas | Aplikasi Ternak')
+@section('title', '  Aplikasi Ternak | Tambah Data Kas')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Buku Kas</h1>
+    <h1 class="m-0 text-dark">Tambah Data Kas</h1>
 @stop
 
 @section('content')
-    <div class="row ">
-        <div class="col offset-md-4">
-            <div class="card w-50" style="background-color:#007bff;">
-                <div class="card-body">
-                    <center><p class="mb-0">Tambah Data Buku Kas</p></center>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -34,48 +25,87 @@
     @endif
 
     <form action="/admin/kas/store" method="POST">
-	@csrf
+		@csrf
     <div class="card-body">
-      <div class="row">
-        <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Kas ID</label>
-            <input type="number" class="form-control" id="exampleControlInput1" name="kas_id" placeholder="Masukan Kas ID">
-        </div>
+      <div class="row"> 
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Siklus</label>
-            <!-- <input type="number" class="form-control" id="exampleControlInput1" name="siklus_id" placeholder="Masukan Siklus ID"> -->
-            <select name="siklus_id" class="form-control" id="exampleControlInput1">
-                <option value="" selected disabled>Pilih Siklus </option>
+            <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($sikluses as $siklus)
-                    <option value="{{ $siklus->siklus_id }}"> {{ $siklus->nama_siklus }} </option>
+                    <option value="{{ $siklus->siklus_id }}">
+                        {{ $siklus->nama_siklus }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Jenis Transaksi</label>
+            <select name="jenis_transaksi_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+                @foreach ($transaksies as $transaksi)
+                    <option value="{{ $transaksi->jenis_transaksi_id }}">
+                        {{ $transaksi->jenis_transaksi }} 
+                    </option>
                 @endforeach
             </select>
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-            <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal" placeholder="Masukan Tanggal">
+            <input type="date" class="form-control" id="exampleControlInput1" name="tanggal" placeholder="Isi Perlengkapan!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jenis Transaksi</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="jenis_transaksi" placeholder="Masukan Jenis Transaksi">
+            <label for="exampleFormControlInput1" class="form-label">Uraian</label>
+            <input type="text" class="form-control" id="exampleControlInput1" name="nama" placeholder="Isi Uraian!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+        </div>
+        <div class="col-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Volume</label>
+            <input type="number" class="form-control" id="exampleControlInput1" name="vol" placeholder="Isi Vol!">
+        </div>
+        <div class="col-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Satuan</label>
+            <select name="satuan_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+                @foreach ($satuanes as $satuan)
+                    <option value="{{ $satuan->satuan_id }}">
+                        {{ $satuan->satuan }} 
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Harga Satuan</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" name="harga_satuan" placeholder="Isi Harga Satuan">
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Kategori</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="kategori" placeholder="Masukan Kategori">
+            <select name="kategori_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+                @foreach ($kategories as $kategori)
+                    <option value="{{ $kategori->kategori_id }}">
+                        {{ $kategori->kategori }} 
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <!-- <div class="col-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Pengeluaran</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Isi Keterangan">
         </div>
         <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nominal</label>
-            <input type="number" class="form-control" id="exampleControlInput1" name="nominal" placeholder="Masukan Nominal">
+            <label for="exampleFormControlInput1" class="form-label">Pemasukan</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Isi Keterangan">
+        </div> -->
+        <div class="col-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="saldo" placeholder="Isi Jumlah dari harga satuan">
         </div>
         <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Catatan</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="catatan" placeholder="Masukan Catatan">
+            <label for="exampleFormControlInput1" class="form-label">Keterangan</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Jika perlu isi Keterangan!">
         </div>
         <div class="col-6 mb-3">
-            <br><button class="btn btn-success mt-2">Tambah Data</button>
-            <a href="/admin/kas" class="btn btn-danger mt-2 ml-2">Kembali</a>
+            <button class="btn btn-success mt-2">Simpan Data</button>
+            <a href="/admin/kas/{{ $siklus->siklus_id }}/detail" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>
     </div>
 	</form>
-@stop
+    @stop
+    

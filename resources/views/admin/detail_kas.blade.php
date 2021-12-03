@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
-@if(auth()->user()->isMitra())
+@if(auth()->user()->isAdmin())
 
 @section('content_header')
     <h1 class="m-0 text-dark">Detail Kas</h1>
@@ -15,7 +15,7 @@
 @section('content')
 <div class="detail-mitra">
     @foreach ($sikluses as $siklus) 
-        <a href="/mitra/kas/{{ $siklus->siklus_id }}/tambah" class="btn btn-primary">Tambah Data Kas</a>
+        <a href="/admin/kas/{{ $siklus->siklus_id }}/tambah" class="btn btn-primary">Tambah Data Kas</a>
         <p>
         
             <div class="card">
@@ -81,8 +81,8 @@
                                     {{ $record->keterangan }}
                                 </td> -->
                                 <td class="text-center">
-                                <a class="btn btn-info btn-sm my-1" href="/mitra/kas/{{ $record->id }}/edit"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-danger btn-sm my-1" href="/mitra/kas/{{ $record->id }}/{{ $record->siklus_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
+                                <a class="btn btn-info btn-sm my-1" href="/admin/kas/{{ $record->id }}/edit"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger btn-sm my-1" href="/admin/kas/{{ $record->id }}/{{ $record->siklus_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             

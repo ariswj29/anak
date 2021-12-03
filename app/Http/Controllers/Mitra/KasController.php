@@ -82,6 +82,7 @@ class KasController extends \app\Http\Controllers\Controller
             WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
             saldo ELSE 0 
         END  as pengeluaran,
+        kas.saldo,
         pjub.nama
     FROM
         siklus
@@ -91,7 +92,7 @@ class KasController extends \app\Http\Controllers\Controller
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
         LEFT JOIN kas ON kas.id = kas.siklus_id
         LEFT JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id
-    WHERE mitra.email =  '".Auth::user()->email."' AND opex.deleted_at IS NULL
+    WHERE mitra.email =  '".Auth::user()->email."' AND kas.deleted_at IS NULL
     GROUP BY 
         mitra.mitra_id,
         pjub.nama,
@@ -108,26 +109,12 @@ class KasController extends \app\Http\Controllers\Controller
             WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
             saldo ELSE 0 
         END ,
+        kas.saldo,
         farm.mata_uang"
         ));
 
-        $summarys=[]; 
-        $i=0;
-        // $a=0;
-        // $saldoPrevTest = $summarys[0]->saldo;    
-        $saldoPrev=0;
-        foreach ($summary as $s ) {
-            if($i!==0){
-                $saldoPrev = $summarys[($i-1)]->saldo;    
-                // $saldoPrevTest = $summarys[0]->saldo;    
-            }
-            $sTmp = json_decode(json_encode($s), true);
-            $sTmp['saldo']=$sTmp['pemasukan']-$sTmp['pengeluaran']+$saldoPrev; 
-            $summarys[]=(object)$sTmp; 
-            $i++;
-        }
 
-        return view('mitra/kas')->with('summary', $summarys);
+        return view('mitra/kas')->with('summary', $summary);
     }
 
     public function detail($siklus_id)
@@ -148,7 +135,7 @@ class KasController extends \app\Http\Controllers\Controller
 
         $recording = \DB::select(\DB::raw(" 
     SELECT ROW_NUMBER
-        ( ) OVER ( ORDER BY kas.ID ASC ) AS NO,
+        ( ) OVER ( ORDER BY kas.tanggal ASC ) AS NO,
         siklus.siklus_id,
         kas.ID,
         kas.tanggal,
