@@ -30,7 +30,7 @@
                         <tr class="thead">
                             <th class="header-tabel-data" scope="col" >No</th>
                             <th class="header-tabel-data text-center" scope="col" >Tanggal</th>
-                            <th class="header-tabel-data text-center" scope="col" >Nama</th>
+                            <th class="header-tabel-data text-center" scope="col" >Uraian</th>
                             <th class="header-tabel-data text-center" scope="col" >Vol</th>
                             <th class="header-tabel-data text-center" scope="col" >Satuan</th>
                             <th class="header-tabel-data text-center" scope="col" >Harga Satuan</th>
@@ -38,7 +38,7 @@
                             <th class="header-tabel-data text-center" scope="col" >Debit</th>
                             <th class="header-tabel-data text-center" scope="col" >Kredit</th>
                             <th class="header-tabel-data text-center" scope="col" >Saldo</th>
-                            <th class="header-tabel-data text-center" scope="col" >Ket</th>
+                            <!-- <th class="header-tabel-data text-center" scope="col" >Ket</th> -->
                             <th class="header-tabel-data" scope="col" >Aksi</th>
                         </tr>
                     </thead>
@@ -69,17 +69,17 @@
                                     {{ $record->kategori }}
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($record->pemasukans, 0, ',', '.' ) }}
+                                    {{ number_format($record->pemasukan, 0, ',', '.' ) }}
                                 </td>
                                 <td class="text-center">
-                                    {{ number_format($record->pengeluarans, 0, ',', '.' ) }}
+                                    {{ number_format($record->pengeluaran, 0, ',', '.' ) }}
                                 </td>
                                 <td class="text-right"> 
-                                    {{ number_format($record->jml_saldo, 0, ',', '.' ) }}
+                                    {{ number_format($record->saldo, 0, ',', '.' ) }}
                                 </td>
-                                <td class="text">
+                                <!-- <td class="text">
                                     {{ $record->keterangan }}
-                                </td>
+                                </td> -->
                                 <td class="text-center">
                                 <a class="btn btn-info btn-sm my-1" href="/mitra/kas/{{ $record->id }}/edit"><i class="fas fa-edit"></i></a>
                                 <a class="btn btn-danger btn-sm my-1" href="/mitra/kas/{{ $record->id }}/{{ $record->siklus_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>

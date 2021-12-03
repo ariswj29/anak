@@ -1,9 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Penjualan | Aplikasi Ternak')
+@section('title', ' Aplikasi Ternak | Penjualan')
 
 @section('css')
+    <meta charset="utf-8" >
+    <meta name="author" content="GOYANG DUMET">
+    <meta http-equiv="Content-Type" content="text/html">
+    <!-- CSS -->
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
+	<link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=2.1.5" media="screen">
+	<!-- Selector -->
+@stop
+
+@section('js')
+    <!-- Jquery -->
+    <script type="text/javascript" src="/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.fancybox.js?v=2.1.5"></script>
 @stop
 
 @section('content_header')
@@ -21,7 +33,7 @@
 
     <div class="row justify-content-between mt-2">
         <div class="col-md-2">
-            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/admin/penjualan/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
+            <a class="btn btn-success mb-2" style=" font-family: Source Sans Pro"; href="/mitra/penjualan/tambah"><i class="fas fa-plus"></i> Tambah Data</i></a>
         </div>
     </div>
 
@@ -42,33 +54,35 @@
                 </thead>
                 <tbody> 
                 <?php $no=1;?>
-                    @foreach ($penjualans as $penjualan)
+                    @foreach ($recording as $record)
                     <tr>
                         <td class="px-6 py-3 leading-6 text-center whitespace-nowrap">
                             
                             {{ $no }}
                         </td>
                         <td>
-                            {{ $penjualan->siklus->nama_siklus }} - {{ $penjualan->siklus->farm->nama_farm }} - {{ $penjualan->siklus->farm->mitra->nama }}
+                            {{ $record->nama_siklus }} - {{ $record->nama_farm }} 
                         </td>
                         <td>
-                            {{ $penjualan->tanggal }}
+                            {{ $record->tanggal }}
                         </td>
                         <td>
-                            {{ $penjualan->jumlah }}
+                            {{ $record->jumlah }}
                         </td>
                         <td>
-                            {{ $penjualan->bobot_jual }}
+                            {{ $record->bobot_jual }}
                         </td>
                         <td>
-                            {{ $penjualan->jumlah_nominal }}
+                            {{ $record->jumlah_nominal }}
                         </td>
                         <td>
-                            <img src="{{ asset('images/'.$penjualan->foto) }}" style="width: 120px; height: 100px;" alt="">
+                            <a href="{{ asset('images/'.$record->foto) }}" style="width: 300px; height: 300px;" class="perbesar">
+                                <img src="{{ asset('images/'.$record->foto) }}" style="width: 50px; height: 50px;" alt="">
+                            </a>
                         </td>
                         <td>
-                            <a class="btn btn-info btn-sm my-1" href="/admin/penjualan/{{ $penjualan->penjualan_id }}/edit"><i class="fas fa-edit"></i></a>
-                            <a class="btn btn-danger btn-sm" href="/admin/penjualan/{{ $penjualan->penjualan_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>  
+                            <a class="btn btn-info btn-sm my-1" href="/mitra/penjualan/{{ $record->penjualan_id }}/edit"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger btn-sm" href="/mitra/penjualan/{{ $record->penjualan_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>  
                         </td>
                     </tr>
                     <?php $no++ ;?>
@@ -78,3 +92,9 @@
         </div>
     </div>
 @stop
+
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$(".perbesar").fancybox();
+		})
+	</script>

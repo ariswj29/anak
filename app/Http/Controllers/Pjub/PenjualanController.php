@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use File;
+use Auth;
 
 class PenjualanController extends Controller
 {
@@ -19,10 +20,31 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        $penjualans = Penjualan::all();
         $sikluses = Siklus::all();
+        $recording = \DB::select(\DB::raw("
+        SELECT 
+            ROW_NUMBER ( ) OVER ( ORDER BY penjualan.tanggal ASC ) AS NO,
+            penjualan.penjualan_id,
+            penjualan.jumlah,
+            penjualan.bobot_jual,
+            siklus.nama_siklus,
+            siklus.siklus_id,
+            farm.nama_farm,
+            mitra.nama,
+            penjualan.jumlah_nominal,
+            penjualan.tanggal, 
+            penjualan.foto 
+        FROM
+            penjualan
+            JOIN siklus ON penjualan.siklus_id = siklus.siklus_id
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        WHERE
+            pjub.email = '".Auth::user()->email."'
+            and penjualan.deleted_at IS Null"));
 
-        return view('pjub/penjualan')->with(array('penjualans'=> $penjualans, 'sikluses'=> $sikluses));
+        return view('pjub/penjualan')->with(array('recording'=> $recording, 'sikluses'=> $sikluses));
     }
 
     /**
@@ -32,8 +54,22 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        $penjualans = Penjualan::all();
-        return view('pjub/tambah_penjualan')->with('penjualans', $penjualans)->with('sikluses', siklus::all());
+        $sikluses = \DB::select(\DB::raw("
+        SELECT
+            siklus.nama_siklus,
+            siklus.siklus_id,
+            farm.nama_farm,
+            mitra.nama 
+        FROM
+            siklus
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        WHERE
+            pjub.email = '".Auth::user()->email."' "));
+        // var_dump($sikluses);
+        // die;    
+        return view('pjub/tambah_penjualan')->with('sikluses', $sikluses);
     }
 
     /**
@@ -98,7 +134,20 @@ class PenjualanController extends Controller
     public function edit($penjualan_id)
     {
         $penjualans = Penjualan::find($penjualan_id);
-        $sikluses = Siklus::all();
+        $sikluses = \DB::select(\DB::raw("
+        SELECT
+            siklus.nama_siklus,
+            siklus.siklus_id,
+            farm.nama_farm,
+            mitra.nama 
+        FROM
+            penjualan
+            JOIN siklus on penjualan.siklus_id = siklus.siklus_id
+            JOIN farm ON siklus.farm_id = farm.farm_id
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+            JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        WHERE
+            penjualan.penjualan_id = $penjualan_id "));
         
         return view('pjub/edit_penjualan')->with('penjualans', $penjualans)->with('sikluses', $sikluses);
     }

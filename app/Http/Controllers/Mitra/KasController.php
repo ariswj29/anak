@@ -73,10 +73,16 @@ class KasController extends \app\Http\Controllers\Controller
         siklus.siklus_id,
         farm.mata_uang,
         farm.alamat_farm,
-        pjub.nama,
-        SUM ( opex.harga ) jml_harga,
-        SUM ( opex.jumlah ) jml_jumlah,
-        SUM ( kas.saldo * opex.jumlah ) jml_total
+        CASE 
+            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
+            saldo ELSE 0 
+        END as pemasukan,
+
+        CASE
+            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
+            saldo ELSE 0 
+        END  as pengeluaran,
+        pjub.nama
     FROM
         siklus
         LEFT JOIN opex ON ( siklus.siklus_id = opex.siklus_id )  
@@ -84,6 +90,7 @@ class KasController extends \app\Http\Controllers\Controller
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
         LEFT JOIN kas ON kas.id = kas.siklus_id
+        LEFT JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id
     WHERE mitra.email =  '".Auth::user()->email."' AND opex.deleted_at IS NULL
     GROUP BY 
         mitra.mitra_id,
@@ -93,10 +100,34 @@ class KasController extends \app\Http\Controllers\Controller
         farm.alamat_farm,
         siklus.nama_siklus,
         siklus.siklus_id,
+        CASE 
+            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
+            saldo ELSE 0 
+        END,
+        CASE
+            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
+            saldo ELSE 0 
+        END ,
         farm.mata_uang"
         ));
 
-        return view('mitra/kas')->with('summary', $summary);
+        $summarys=[]; 
+        $i=0;
+        // $a=0;
+        // $saldoPrevTest = $summarys[0]->saldo;    
+        $saldoPrev=0;
+        foreach ($summary as $s ) {
+            if($i!==0){
+                $saldoPrev = $summarys[($i-1)]->saldo;    
+                // $saldoPrevTest = $summarys[0]->saldo;    
+            }
+            $sTmp = json_decode(json_encode($s), true);
+            $sTmp['saldo']=$sTmp['pemasukan']-$sTmp['pengeluaran']+$saldoPrev; 
+            $summarys[]=(object)$sTmp; 
+            $i++;
+        }
+
+        return view('mitra/kas')->with('summary', $summarys);
     }
 
     public function detail($siklus_id)
@@ -130,14 +161,13 @@ class KasController extends \app\Http\Controllers\Controller
         CASE 
             WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
             saldo ELSE 0 
-        END as pemasukans,
+        END as pemasukan,
 
         CASE
             WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
             saldo ELSE 0 
-        END  as pengeluarans,
-        
-        ( saldo - (kas.vol * kas.harga_satuan ) + (kas.vol * kas.harga_satuan ) ) as jml_saldo,
+        END  as pengeluaran,
+        -- ( saldo - (kas.vol * kas.harga_satuan ) + (kas.vol * kas.harga_satuan ) ) as jml_saldo,
         kas.keterangan 
     FROM
         kas
@@ -159,61 +189,79 @@ class KasController extends \app\Http\Controllers\Controller
         // $kematian = Kematian::where('siklus_id', $siklus_id)->first();
         // $minum = Minum::where('siklus_id', $siklus_id)->first();
         // $vitamin = Vitamin::where('siklus_id', $siklus_id)->first();
-
-        return view('mitra/detail_kas')->with('pjub', $pjub)->with('mitras', $mitras)->with('recording', $recording)->with('sikluses', $sikluses);
+        // var_dump($recording[0]);
+        // die;
+        $recordings=[]; 
+        $i=0;
+        // $a=0;
+        // $saldoPrevTest = $recordings[0]->saldo;    
+        $saldoPrev=0;
+        foreach ($recording as $r ) {
+            if($i!==0){
+                $saldoPrev = $recordings[($i-1)]->saldo;    
+                // $saldoPrevTest = $recordings[0]->saldo;    
+            }
+            $rTmp = json_decode(json_encode($r), true);
+            $rTmp['saldo']=$rTmp['pemasukan']-$rTmp['pengeluaran']+$saldoPrev; 
+            $recordings[]=(object)$rTmp; 
+            $i++;
+        }
+        // var_dump($recordings);
+        // die;
+        return view('mitra/detail_kas')->with('pjub', $pjub)->with('mitras', $mitras)->with('recording', $recordings)->with('sikluses', $sikluses);
     }
 
-    public function lpj($siklus_id)
-    {
-        $sikluses = \DB::select(\DB::raw(" 
-    SELECT
-        siklus.siklus_id,
-        siklus.nama_siklus,
-        siklus.kode,
-        mitra.nama,
-        farm.nama_farm	
-    FROM
-        siklus 
-        LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
-        LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
-    WHERE
-        siklus.siklus_id = $siklus_id"));
+    // public function lpj($siklus_id)
+    // {
+    //     $sikluses = \DB::select(\DB::raw(" 
+    // SELECT
+    //     siklus.siklus_id,
+    //     siklus.nama_siklus,
+    //     siklus.kode,
+    //     mitra.nama,
+    //     farm.nama_farm	
+    // FROM
+    //     siklus 
+    //     LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
+    //     LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
+    // WHERE
+    //     siklus.siklus_id = $siklus_id"));
 
-        $recording = \DB::select(\DB::raw(" 
-    SELECT ROW_NUMBER
-        ( ) OVER ( ORDER BY kas.ID ASC ) AS NO,
-        siklus.siklus_id,
-        kas.ID,
-        kas.tanggal,
-        kas.nama,
-        kas.vol,
-        satuan.satuan,
-        kas.harga_satuan,
-        kategori.kategori,
-    --         jenis_transaksi.jenis_transaksi,
-        CASE
-            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
-            saldo ELSE 0 
-        END  as pengeluaran,
+    //     $recording = \DB::select(\DB::raw(" 
+    // SELECT ROW_NUMBER
+    //     ( ) OVER ( ORDER BY kas.ID ASC ) AS NO,
+    //     siklus.siklus_id,
+    //     kas.ID,
+    //     kas.tanggal,
+    //     kas.nama,
+    //     kas.vol,
+    //     satuan.satuan,
+    //     kas.harga_satuan,
+    //     kategori.kategori,
+    // --         jenis_transaksi.jenis_transaksi,
+    //     CASE
+    //         WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
+    //         saldo ELSE 0 
+    //     END  as pengeluaran,
             
-        CASE 
-            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
-            saldo ELSE 0 
-        END as pemasukan,
-        kas.saldo,
-        kas.keterangan 
-    FROM
-        kas
-        JOIN siklus ON siklus.siklus_id = kas.siklus_id
-        JOIN satuan ON satuan.satuan_id = kas.satuan_id
-        JOIN kategori ON kategori.kategori_id = kas.kategori_id
-        JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id 
-    WHERE
-        kas.siklus_id = $siklus_id 
-        AND kas.deleted_at IS NULL"));
+    //     CASE 
+    //         WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
+    //         saldo ELSE 0 
+    //     END as pemasukan,
+    //     kas.saldo,
+    //     kas.keterangan 
+    // FROM
+    //     kas
+    //     JOIN siklus ON siklus.siklus_id = kas.siklus_id
+    //     JOIN satuan ON satuan.satuan_id = kas.satuan_id
+    //     JOIN kategori ON kategori.kategori_id = kas.kategori_id
+    //     JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id 
+    // WHERE
+    //     kas.siklus_id = $siklus_id 
+    //     AND kas.deleted_at IS NULL"));
 
-        return view('mitra/lpj_kas')->with('recording', $recording)->with('sikluses', $sikluses);
-    }
+    //     return view('mitra/lpj_kas')->with('recording', $recording)->with('sikluses', $sikluses);
+    // }
 
     public function create($siklus_id)
     {            
@@ -231,16 +279,7 @@ class KasController extends \app\Http\Controllers\Controller
         $kategories = \DB::select(\DB::raw("
     SELECT
         kategori.kategori_id,
-        kategori.kategori,
-        CASE
-            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
-            saldo ELSE 0 
-        END  as pengeluaran,
-            
-        CASE 
-            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
-            saldo ELSE 0 
-        END as pemasukan,
+        kategori.kategori
     FROM
         kategori"));
         $satuanes = \DB::select(\DB::raw("

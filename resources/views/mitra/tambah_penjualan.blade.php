@@ -1,25 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Data Penjualan | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Tambah Data Penjualan ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Penjualan</h1>
+    <h1 class="m-0 text-dark">Tambah Data Penjualan</h1>
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="col offset-md-4">
-            <div class="card w-50" style="background-color:#007bff; color:white">
-                <div class="card-body">
-                    <center><p class="mb-0">Tambah Data Penjualan</p></center>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -33,7 +24,7 @@
         </div>
     @endif
 
-    <form action="/admin/penjualan/store" method="POST" enctype="multipart/form-data">
+    <form action="/mitra/penjualan/store" method="POST" enctype="multipart/form-data">
 		@csrf
     <div class="card-body">
       <div class="row">
@@ -43,7 +34,7 @@
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 <option value="" selected disabled>Pilih Siklus </option>
                 @foreach ($sikluses as $siklus)
-                    <option value="{{ $siklus->siklus_id }}"> {{ $siklus->nama_siklus }} - {{ $siklus->farm->nama_farm }} - {{ $siklus->farm->mitra->nama }}</option>
+                    <option value="{{ $siklus->siklus_id }}"> {{ $siklus->nama_siklus }} - {{ $siklus->nama_farm }}</option>
                 @endforeach
             </select>
         </div>
@@ -84,7 +75,7 @@
         </div>
         <div class="col-6 mb-3">
             <button class="btn btn-success">Simpan Data</button>
-            <a href="/admin/penjualan" class="btn btn-danger ml-2">Kembali</a>
+            <a href="/mitra/penjualan" class="btn btn-danger ml-2">Kembali</a>
         </div>
       </div>
     </div>

@@ -123,6 +123,11 @@ body{
     border-radius: 20px;
 }
 
+.home-mitra .btn-primary{
+    width: 100%;
+    border-radius: 20px;
+}
+
 .perbarui-mitra{
     margin-top: 10px;
 }

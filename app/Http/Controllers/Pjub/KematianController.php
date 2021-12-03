@@ -23,11 +23,11 @@ class KematianController extends Controller
             ROW_NUMBER ( ) OVER ( ORDER BY kematian.tanggal ASC ) AS NO,
             kematian.kematian_id,
             siklus.nama_siklus,
-            farm.nama_farm,
             mitra.nama,
             kematian.jumlah_kematian,
             kematian.tanggal, 
-            kematian.penyebab 
+            kematian.penyebab, 
+            farm.nama_farm
         FROM
             kematian
             JOIN siklus ON kematian.siklus_id = siklus.siklus_id

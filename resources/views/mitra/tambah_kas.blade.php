@@ -53,8 +53,8 @@
             <input type="date" class="form-control" id="exampleControlInput1" name="tanggal" placeholder="Isi Perlengkapan!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nama</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="nama" placeholder="Isi Nama!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <label for="exampleFormControlInput1" class="form-label">Uraian</label>
+            <input type="text" class="form-control" id="exampleControlInput1" name="nama" placeholder="Isi Uraian!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Volume</label>
@@ -93,15 +93,15 @@
             <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Isi Keterangan">
         </div> -->
         <div class="col-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Saldo</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="saldo" placeholder="Isi Keterangan">
+            <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="saldo" placeholder="Isi Jumlah dari harga satuan">
         </div>
         <div class="col-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Keterangan</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Jika perlu isi Keterangan!">
         </div>
         <div class="col-6 mb-3">
-            <br><button class="btn btn-success mt-2">Simpan Data</button>
+            <button class="btn btn-success mt-2">Simpan Data</button>
             <a href="/mitra/kas/{{ $siklus->siklus_id }}/detail" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>

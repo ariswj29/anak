@@ -308,6 +308,14 @@ return [
                     'label'       => 'Pengembangan',
                     'label_color' => 'warning',
                 ],
+                [
+                    'text' => 'Penjualan',
+                    'url'  => 'admin/penjualan',
+                    'icon' => 'fas fa-fw fa-store',
+                    'shift'   => 'ml-2',
+                    'label'       => 'new',
+                    'label_color' => 'success',
+                ],
             ]
         ],
         [
@@ -350,14 +358,6 @@ return [
                 //     'icon' => 'fas fa-fw fa-file',
                 //     'shift'   => 'ml-2',
                 // ],
-                [
-                    'text' => 'Penjualan',
-                    'url'  => 'admin/penjualan',
-                    'icon' => 'fas fa-fw fa-store',
-                    'shift'   => 'ml-2',
-                    'label'       => 'new',
-                    'label_color' => 'success',
-                ],
             ],
         ],
 
@@ -416,8 +416,8 @@ return [
                     'url'  => 'mitra/kas',
                     'shift'   => 'ml-2',
                     'icon' => 'fas fa-fw fa-clipboard-check',
-                    'label'       => 'new',
-                    'label_color' => 'success',
+                    'label'       => 'soon',
+                    'label_color' => 'warning',
                 ],
                 [
                     'text' => 'Penjualan',
@@ -521,7 +521,7 @@ return [
                     'url'  => 'pjub/kas',
                     'shift'   => 'ml-2',
                     'icon' => 'fas fa-fw fa-clipboard-check',
-                    'label'       => 'pengembangan',
+                    'label'       => 'soon',
                     'label_color' => 'warning',
                 ],
                 [

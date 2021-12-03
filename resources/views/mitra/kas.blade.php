@@ -37,11 +37,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col" style="color:grey">PJUB</div>   
-                        <div class="col" style="color:grey">Subtotal Operasional</div>
+                        <div class="col" style="color:grey">Saldo</div>
                     </div> 
                     <div class="row">
                         <div class="col"><b>{{ $sum->nama  }}</b></div>  
-                        <div class="col"><b>{{ $sum->mata_uang }}. {{ number_format($sum->jml_total, 0, ',', '.') }} </b></div>
+                        <div class="col"><b>{{ $sum->mata_uang }}. {{ number_format($sum->saldo, 0, ',', '.') }} </b></div>
                     </div>
                 </div>
                 <h5 class="card-title"></h5>

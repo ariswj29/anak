@@ -242,6 +242,16 @@ Route::get('/mitra/index', function() {
     Route::get('/mitra/opex/{opex}/{siklus}/delete', [App\Http\Controllers\Mitra\OpexController::class, 'destroy']);
 // });
 
+// Penjualan Mitra
+// Route::middleware(['auth','mitra'])->group(function () {
+    Route::get('/mitra/penjualan', [App\Http\Controllers\Mitra\PenjualanController::class, 'index'])->name('mitra/penjualan');
+    Route::get('/mitra/penjualan/tambah', [App\Http\Controllers\Mitra\PenjualanController::class, 'create'])->name('mitra/tambah_penjualan');
+    Route::post('/mitra/penjualan/store', [App\Http\Controllers\Mitra\PenjualanController::class, 'store'])->name('mitra/tambah_penjualan');
+    Route::get('/mitra/penjualan/{penjualan}/edit', [App\Http\Controllers\Mitra\PenjualanController::class, 'edit'])->name('mitra/edit_penjualan');
+    Route::post('/mitra/penjualan/{penjualan}/update', [App\Http\Controllers\Mitra\PenjualanController::class, 'update'])->name('mitra/edit_penjualan');
+    Route::get('/mitra/penjualan/{penjualan}/delete', [App\Http\Controllers\Mitra\PenjualanController::class, 'destroy']);
+// });
+
 // Kas Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/kas', [App\Http\Controllers\Mitra\KasController::class, 'index'])->name('mitra/kas');

@@ -1,25 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Edit Data Penjualan | Aplikasi Ternak')
+@section('title', ' Aplikasi Ternak | Edit Data Penjualan ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Penjualan</h1>
+    <h1 class="m-0 text-dark">Edit Data Penjualan</h1>
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="col offset-md-4">
-            <div class="card w-50" style="background-color:#007bff; color:white">
-                <div class="card-body">
-                    <center><p class="mb-0">Edit Data Penjualan</p></center>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -33,7 +24,7 @@
         </div>
     @endif
 
-    <form action="/admin/penjualan/{{ $penjualans->penjualan_id }}/update" method="POST" enctype="multipart/form-data">
+    <form action="/mitra/penjualan/{{ $penjualans->penjualan_id }}/update" method="POST" enctype="multipart/form-data">
 		@csrf
     <div class="card-body">
       <div class="row">
@@ -43,7 +34,7 @@
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($sikluses as $siklus)
                     <option value="{{ $siklus->siklus_id }}"> {{ $siklus->nama_siklus == $siklus->siklus_id ? 'selected' : '' }} 
-                        {{ $siklus->nama_siklus }} - {{ $siklus->farm->nama_farm }} - {{ $siklus->farm->mitra->nama }}
+                        {{ $siklus->nama_siklus }} - {{ $siklus->nama_farm }}
                     </option>
                 @endforeach
             </select>
