@@ -305,8 +305,8 @@ return [
                     'url'  => 'admin/kas',
                     'shift'   => 'ml-2',
                     'icon' => 'fas fa-fw fa-clipboard-check',
-                    'label'       => 'Pengembangan',
-                    'label_color' => 'warning',
+                    'label'       => 'new',
+                    'label_color' => 'success',
                 ],
                 [
                     'text' => 'Penjualan',
@@ -416,8 +416,8 @@ return [
                     'url'  => 'mitra/kas',
                     'shift'   => 'ml-2',
                     'icon' => 'fas fa-fw fa-clipboard-check',
-                    'label'       => 'soon',
-                    'label_color' => 'warning',
+                    'label'       => 'new',
+                    'label_color' => 'success',
                 ],
                 [
                     'text' => 'Penjualan',
@@ -521,8 +521,8 @@ return [
                     'url'  => 'pjub/kas',
                     'shift'   => 'ml-2',
                     'icon' => 'fas fa-fw fa-clipboard-check',
-                    'label'       => 'soon',
-                    'label_color' => 'warning',
+                    'label'       => 'new',
+                    'label_color' => 'success',
                 ],
                 [
                     'text' => 'Penjualan',
