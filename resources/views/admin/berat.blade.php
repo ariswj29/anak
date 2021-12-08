@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Berat Ayam | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Bobot Ayam')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Berat Ayam</h1>
+    <h1 class="m-0 text-dark">Bobot Ayam</h1>
 @stop
 
 @section('content')
@@ -25,6 +25,7 @@
         </div>
     </div>
 
+    <div class="table-responsive-md">
     <div class="row">
         <div class="col">
             <table class="table table-hover" border="1" cellspacing="0" cellpadding="0">
@@ -32,7 +33,7 @@
                 <tr class="thead">
                       <th class="header-tabel-data" scope="col-3">No.</th>
                       <th class="header-tabel-data" scope="col">Siklus</th>
-                      <th class="header-tabel-data" scope="col">Rata-rata Berat Ayam (g)</th>
+                      <th class="header-tabel-data" scope="col">Rata-rata Bobot Ayam (g)</th>
                       <th class="header-tabel-data" scope="col">Tanggal</th>
                       <th class="header-tabel-data" scope="col">Aksi</th>
                 </tr>
@@ -64,5 +65,6 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 @stop

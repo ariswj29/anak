@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Edit Konsumsi Pakan | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Konsumsi Pakan')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Pakan</h1>
+    <h1 class="m-0 text-dark">Konsumsi Pakan</h1>
 @stop
 
 @section('content')
@@ -25,6 +25,7 @@
         </div>
     </div>
 
+    <div class="table-responsive-md">
     <div class="row">
         <div class="col">
             <table class="table table-hover" border="1" cellspacing="0" cellpadding="0">
@@ -63,7 +64,7 @@
                             {{ $pakan->tanggal }}
                         </td>
                         <td>
-                            <a class="btn btn-info btn-sm" href="/admin/pakan/{{ $pakan->pakan_id }}/edit"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-info btn-sm my-1" href="/admin/pakan/{{ $pakan->pakan_id }}/edit"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-danger btn-sm" href="/admin/pakan/{{ $pakan->pakan_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>  
                         </td>
                     </tr>
@@ -72,5 +73,6 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 @stop

@@ -1,25 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Edit Data Penjualan | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Edit Data Penjualan ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Penjualan</h1>
+    <h1 class="m-0 text-dark">Edit Data Penjualan</h1>
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="col offset-md-4">
-            <div class="card w-50" style="background-color:#007bff; color:white">
-                <div class="card-body">
-                    <center><p class="mb-0">Edit Data Penjualan</p></center>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -37,7 +28,7 @@
 		@csrf
     <div class="card-body">
       <div class="row">
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Siklus</label>
             <!-- <input type="number" class="form-control" id="exampleControlInput1" name="siklus_id" placeholder="Masukan Siklus ID"> -->
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -48,11 +39,11 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
             <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal" value="{{ $penjualans->tanggal }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Penjualan</label>
             <div class="input-group">
             <input type="number" class="form-control" id="exampleControlInput1" name="jumlah" value="{{ $penjualans->jumlah }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -61,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Bobot Jual</label>
             <div class="input-group">
             <input type="number" class="form-control" id="exampleControlInput1" name="bobot_jual" value="{{ $penjualans->bobot_jual }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -70,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Nominal</label>
             <div class="input-group">
             <div class="input-group-append">
@@ -79,16 +70,16 @@
             <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_nominal" value="{{ $penjualans->jumlah_nominal }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
             </div>
         </div>
-        <!-- <div class="col-6 mb-3">
+        <!-- <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Foto</label>
             <br><img src="{{ asset('images/'.$penjualans->foto) }}" style="width: 100px; height: 100px;" alt="">
         </div> -->
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Ganti Foto</label>
             <input type="file" class="form-control"name="foto" value="{{ $penjualans->foto }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
-            <label style="font-size:12px;">*) Jika foto tidak diganti, kosongkan saja.</label>
+            <!-- <label style="font-size:12px;">*) Jika foto tidak diganti, kosongkan saja.</label> -->
         </div>
-        <div class="col-6" style="margin-top:-40px;">
+        <div class="col-md-6 mb-3">
             <button class="btn btn-success my-1">Perbarui Data</button>
             <a href="/admin/penjualan" class="btn btn-danger my-1 ml-2">Kembali</a>
         </div>

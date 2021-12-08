@@ -28,7 +28,7 @@
 		@csrf
     <div class="card-body">
       <div class="row"> 
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Siklus</label>
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($sikluses as $siklus)
@@ -38,7 +38,7 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jenis Transaksi</label>
             <select name="jenis_transaksi_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($transaksies as $transaksi)
@@ -48,19 +48,19 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
             <input type="date" class="form-control" id="exampleControlInput1" name="tanggal" value="{{ $kases->tanggal }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nama</label>
             <input type="text" class="form-control" id="exampleControlInput1" name="nama" value="{{ $kases->nama }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Volume</label>
             <input type="number" class="form-control" id="exampleControlInput1" name="vol" value="{{ $kases->vol }}">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Satuan</label>
             <select name="satuan_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($satuanes as $satuan)
@@ -70,11 +70,11 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Harga Satuan</label>
             <input type="number" class="form-control" id="exampleFormControlInput1" name="harga_satuan" value="{{ $kases->harga_satuan }}">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Kategori</label>
             <select name="kategori_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($kategories as $kategori)
@@ -84,15 +84,15 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Saldo</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="saldo" value="{{ $kases->saldo }}">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Keterangan</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" value="{{ $kases->keterangan }}" placeholder="Jika perlu isi Keterangan!">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <button class="btn btn-success mt-2">Perbarui Data</button>
             <a href="/admin/kas/{{ $kases->siklus_id }}/detail" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>

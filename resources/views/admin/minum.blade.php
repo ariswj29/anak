@@ -1,17 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Konsumsi Minum | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Konsumsi Minum ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Minum</h1>
+    <h1 class="m-0 text-dark">Konsumsi Minum </h1>
 @stop
 
 @section('content')
-    </div>
 
     @if(session()->has('success'))
         <div class="alert alert-success alert-dismissible">
@@ -26,6 +25,7 @@
         </div>
     </div>
 
+    <div class="table-responsive-md">
     <div class="row">
         <div class="col">
             <table class="table table-hover" border="1" cellspacing="0" cellpadding="0">
@@ -65,5 +65,6 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 @stop

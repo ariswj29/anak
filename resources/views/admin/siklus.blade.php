@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Siklus | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Siklus ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
@@ -25,6 +25,7 @@
         </div>
     </div>
 
+    <div class="table-responsive">
     <div class="row">
         <div class="col">
             <table class="table table-hover" border="1" cellspacing="0" cellpadding="0">
@@ -79,5 +80,6 @@
                 </tbody>
             </table>
         </div>
+    </div>   
     </div>   
 @stop

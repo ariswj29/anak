@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Penjualan | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Penjualan ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
@@ -25,6 +25,7 @@
         </div>
     </div>
 
+    <div class="table-responsive-md">
     <div class="row">
         <div class="col">
             <table class="table table-hover" border="1" cellspacing="0" cellpadding="0">
@@ -64,7 +65,9 @@
                             {{ $penjualan->jumlah_nominal }}
                         </td>
                         <td>
-                            <img src="{{ asset('images/'.$penjualan->foto) }}" style="width: 120px; height: 100px;" alt="">
+                            <a href="{{ asset('images/'.$penjualan->foto) }}" style="width: 300px; height: 300px;" class="perbesar">
+                                <img src="{{ asset('images/'.$penjualan->foto) }}" style="width: 120px; height: 100px;" alt="">
+                            </a>    
                         </td>
                         <td>
                             <a class="btn btn-info btn-sm my-1" href="/admin/penjualan/{{ $penjualan->penjualan_id }}/edit"><i class="fas fa-edit"></i></a>
@@ -76,5 +79,6 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 @stop

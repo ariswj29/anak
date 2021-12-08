@@ -15,7 +15,7 @@
 @section('content')
 <div class="detail-mitra">
     @foreach ($sikluses as $siklus) 
-        <a href="/admin/kas/{{ $siklus->siklus_id }}/tambah" class="btn btn-primary">Tambah Data Kas</a>
+        <a href="/admin/kas/{{ $siklus->siklus_id }}/tambah" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data Kas</a>
         <p>
         
             <div class="card">
