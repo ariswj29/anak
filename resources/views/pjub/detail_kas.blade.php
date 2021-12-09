@@ -15,7 +15,7 @@
 @section('content')
 <div class="detail-mitra">
     @foreach ($sikluses as $siklus) 
-        <a href="/pjub/kas/{{ $siklus->siklus_id }}/tambah" class="btn btn-primary">Tambah Data Kas</a>
+        <a href="/pjub/kas/{{ $siklus->siklus_id }}/tambah" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data Kas</a>
         <p>
         
             <div class="card">
@@ -53,7 +53,7 @@
                                 <td class="text-">
                                     {{ \Carbon\Carbon::parse($record->tanggal)->isoFormat('D-MMM-Y') }}
                                 </td>
-                                <td class="text-">
+                                <td class="col-6">
                                     {{ $record->nama }}
                                 </td>
                                 <td class="text-center">

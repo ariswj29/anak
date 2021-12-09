@@ -27,7 +27,7 @@
 		@csrf
     <div class="card-body">
       <div class="row">
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Siklus</label>
             <!-- <input type="number" class="form-control" id="exampleControlInput1" name="siklus_id" placeholder="Masukan Siklus ID"> -->
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -38,11 +38,11 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
             <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal" value="{{ $penjualans->tanggal }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Penjualan</label>
             <div class="input-group">
             <input type="number" class="form-control" id="exampleControlInput1" name="jumlah" value="{{ $penjualans->jumlah }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Bobot Jual</label>
             <div class="input-group">
             <input type="number" class="form-control" id="exampleControlInput1" name="bobot_jual" value="{{ $penjualans->bobot_jual }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Nominal</label>
             <div class="input-group">
             <div class="input-group-append">
@@ -69,16 +69,16 @@
             <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_nominal" value="{{ $penjualans->jumlah_nominal }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
             </div>
         </div>
-        <!-- <div class="col-6 mb-3">
+        <!-- <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Foto</label>
             <br><img src="{{ asset('images/'.$penjualans->foto) }}" style="width: 100px; height: 100px;" alt="">
         </div> -->
-        <div class="col-6 mb-3">
+        <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Ganti Foto</label>
             <input type="file" class="form-control"name="foto" value="{{ $penjualans->foto }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
-            <label style="font-size:12px;">*) Jika foto tidak diganti, kosongkan saja.</label>
+            <!-- <label style="font-size:12px;">*) Jika foto tidak diganti, kosongkan saja.</label> -->
         </div>
-        <div class="col-6" style="margin-top:-40px;">
+        <div class="col-md-6" >
             <button class="btn btn-success my-1">Perbarui Data</button>
             <a href="/pjub/penjualan" class="btn btn-danger my-1 ml-2">Kembali</a>
         </div>

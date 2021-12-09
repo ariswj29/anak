@@ -66,7 +66,7 @@ class PenjualanController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
             JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."' "));
+            pjub.email = '".Auth::user()->email."' AND siklus.deleted_at IS NULL"));
         // var_dump($sikluses);
         // die;    
         return view('pjub/tambah_penjualan')->with('sikluses', $sikluses);

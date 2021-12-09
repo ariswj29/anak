@@ -25,7 +25,7 @@
                 @foreach($summary as $sum)
                     <div class="row">
                         <div class="col" style="color:grey">PJUB</div>  
-                        <div class="col" style="color:grey">Rata-Rata Berat Ternak</div>  
+                        <div class="col" style="color:grey">Rata-Rata Bobot Ternak</div>  
                         <div class="col" style="color:grey">Jenis Ternak</div>
                     </div> 
                     <div class="row">
@@ -70,7 +70,7 @@
                         <tr class="thead">
                             <th class="header-tabel-data" scope="col" >Hari Ke</th>
                             <th class="header-tabel-data" scope="col" >Tanggal</th>
-                            <th class="header-tabel-data" scope="col" >Rata-rata Berat Ternak (g)</th>
+                            <th class="header-tabel-data" scope="col" >Rata-rata Bobot Ternak (g)</th>
                             <th class="header-tabel-data" scope="col" >Tambah Stok Pakan (g)</th>
                             <th class="header-tabel-data" scope="col" >Pakan yang Digunakan (g)</th>
                             <th class="header-tabel-data" scope="col" >Jumlah Minum (l)</th>

@@ -27,7 +27,8 @@
                     </select>
                 </div>
             <div class="col-6 mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Tanggal</label>                    <input type="date" name="tanggal" class="form-control" id="exampleFormControlInput1">
+                <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                <input type="date" name="tanggal" class="form-control" id="exampleFormControlInput1">
             </div>
             <div class="col-6 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Rata-rata Berat Ternak</label>

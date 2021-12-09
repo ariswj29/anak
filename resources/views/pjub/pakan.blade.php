@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', ' Konsumsi Pakan | Aplikasi Ternak')
+@section('title', ' Aplikasi Ternak | Konsumsi Pakan ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Pakan</h1>
+    <h1 class="m-0 text-dark">Konsumsi Pakan </h1>
 @stop
 
 @section('content')

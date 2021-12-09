@@ -92,7 +92,7 @@ class KasController extends \app\Http\Controllers\Controller
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
         LEFT JOIN kas ON kas.id = kas.siklus_id
         LEFT JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id
-    WHERE pjub.email =  '".Auth::user()->email."' AND kas.deleted_at IS NULL
+    WHERE pjub.email =  '".Auth::user()->email."' AND siklus.deleted_at IS NULL
     GROUP BY 
         mitra.mitra_id,
         pjub.nama,

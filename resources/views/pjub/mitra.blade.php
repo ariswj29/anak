@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Mitra | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Mitra ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>

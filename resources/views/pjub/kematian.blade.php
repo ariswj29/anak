@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Kematian | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Kematian')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>

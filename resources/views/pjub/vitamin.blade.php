@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Vitamin | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Vitamin ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
@@ -58,7 +58,7 @@
                     {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                 </td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-info btn-sm my-1" href="/pjub/vitamin/{{ $record->vitamin_id }}/edit"><i class="fas fa-edit"></i></a>
                     <a class="btn btn-danger btn-sm" href="/pjub/vitamin/{{ $record->vitamin_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>

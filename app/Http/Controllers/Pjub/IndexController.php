@@ -180,8 +180,9 @@ class IndexController extends \app\Http\Controllers\Controller
             siklus
             JOIN farm ON siklus.farm_id = farm.farm_id 
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
+            JOIN pjub ON mitra.pjub_id = pjub.pjub_id
         WHERE
-            mitra.email = '".Auth::user()->email."' "));
+            pjub.email = '".Auth::user()->email."' "));
 
         return view('pjub/perbarui')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('pakans', $pakans)->with('berats', $berats)->with('farms', $farms)->with('sikluses', $sikluses)->with('kematians', $kematians)->with('minums', $minums)->with('vitamins', $vitamins);
     }

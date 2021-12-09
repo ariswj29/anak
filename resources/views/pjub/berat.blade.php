@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Berat Ayam | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Bobot Ternak')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Berat Ayam</h1>
+    <h1 class="m-0 text-dark">Bobot Ternak</h1>
 @stop
 
 @section('content')
@@ -33,7 +33,7 @@
             <tr class="thead">
                 <th class="header-tabel-data" scope="col">No.</th>
                 <th class="header-tabel-data" scope="col">Tanggal</th>
-                <th class="header-tabel-data" scope="col">Rata-rata Berat Ternak (g)</th>
+                <th class="header-tabel-data" scope="col">Rata-rata Bobot Ternak (g)</th>
                 <th class="header-tabel-data" scope="col">Siklus</th>
                 <th class="header-tabel-data" scope="col">Aksi</th>
             </tr>
@@ -54,7 +54,7 @@
                     {{ $record->nama_siklus }} - {{ $record->nama_farm }} - {{ $record->nama }}
                 </td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="/pjub/berat/{{ $record->berat_id }}/edit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-info btn-sm my-1" href="/pjub/berat/{{ $record->berat_id }}/edit"><i class="fas fa-edit"></i></a>
                     <a class="btn btn-danger btn-sm" href="/pjub/berat/{{ $record->berat_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
