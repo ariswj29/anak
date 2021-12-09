@@ -20,7 +20,7 @@ class MinumController extends Controller
     {
         $recording = \DB::select(\DB::raw("
         SELECT
-            row_number() over(ORDER BY minum ASC) AS no,
+            row_number() over(ORDER BY minum.tanggal DESC) AS no,
             minum.minum_id,
             siklus.nama_siklus,
             minum.jumlah_minum,

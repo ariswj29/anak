@@ -37,7 +37,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col" style="color:grey">PJUB</div>  
-                        <div class="col" style="color:grey">Rata-Rata Berat Ternak</div>  
+                        <div class="col" style="color:grey">Rata-Rata Bobot Ternak</div>  
                         <div class="col" style="color:grey">Jenis Ternak</div>
                     </div> 
                     <div class="row">

@@ -20,7 +20,7 @@ class BeratController extends Controller
     {
         $recording = \DB::select(\DB::raw("
         SELECT 
-            ROW_NUMBER ( ) OVER ( ORDER BY berat.tanggal ASC ) AS NO,
+            ROW_NUMBER ( ) OVER ( ORDER BY berat.tanggal DESC ) AS NO,
             berat.berat_id,
             siklus.nama_siklus,
             berat.rata_rata_berat,

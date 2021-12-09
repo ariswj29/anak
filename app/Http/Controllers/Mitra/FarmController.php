@@ -35,7 +35,7 @@ class FarmController extends Controller
         farm
         JOIN mitra ON farm.mitra_id = mitra.mitra_id 
     WHERE
-	    mitra.email = '".Auth::user()->email."'"));
+	    mitra.email = '".Auth::user()->email."' AND farm.deleted_at IS NULL"));
 
         // $farms = Farm::all();
         // $mitras = mitra::all();
@@ -131,7 +131,7 @@ class FarmController extends Controller
             farm 
             JOIN mitra on farm.mitra_id =  mitra.mitra_id 
         WHERE 
-            farm.farm_id = 1 "));
+            farm.farm_id = $farm_id "));
 
         return view('mitra/edit_farm')->with('farms', $farms)->with('mitras', $mitras);
     }
@@ -153,7 +153,7 @@ class FarmController extends Controller
             // 'no_hp' => 'required',
             // 'email' => 'required',
             'mata_uang' => 'required',
-            'satuan_berat' => 'required',
+            // 'satuan_berat' => 'required',
             'kapasitas_rak_telur' => 'required',
             'kapasitas_kandang_doc' => 'required',
             'kapasitas_kandang_grower' => 'required',
@@ -168,7 +168,7 @@ class FarmController extends Controller
         // $farm->no_hp = $data['no_hp'];
         // $farm->email = $data['email'];
         $farm->mata_uang = $data['mata_uang'];
-        $farm->satuan_berat = $data['satuan_berat'];
+        // $farm->satuan_berat = $data['satuan_berat'];
         $farm->kapasitas_rak_telur = $data['kapasitas_rak_telur'];
         $farm->kapasitas_kandang_doc = $data['kapasitas_kandang_doc'];
         $farm->kapasitas_kandang_grower = $data['kapasitas_kandang_grower'];

@@ -44,11 +44,11 @@
             <input type="text" class="form-control" id="exampleControlInput1" name="jenis_pakan" value="{{ $pakans->jenis_pakan }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jumlah Pakan (kg)</label>
+            <label for="exampleFormControlInput1" class="form-label">Jumlah Pakan (g)</label>
             <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_pakan" value="{{ $pakans->jumlah_pakan }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Pakan yang digunakan (kg)</label>
+            <label for="exampleFormControlInput1" class="form-label">Pakan yang digunakan (g)</label>
             <input type="number" class="form-control" id="exampleControlInput1" name="pakan_digunakan" value="{{ $pakans->pakan_digunakan }}" placeholder="Isi jika pakan sudah dipakai!">
         </div>
         <div class="col-md-6 mb-3">

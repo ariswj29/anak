@@ -20,7 +20,7 @@ class VitaminController extends Controller
     {
         $recording = \DB::select(\DB::raw("
         SELECT 
-            ROW_NUMBER ( ) OVER ( ORDER BY vitamin.tanggal ASC ) AS NO,
+            ROW_NUMBER ( ) OVER ( ORDER BY vitamin.tanggal DESC ) AS NO,
             vitamin.vitamin_id,
             siklus.nama_siklus,
             vitamin.jenis_vitamin,

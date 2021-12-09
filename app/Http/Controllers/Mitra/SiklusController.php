@@ -30,13 +30,14 @@ class SiklusController extends Controller
             siklus.jenis_ternak,
             siklus.jumlah_ternak,
             siklus.harga_satuan_doc,
-            siklus.supplier
+            siklus.supplier,
+            siklus.kode
         FROM
             siklus
             JOIN farm ON siklus.farm_id = farm.farm_id 
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
         WHERE
-	        mitra.email = '".Auth::user()->email."'"));
+	        mitra.email = '".Auth::user()->email."' AND siklus.deleted_at IS NULL"));
             $sikluses = Siklus::all();
             $farms = farm::all();
 
@@ -66,12 +67,13 @@ class SiklusController extends Controller
         $farms = \DB::select(\DB::raw("
         SELECT
             farm.nama_farm,
-            farm.farm_id 
+            farm.farm_id,
+            mitra.nama 
         FROM
-            siklus
-            JOIN farm ON siklus.farm_id = farm.farm_id
+            farm
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
         WHERE
-            siklus.siklus_id = 1 "));
+            mitra.email = '".Auth::user()->email."' AND farm.deleted_at IS NULL "));
 
         return view('mitra/tambah_siklus')->with('farms', $farms)->with('mitras', $mitras);
     }
@@ -93,6 +95,7 @@ class SiklusController extends Controller
             'jumlah_ternak' => 'required|max:4',
             'harga_satuan_doc' => 'required|max:6',
             'supplier' => 'required',
+            'kode' => 'required',
         ]);
 
         $data = request()->all();
@@ -104,6 +107,7 @@ class SiklusController extends Controller
         $siklus->jenis_ternak = $data['jenis_ternak'];
         $siklus->jumlah_ternak = $data['jumlah_ternak'];
         $siklus->harga_satuan_doc = $data['harga_satuan_doc'];
+        $siklus->kode = $data['kode'];
         $siklus->supplier = $data['supplier'];
         
         $siklus->save();
@@ -142,7 +146,7 @@ class SiklusController extends Controller
             siklus
             JOIN farm ON siklus.farm_id = farm.farm_id
         WHERE
-            siklus.siklus_id = 1 "));
+            siklus.siklus_id = $siklus_id "));
 
         return view('mitra/edit_siklus')->with('sikluses', $sikluses)->with('farms', $farms);
     }
@@ -165,6 +169,7 @@ class SiklusController extends Controller
             'jumlah_ternak' => 'required|max:4',
             'harga_satuan_doc' => 'required|max:6',
             'supplier' => 'required',
+            'kode' => 'required',
         ]);
 
         $data = request()->all();
@@ -176,6 +181,7 @@ class SiklusController extends Controller
         $siklus->jenis_ternak = $data['jenis_ternak'];
         $siklus->jumlah_ternak = $data['jumlah_ternak'];
         $siklus->harga_satuan_doc = $data['harga_satuan_doc'];
+        $siklus->kode = $data['kode'];
         $siklus->supplier = $data['supplier'];
         
         $siklus->save();

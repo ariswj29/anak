@@ -20,7 +20,7 @@ class KematianController extends Controller
     {
         $recording = \DB::select(\DB::raw("
         SELECT 
-            ROW_NUMBER ( ) OVER ( ORDER BY kematian.tanggal ASC ) AS NO,
+            ROW_NUMBER ( ) OVER ( ORDER BY kematian.tanggal DESC ) AS NO,
             kematian.kematian_id,
             siklus.nama_siklus,
             kematian.jumlah_kematian,

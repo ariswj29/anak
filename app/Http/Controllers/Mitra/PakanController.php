@@ -20,7 +20,7 @@ class PakanController extends Controller
     {
         $recording = \DB::select(\DB::raw("
         SELECT
-            row_number() over(ORDER BY pakan.tanggal ASC) AS no,
+            row_number() over(ORDER BY pakan.tanggal DESC) AS no,
             pakan.pakan_id,
             siklus.nama_siklus,
             farm.nama_farm,

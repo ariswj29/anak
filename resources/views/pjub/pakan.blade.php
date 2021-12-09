@@ -34,8 +34,8 @@
                     <td class="header-tabel-data" scope="col">No.</td>
                     <td class="header-tabel-data" scope="col">Tanggal</td>
                     <td class="header-tabel-data" scope="col">Jenis Pakan</td>
-                    <td class="header-tabel-data" scope="col">Jumlah Pakan (kg)</td>
-                    <td class="header-tabel-data" scope="col">Pakan yang digunakan (kg)</td>
+                    <td class="header-tabel-data" scope="col">Jumlah Pakan (g)</td>
+                    <td class="header-tabel-data" scope="col">Pakan yang digunakan (g)</td>
                     <td class="header-tabel-data" scope="col-5">Siklus</td>
                     <td class="header-tabel-data" scope="col">Aksi</td>
                 </tr>

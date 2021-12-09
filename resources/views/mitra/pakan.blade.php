@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', ' Konsumsi Pakan | Aplikasi Ternak')
+@section('title', ' Aplikasi Ternak | Konsumsi Pakan')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
 @stop
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Pakan</h1>
+    <h1 class="m-0 text-dark">Konsumsi Pakan</h1>
 @stop
 
 @section('content')
@@ -34,8 +34,8 @@
                     <td class="header-tabel-data" scope="col">No.</td>
                     <td class="header-tabel-data" scope="col">Tanggal</td>
                     <td class="header-tabel-data" scope="col">Jenis Pakan</td>
-                    <td class="header-tabel-data" scope="col">Jumlah Pakan (kg)</td>
-                    <td class="header-tabel-data" scope="col">Pakan yang digunakan (kg)</td>
+                    <td class="header-tabel-data" scope="col">Jumlah Pakan (g)</td>
+                    <td class="header-tabel-data" scope="col">Pakan yang digunakan (g)</td>
                     <td class="header-tabel-data" scope="col">Siklus</td>
                     <!-- <td class="header-tabel-data" scope="col">Aksi</td> -->
                 </tr>
@@ -64,6 +64,7 @@
                     </td>
                     <!-- <td>
                         <a class="btn btn-info btn-sm" href="/mitra/pakan/{{ $record->pakan_id }}/edit"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-sm my-1" href="/mitra/pakan/{{ $record->pakan_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
                     </td> -->
                 </tr>
             @endforeach

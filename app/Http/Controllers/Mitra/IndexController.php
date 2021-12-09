@@ -83,7 +83,7 @@ class IndexController extends \app\Http\Controllers\Controller
         LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
-    WHERE mitra.email = '".Auth::user()->email."'
+    WHERE mitra.email = '".Auth::user()->email."' AND siklus.deleted_at IS NULL
     GROUP BY
         mitra.mitra_id,
         farm.nama_farm,
@@ -181,7 +181,7 @@ class IndexController extends \app\Http\Controllers\Controller
             JOIN farm ON siklus.farm_id = farm.farm_id 
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
         WHERE
-            mitra.email = '".Auth::user()->email."' "));
+            mitra.email = '".Auth::user()->email."' AND siklus.deleted_at IS NULL"));
 
         return view('mitra/perbarui')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('pakans', $pakans)->with('berats', $berats)->with('farms', $farms)->with('sikluses', $sikluses)->with('kematians', $kematians)->with('minums', $minums)->with('vitamins', $vitamins);
     }

@@ -17,7 +17,7 @@
 @csrf
     <div class="perbarui-mitra">
         <div class="row">        
-            <div class="col-6 mb-3">
+            <div class="col-md-6 mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Siklus</label>
                 <select name="siklus_id" class="form-control" id="">
                     <option value="" selected disabled>Pilih Siklus </option>
@@ -26,12 +26,12 @@
                         @endforeach
                     </select>
                 </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-6 mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
                 <input type="date" name="tanggal" class="form-control" id="exampleFormControlInput1">
             </div>
-            <div class="col-6 mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Rata-rata Berat Ternak</label>
+            <div class="col-6 md-3 mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Rata-rata Bobot Ternak</label>
                 <div class="input-group">
                     <input type="text" name="rata_rata_berat" pattern="[0-9-,]{1-5}" class="form-control" id="rupiah1">
                     <div class="input-group-append">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Tambah Stok Pakan</label>
                 <div class="input-group">
                     <input type="number" name="jumlah_pakan" class="form-control" id="angka1">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Pakan yang digunakan</label>
                 <div class="input-group">
                     <input type="text" name="pakan_digunakan" pattern="[0-9-,]{1-7}" class="form-control" id="angka2">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Minum yang digunakan</label>
                 <div class="input-group">
                     <input type="text" name="jumlah_minum" pattern="[0-9-,]{1-7}" class="form-control" id="exampleFormControlInput1">
@@ -66,13 +66,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-6 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Vitamin</label>
                 <div class="input-group">
                     <input type="text" name="jenis_vitamin" placeholder="Isi Jika diberi Vitamin" class="form-control" id="exampleFormControlInput1">
                 </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Vitamin digunakan</label>
                 <div class="input-group">
                     <input type="number" name="jumlah_vitamin" class="form-control" id="exampleFormControlInput1">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Kematian</label>
                 <div class="input-group">
                     <input type="number" name="jumlah_kematian" class="form-control" id="exampleFormControlInput1">
@@ -90,15 +90,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-6 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Penyebab Kematian</label>
                 <div class="input-group">
                     <textarea name="penyebab" placeholder="Isi Jika Ada Kematian" class="form-control" id="exampleFormControlInput1"></textarea>
                 </div>
             </div>
-            <div class="col-12 mb-3">
+            <div class="col-md-12 mb-3">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-                <button class="btn btn-primary">Simpan</button>
+                <button class="btn btn-primary" style="width: 100%; border-radius: 20px; margin-top:15px">Simpan</button>
             </div>
         </div>
     </div>

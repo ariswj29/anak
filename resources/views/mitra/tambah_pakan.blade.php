@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Data Konsumsi Pakan | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Tambah Data Konsumsi Pakan')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>

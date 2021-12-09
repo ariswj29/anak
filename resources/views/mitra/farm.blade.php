@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Farm | Aplikasi Ternak')
+@section('title', 'Aplikasi Ternak | Farm ')
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
@@ -38,11 +38,11 @@
                     <!-- <th class="header-tabel-data" scope="col">No Handphone</th>
                     <th class="header-tabel-data" scope="col">Email</th> -->
                     <th class="header-tabel-data" scope="col">Mata Uang</th>
-                    <th class="header-tabel-data" scope="col">Satuan Berat</th>
+                    <!-- <th class="header-tabel-data" scope="col">Satuan Berat</th> -->
                     <th class="header-tabel-data" scope="col">Kapasitas Rak Telur</th>
                     <th class="header-tabel-data" scope="col">Kapasitas Kandang DOC</th>
                     <th class="header-tabel-data" scope="col">Kapasitas Kandang Grower</th>
-                    <!-- <th class="header-tabel-data" scope="col">Aksi</th> -->
+                    <th class="header-tabel-data" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody> 
@@ -63,9 +63,9 @@
                     <td class="">
                         {{ $record->mata_uang }}
                     </td>
-                    <td class="">
+                    <!-- <td class="">
                         {{ $record->satuan_berat }}
-                    </td>
+                    </td> -->
                     <td class="">
                         {{ $record->kapasitas_rak_telur }}
                     </td>
@@ -75,9 +75,9 @@
                     <td class="">
                         {{ $record->kapasitas_kandang_grower }}
                     </td>
-                    <!-- <td class="">
+                    <td class="">
                         <a class="btn btn-info btn-sm my-1" href="/mitra/farm/{{ $record->farm_id }}/edit"><i class="fas fa-edit"></i></a>
-                    </td> -->
+                    </td>
                 </tr>
             @endforeach
                             
