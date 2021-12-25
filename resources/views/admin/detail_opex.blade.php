@@ -4,6 +4,17 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css"><link rel="shortcut icon" href="{{ asset('img/mardawavector.png') }}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+
 @stop
 
 @if(auth()->user()->isAdmin())
@@ -14,72 +25,18 @@
 
 @section('content')
 <div class="detail-mitra">
-    @foreach ($sikluses as $siklus) 
-        <a href="/admin/opex/{{ $siklus->siklus_id }}/tambah" class="btn btn-primary">Tambah Data Operasional</a>
-        <p>
-        
-            <div class="card">
-                <div class="card-body">
-                <h6>Nama Siklus : {{ $siklus->nama_siklus }}</h6> 
-                <!-- <h5 style="text-align:right;margin-top: -35px;">Nama Farm : {{ $siklus->nama_farm }}</h5> -->
-                @endforeach
-                <div class="table-responsive-sm">
-                    <!-- <h5>Hai</h5> -->
-                    <table class="table">
-                        <thead>
-                        <tr class="thead">
-                            <th class="header-tabel-data" scope="col" >No</th>
-                            <th class="header-tabel-data text-center" scope="col" >Perlengkapan</th>
-                            <th class="header-tabel-data text-center" scope="col" >Jumlah</th>
-                            <th class="header-tabel-data text-center" scope="col" >Harga</th>
-                            <th class="header-tabel-data text-center" scope="col" >Satuan</th>
-                            <th class="header-tabel-data text-center" scope="col" >Subtotal</th>
-                            <th class="header-tabel-data text-center" scope="col" >Keterangan</th>
-                            <th class="header-tabel-data" scope="col" >Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody> 
-                        
-                        @foreach ($recording as $record) 
-                        <tr>
-                            <td class="px-6 py-3 leading-6 text-center whitespace-nowrap">
-                                
-                                {{ $record->no }}
-                            </td>
-                                <td class="text-">
-                                    {{ $record->opex }}
-                                </td>
-                                <td class="text-center">
-                                    {{ number_format($record->jumlah, 0, ',', '.' ) }}
-                                </td>
-                                <td class="text-right">
-                                    {{ number_format($record->harga, 0, ',', '.' ) }}
-                                </td>
-                                <td class="text-center">
-                                    {{ $record->satuan }}
-                                </td>
-                                <td class="text-right"> 
-                                    {{ number_format($record->subtotal, 0, ',', '.' ) }}
-                                </td>
-                                <td class="text">
-                                    {{ $record->keterangan }}
-                                </td>
-                                <td class="text-center">
-                                <a class="btn btn-info btn-sm my-1" href="/admin/opex/{{ $record->opex_id }}/edit"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-danger btn-sm my-1" href="/admin/opex/{{ $record->opex_id }}/{{ $record->siklus_id }}/delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data tersebut?');"><i class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>  
+ 
+<script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
+    {!! $dataTable->table() !!}
+    <!-- <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>   -->
+    {!! $dataTable->scripts() !!}
 </div>
+
 @stop
+
+
     
 @endif
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>

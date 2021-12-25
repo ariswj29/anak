@@ -7,6 +7,10 @@ use App\Models\Minum;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\MinumDataTable;
+use App\Exports\MinumExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\View\View\filterColumn;
 
 class MinumController extends Controller
 {
@@ -15,12 +19,24 @@ class MinumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MinumDataTable $dataTable)
     {
-        $minums = Minum::all();
-        $sikluses = Siklus::all();
+        // $minums = Minum::all();
+        // $sikluses = Siklus::all();
 
-        return view('admin/minum')->with(array('minums'=> $minums, 'sikluses'=> $sikluses));
+        // return view('admin/minum')->with(array('minums'=> $minums, 'sikluses'=> $sikluses));
+
+        return $dataTable->render('admin/minum');
+        // ->filterColumn('tanggal', function ($query, $keyword) {
+        //     $query->whereRaw("DATE_FORMAT(tanggal,'%d/%m/%Y') like ?", ["%$keyword%"]);
+        // });
+    
+        return view('admin/minum',['minum'=>$minum]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new MinumExport, 'Minum.xlsx');
     }
 
     /**

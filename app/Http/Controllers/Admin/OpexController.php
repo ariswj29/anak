@@ -15,6 +15,9 @@ use App\Models\Vitamin;
 use App\Models\Minum;
 use App\Models\Opex;
 use Auth;
+use App\DataTables\OpexDataTable;
+use App\Exports\OpexExport;
+use Maatwebsite\Excel\Facades\Excel;
 // user DB;
 
 class OpexController extends \app\Http\Controllers\Controller
@@ -27,6 +30,7 @@ class OpexController extends \app\Http\Controllers\Controller
      */
     public function __construct()
     {
+        // $this->siklus_id = $siklus_id;
         $this->middleware('auth');
     }
 
@@ -72,7 +76,7 @@ class OpexController extends \app\Http\Controllers\Controller
         farm.mata_uang,
         farm.alamat_farm,
         mitra.nama AS nama_mitra,
-        pjub.nama AS nama_pjub,
+        pjub.nama AS nama,
         SUM ( opex.harga * opex.jumlah ) jml_subtotal
     FROM
         siklus
@@ -98,50 +102,63 @@ class OpexController extends \app\Http\Controllers\Controller
         return view('admin/opex')->with('summary', $summary);
     }
 
-    public function detail($siklus_id)
+    // public function detail($siklus_id)
+    // {
+    //     $sikluses = \DB::select(\DB::raw(" 
+    // SELECT
+    //     siklus.siklus_id,
+    //     siklus.nama_siklus,
+    //     mitra.nama,
+    //     farm.nama_farm	
+    // FROM
+    //     siklus 
+    //     LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
+    //     LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
+    // WHERE
+    //     siklus.siklus_id = $siklus_id"));
+
+    //     $recording = \DB::select(\DB::raw(" 
+    // SELECT ROW_NUMBER
+    //     ( ) OVER ( ORDER BY opex.opex_id ASC ) AS NO,
+    //     siklus.siklus_id,
+    //     opex.opex_id,
+    //     opex.opex,
+    //     opex.jumlah,
+    //     opex.harga,
+    //     opex.satuan,
+    //     ( jumlah * harga ) AS subtotal,
+    //     opex.keterangan
+    // FROM
+    //     opex
+    //     JOIN siklus ON siklus.siklus_id = opex.siklus_id
+    // WHERE
+    //     opex.siklus_id =  $siklus_id AND opex.deleted_at IS NULL"));
+
+    //     $pjub = Pjub::where('pjub_id')->first();
+    //     $mitras = Mitra::all();
+    //     // $siklus = Siklus::where('siklus_id', $siklus_id)->first();
+       
+       
+    //     // $berat = Berat::where('siklus_id', $siklus_id)->first();
+    //     // $pakan = Pakan::where('siklus_id', $siklus_id)->first();
+    //     // $kematian = Kematian::where('siklus_id', $siklus_id)->first();
+    //     // $minum = Minum::where('siklus_id', $siklus_id)->first();
+    //     // $vitamin = Vitamin::where('siklus_id', $siklus_id)->first();
+
+    //     return view('admin/detail_opex')->with('pjub', $pjub)->with('mitras', $mitras)->with('recording', $recording)->with('sikluses', $sikluses);
+    // }
+
+    public function detail(OpexDataTable $dataTable)
     {
-        $sikluses = \DB::select(\DB::raw(" 
-    SELECT
-        siklus.siklus_id,
-        siklus.nama_siklus,
-        mitra.nama,
-        farm.nama_farm	
-    FROM
-        siklus 
-        LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
-        LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
-    WHERE
-        siklus.siklus_id = $siklus_id"));
+        return $dataTable->render('admin/detail_opex');
+        // file_put_contents("test.txt",$dataTable->render('admin/detail_opex'));
+        // return "11";
+        return view('admin/detail_opex',['opex'=>$opex]);
+    }
 
-        $recording = \DB::select(\DB::raw(" 
-    SELECT ROW_NUMBER
-        ( ) OVER ( ORDER BY opex.opex_id ASC ) AS NO,
-        siklus.siklus_id,
-        opex.opex_id,
-        opex.opex,
-        opex.jumlah,
-        opex.harga,
-        opex.satuan,
-        ( jumlah * harga ) AS subtotal,
-        opex.keterangan
-    FROM
-        opex
-        JOIN siklus ON siklus.siklus_id = opex.siklus_id
-    WHERE
-        opex.siklus_id =  $siklus_id AND opex.deleted_at IS NULL"));
-
-        $pjub = Pjub::where('pjub_id')->first();
-        $mitras = Mitra::all();
-        // $siklus = Siklus::where('siklus_id', $siklus_id)->first();
-       
-       
-        // $berat = Berat::where('siklus_id', $siklus_id)->first();
-        // $pakan = Pakan::where('siklus_id', $siklus_id)->first();
-        // $kematian = Kematian::where('siklus_id', $siklus_id)->first();
-        // $minum = Minum::where('siklus_id', $siklus_id)->first();
-        // $vitamin = Vitamin::where('siklus_id', $siklus_id)->first();
-
-        return view('admin/detail_opex')->with('pjub', $pjub)->with('mitras', $mitras)->with('recording', $recording)->with('sikluses', $sikluses);
+    public function export_excel()
+    {
+        return Excel::download(new OpexExport, 'Opex.xlsx');
     }
 
     public function create($siklus_id)

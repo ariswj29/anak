@@ -15,6 +15,7 @@ use App\Models\Vitamin;
 use App\Models\Minum;
 use App\Models\Capex;
 use Auth;
+use DataTables;
 // user DB;
 
 class CapexController extends \app\Http\Controllers\Controller
@@ -66,7 +67,7 @@ class CapexController extends \app\Http\Controllers\Controller
         farm.nama_farm,
         farm.alamat_farm,
         mitra.nama as nama_mitra,
-	    pjub.nama as nama_pjub,
+	    pjub.nama as nama,
         farm.mata_uang,
         SUM ( capex.harga * capex.jumlah ) jml_subtotal 
     FROM
@@ -91,6 +92,10 @@ class CapexController extends \app\Http\Controllers\Controller
 
     public function detail($farm_id)
     {
+        $pjub = Pjub::where('pjub_id')->first();
+        $mitras = Mitra::all();
+        $farms = Farm::where('farm_id', $farm_id)->get();
+
         $farming = \DB::select(\DB::raw(" 
     SELECT
         farm.farm_id,
@@ -122,19 +127,26 @@ class CapexController extends \app\Http\Controllers\Controller
     WHERE
         capex.farm_id = $farm_id AND capex.deleted_at IS NULL"));
 
-        $pjub = Pjub::where('pjub_id')->first();
-        $mitras = Mitra::all();
-        $farms = Farm::where('farm_id', $farm_id)->get();
-        // $siklus = Siklus::where('siklus_id', $siklus_id)->first();
-       
-       
-        // $berat = Berat::where('siklus_id', $siklus_id)->first();
-        // $pakan = Pakan::where('siklus_id', $siklus_id)->first();
-        // $kematian = Kematian::where('siklus_id', $siklus_id)->first();
-        // $minum = Minum::where('siklus_id', $siklus_id)->first();
-        // $vitamin = Vitamin::where('siklus_id', $siklus_id)->first();
+        // $data = Capex::select('*')
+        //         ->join('farm', 'capex.farm_id', '=', 'farm.farm_id')
+        //         ->where('capex.farm_id', $farm_id)
+        //         ->limit(100)
+        //         ->get();
+        // return DataTables::of($data)->make(true);
 
-        return view('admin/detail_capex')->with('pjub', $pjub)->with('mitras', $mitras)->with('farms', $farms)->with('farming', $farming)->with('recording', $recording);
+        return view('admin/detail_capex')->with('pjub', $pjub)->with('mitras', $mitras)->with('farms', $farms)->with('farm_id', $farm_id)->with('farming', $farming)->with('recording', $recording) ;
+    }
+
+    public function json($farm_id){
+        // echo $farm_id;
+        // die;
+        $data = Capex::select('*')
+                ->join('farm', 'capex.farm_id', '=', 'farm.farm_id')
+                ->where('capex.farm_id', $farm_id)
+                ->limit(100)
+                ->get();
+        return DataTables::of($data)->make(true);
+
     }
 
     public function create($farm_id)

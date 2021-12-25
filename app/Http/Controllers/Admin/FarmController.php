@@ -7,6 +7,11 @@ use App\Models\Farm;
 use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\FarmDataTable;
+use App\Exports\FarmExport;
+use Maatwebsite\Excel\Facades\Excel;
+// use Auth;
+// use DataTables;
 
 class FarmController extends Controller
 {
@@ -15,29 +20,49 @@ class FarmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FarmDataTable $dataTable)
     {
-        $farms = \DB::select(\DB::raw("
-        SELECT ROW_NUMBER
-            ( ) OVER ( ORDER BY farm ASC ) AS NO,
-            farm.farm_id,
-            farm.nama_farm,
-            farm.alamat_farm,
-            farm.mata_uang,
-            farm.satuan_berat,
-            farm.kapasitas_kandang_doc,
-            farm.kapasitas_kandang_grower,
-            farm.kapasitas_rak_telur,
-            mitra.nama 
-        FROM
-            farm
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id
-            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id 
-        "));
-        
+        // $farms = \DB::select(\DB::raw("
+        // SELECT ROW_NUMBER
+        //     ( ) OVER ( ORDER BY farm ASC ) AS NO,
+        //     farm.farm_id,
+        //     farm.nama_farm,
+        //     farm.alamat_farm,
+        //     farm.mata_uang,
+        //     farm.satuan_berat,
+        //     farm.kapasitas_kandang_doc,
+        //     farm.kapasitas_kandang_grower,
+        //     farm.kapasitas_rak_telur,
+        //     mitra.nama 
+        // FROM
+        //     farm
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id
+        //     LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id 
+        // "));
 
-        return view('admin/farm')->with('farms', $farms);
+        // return view('admin/farm')->with('farms', $farms);
+
+        return $dataTable->render('admin/farm');
+    
+        return view('admin/farm',['farm'=>$farm]);
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new FarmExport, 'Farm.xlsx');
+	}
+
+    // public function json(){
+    //     // echo $farm_id;
+    //     // die;
+    //     $data = Farm::select('*')
+    //             ->join('mitra', 'farm.mitra_id', '=', 'mitra.mitra_id')
+    //             // ->where('farm.siklus_id', $siklus_id)
+    //             ->limit(100)
+    //             ->get();
+    //     return DataTables::of($data)->make(true);
+
+    // }
 
     /**
      * Show the form for creating a new resource.

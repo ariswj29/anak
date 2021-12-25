@@ -7,6 +7,9 @@ use App\Models\Mitra;
 use App\Models\Pjub;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\MitraDataTable;
+use App\Exports\MitraExport;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
 class MitraController extends Controller
@@ -16,21 +19,25 @@ class MitraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MitraDataTable $dataTable)
     {
         
         // $mitras =array(array('id'=>1,'nama'=>'om aris'),array('id'=>2,'nama'=>'aris'));
 
-        $mitras = Mitra::all();
-        $pjubs = Pjub::all();
+        // $mitras = Mitra::all();
+        // $pjubs = Pjub::all();
 
         // var_dump($mitras);
         // die;
 
-        return view('admin/mitra')->with(array('mitras'=> $mitras, 'pjubs'=>$pjubs));
+        return $dataTable->render('admin/mitra');
+    
+        return view('admin/mitra',['mitra'=>$mitra],['pjub'=>$pjub]);
+    }
 
-        
-        
+    public function export_excel()
+    {
+        return Excel::download(new MitraExport, 'Mitra.xlsx');
     }
 
     /**
@@ -39,16 +46,16 @@ class MitraController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function exportPDF() 
-    {
+    // public function exportPDF() 
+    // {
        
-        $mitra = Mitra::all();
+    //     $mitra = Mitra::all();
   
-        $pdf = PDF::loadView('admin/mitra', ['mitra' => $mitra]);
+    //     $pdf = PDF::loadView('admin/mitra', ['mitra' => $mitra]);
         
-        return $pdf->download('mitra.pdf');
+    //     return $pdf->download('mitra.pdf');
         
-    }
+    // }
 
 
     public function create()

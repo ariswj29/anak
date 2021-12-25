@@ -42,6 +42,9 @@ Route::post('/profile', [App\Http\Controllers\HomeController::class, 'profile'])
 // User
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin/user');
+    Route::get('/admin/user/export_excel', [App\Http\Controllers\Admin\UserController::class, 'export_excel']);
+    // Route::get('/admin/user/export', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin/user');
+    // Route::post('sample/export', 'SampleController@index');
     Route::get('/admin/user/tambah', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin/tambah_user');
     Route::post('/admin/user/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin/tambah_user');
     Route::get('/admin/user/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin/edit_user');
@@ -52,6 +55,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // PJUB
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/pjub', [App\Http\Controllers\Admin\PjubController::class, 'index'])->name('admin/pjub');
+    Route::get('/admin/pjub/export_excel', [App\Http\Controllers\Admin\PjubController::class, 'export_excel']);
     Route::get('/admin/pjub/tambah', [App\Http\Controllers\Admin\PjubController::class, 'create'])->name('admin/tambah_pjub');
     Route::post('/admin/pjub/store', [App\Http\Controllers\Admin\PjubController::class, 'store'])->name('admin/tambah_pjub');
     Route::get('/admin/pjub/{pjub}/edit', [App\Http\Controllers\Admin\PjubController::class, 'edit'])->name('admin/edit_pjub');
@@ -62,6 +66,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Mitra
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/mitra', [App\Http\Controllers\Admin\MitraController::class, 'index'])->name('admin/mitra');
+    Route::get('/admin/mitra/export_excel', [App\Http\Controllers\Admin\MitraController::class, 'export_excel']);
     Route::get('/admin/mitra/tambah', [App\Http\Controllers\Admin\MitraController::class, 'create'])->name('admin/tambah_mitra');
     Route::post('/admin/mitra/store', [App\Http\Controllers\Admin\MitraController::class, 'store'])->name('admin/tambah_mitra');
     Route::get('/admin/mitra/{mitra}/edit', [App\Http\Controllers\Admin\MitraController::class, 'edit'])->name('admin/edit_mitra');
@@ -72,6 +77,8 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Farm Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/farm', [App\Http\Controllers\Admin\FarmController::class, 'index'])->name('admin/farm');
+    Route::get('/admin/farm/export_excel', [App\Http\Controllers\Admin\FarmController::class, 'export_excel']);
+    // Route::get('/admin/farm/json', [App\Http\Controllers\Admin\FarmController::class, 'json']);
     Route::get('/admin/farm/tambah', [App\Http\Controllers\Admin\FarmController::class, 'create'])->name('admin/tambah_farm');
     Route::post('/admin/farm/store', [App\Http\Controllers\Admin\FarmController::class, 'store'])->name('admin/tambah_farm');
     Route::get('/admin/farm/{farm}/edit', [App\Http\Controllers\Admin\FarmController::class, 'edit'])->name('admin/edit_farm');
@@ -82,7 +89,8 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Capex Admin
 // Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/capex', [App\Http\Controllers\Admin\CapexController::class, 'index'])->name('admin/capex');
-    Route::get('/admin/capex/{capex}/detail', [App\Http\Controllers\Admin\CapexController::class, 'detail'])->name('admin/detail_capex');
+    Route::get('/admin/capex/{farm}/detail', [App\Http\Controllers\Admin\CapexController::class, 'detail'])->name('admin/detail_capex');
+    Route::get('/admin/capex/{farm}/detail/json', [App\Http\Controllers\Admin\CapexController::class, 'json']);
     Route::get('/admin/capex/{farm}/tambah', [App\Http\Controllers\Admin\CapexController::class, 'create'])->name('admin/tambah_capex');
     Route::post('/admin/capex/store', [App\Http\Controllers\Admin\CapexController::class, 'store'])->name('admin/tambah_capex');
     Route::get('/admin/capex/{capex}/edit', [App\Http\Controllers\Admin\CapexController::class, 'edit'])->name('admin/edit_capex');
@@ -93,7 +101,8 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Opex Admin
 // Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/opex', [App\Http\Controllers\Admin\OpexController::class, 'index'])->name('admin/opex');
-    Route::get('/admin/opex/{opex}/detail', [App\Http\Controllers\Admin\OpexController::class, 'detail'])->name('admin/detail_opex');
+    Route::get('/admin/opex/{siklus_id}/detail', [App\Http\Controllers\Admin\OpexController::class, 'detail'])->name('admin/detail_opex');
+    // Route::get('/admin/opex/{opex}/detail', [App\Http\Controllers\Admin\OpexController::class, 'json']);
     Route::get('/admin/opex/{siklus}/tambah', [App\Http\Controllers\Admin\OpexController::class, 'create'])->name('admin/tambah_opex');
     Route::post('/admin/opex/store', [App\Http\Controllers\Admin\OpexController::class, 'store'])->name('admin/tambah_opex');
     Route::get('/admin/opex/{opex}/edit', [App\Http\Controllers\Admin\OpexController::class, 'edit'])->name('admin/edit_opex');
@@ -104,6 +113,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Siklus Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/siklus', [App\Http\Controllers\Admin\SiklusController::class, 'index'])->name('admin/siklus');
+    Route::get('/admin/siklus/export_excel', [App\Http\Controllers\Admin\SiklusController::class, 'export_excel']);
     Route::get('/admin/siklus/tambah', [App\Http\Controllers\Admin\SiklusController::class, 'create'])->name('admin/tambah_siklus');
     Route::post('/admin/siklus/store', [App\Http\Controllers\Admin\SiklusController::class, 'store'])->name('admin/tambah_siklus');
     // Route::get('/admin/siklus/{siklus}', [App\Http\Controllers\Admin\SiklusController::class, 'show']);
@@ -117,6 +127,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Pakan Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/pakan', [App\Http\Controllers\Admin\PakanController::class, 'index'])->name('admin/pakan');
+    Route::get('/admin/pakan/export_excel', [App\Http\Controllers\Admin\PakanController::class, 'export_excel']);
     Route::get('/admin/pakan/tambah', [App\Http\Controllers\Admin\PakanController::class, 'create'])->name('admin/tambah_pakan');
     Route::post('/admin/pakan/store', [App\Http\Controllers\Admin\PakanController::class, 'store'])->name('admin/tambah_pakan');
     Route::get('/admin/pakan/{pakan}/edit', [App\Http\Controllers\Admin\PakanController::class, 'edit'])->name('admin/edit_pakan');
@@ -127,6 +138,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Minum Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/minum', [App\Http\Controllers\Admin\MinumController::class, 'index'])->name('admin/minum');
+    Route::get('/admin/minum/export_excel', [App\Http\Controllers\Admin\MinumController::class, 'export_excel']);
     Route::get('/admin/minum/tambah', [App\Http\Controllers\Admin\MinumController::class, 'create'])->name('admin/tambah_minum');
     Route::post('/admin/minum/store', [App\Http\Controllers\Admin\MinumController::class, 'store'])->name('admin/tambah_minum');
     Route::get('/admin/minum/{minum}/edit', [App\Http\Controllers\Admin\MinumController::class, 'edit'])->name('admin/edit_minum');
@@ -137,6 +149,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Berat Ayam Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/berat', [App\Http\Controllers\Admin\BeratController::class, 'index'])->name('admin/berat');
+    Route::get('/admin/berat/export_excel', [App\Http\Controllers\Admin\BeratController::class, 'export_excel']);
     Route::get('/admin/berat/tambah', [App\Http\Controllers\Admin\BeratController::class, 'create'])->name('admin/tambah_berat');
     Route::post('/admin/berat/store', [App\Http\Controllers\Admin\BeratController::class, 'store'])->name('admin/tambah_berat');
     Route::get('/admin/berat/{berat}/edit', [App\Http\Controllers\Admin\BeratController::class, 'edit'])->name('admin/edit_berat');
@@ -147,6 +160,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Vitamin Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/vitamin', [App\Http\Controllers\Admin\VitaminController::class, 'index'])->name('admin/vitamin');
+    Route::get('/admin/vitamin/export_excel', [App\Http\Controllers\Admin\VitaminController::class, 'export_excel']);
     Route::get('/admin/vitamin/tambah', [App\Http\Controllers\Admin\VitaminController::class, 'create'])->name('admin/tambah_vitamin');
     Route::post('/admin/vitamin/store', [App\Http\Controllers\Admin\VitaminController::class, 'store'])->name('admin/tambah_vitamin');
     Route::get('/admin/vitamin/{vitamin}/edit', [App\Http\Controllers\Admin\VitaminController::class, 'edit'])->name('admin/edit_vitamin');
@@ -157,6 +171,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Kematian Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kematian', [App\Http\Controllers\Admin\KematianController::class, 'index'])->name('admin/kematian');
+    Route::get('/admin/kematian/export_excel', [App\Http\Controllers\Admin\KematianController::class, 'export_excel']);
     Route::get('/admin/kematian/tambah', [App\Http\Controllers\Admin\KematianController::class, 'create'])->name('admin/tambah_kematian');
     Route::post('/admin/kematian/store', [App\Http\Controllers\Admin\KematianController::class, 'store'])->name('admin/tambah_kematian');
     Route::get('/admin/kematian/{kematian}/edit', [App\Http\Controllers\Admin\KematianController::class, 'edit'])->name('admin/edit_kematian');
@@ -168,6 +183,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kas', [App\Http\Controllers\Admin\KasController::class, 'index'])->name('admin/kas');
     Route::get('/admin/kas/{siklus}/detail', [App\Http\Controllers\Admin\KasController::class, 'detail'])->name('admin/detail_kas');
+    Route::get('/admin/kas/{siklus}/detail/export_excel', [App\Http\Controllers\Admin\KasController::class, 'export_excel']);
     Route::get('/admin/kas/{siklus}/lpj', [App\Http\Controllers\Admin\KasController::class, 'lpj'])->name('admin/lpj_kas');
     Route::get('/admin/kas/{siklus}/tambah', [App\Http\Controllers\Admin\KasController::class, 'create'])->name('admin/tambah_kas');
     Route::post('/admin/kas/store', [App\Http\Controllers\Admin\KasController::class, 'store'])->name('admin/tambah_kas');
@@ -179,6 +195,7 @@ Route::middleware(['auth','administrator'])->group(function () {
 // Penjualan Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/penjualan', [App\Http\Controllers\Admin\PenjualanController::class, 'index'])->name('admin/penjualan');
+    Route::get('/admin/penjualan/export_excel', [App\Http\Controllers\Admin\PenjualanController::class, 'export_excel']);
     Route::get('/admin/penjualan/tambah', [App\Http\Controllers\Admin\PenjualanController::class, 'create'])->name('admin/tambah_penjualan');
     Route::post('/admin/penjualan/store', [App\Http\Controllers\Admin\PenjualanController::class, 'store'])->name('admin/tambah_penjualan');
     Route::get('/admin/penjualan/{penjualan}/edit', [App\Http\Controllers\Admin\PenjualanController::class, 'edit'])->name('admin/edit_penjualan');

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Pjub;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\PjubDataTable;
+use App\Exports\PjubExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PjubController extends Controller
 {
@@ -14,15 +17,23 @@ class PjubController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PjubDataTable $dataTable)
     {
         
         // $pjubs =array(array('id'=>1,'nama'=>'om aris'),array('id'=>2,'nama'=>'aris'));
 
-        $pjubs = Pjub::all();
-        return view('admin/pjub')->with('pjubs', $pjubs);
+        // $pjubs = Pjub::all();
+        // return view('admin/pjub')->with('pjubs', $pjubs);
         
+        return $dataTable->render('admin/pjub');
+    
+        return view('admin/pjub',['pjub'=>$pjub]);
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new PjubExport, 'Pjub.xlsx');
+	}
 
     /**
      * Show the form for creating a new resource.

@@ -9,6 +9,9 @@ use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
+use App\DataTables\SiklusDataTable;
+use App\Exports\SiklusExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiklusController extends Controller
 {
@@ -17,30 +20,39 @@ class SiklusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SiklusDataTable $dataTable)
         {
-            $sikluses = Siklus::all();
-            $farms = farm::all();
+            // $sikluses = Siklus::all();
+            // $farms = farm::all();
 
-            return view('admin/siklus')->with(array('sikluses'=> $sikluses, 'farms'=> $farms));
+            // return view('admin/siklus')->with(array('sikluses'=> $sikluses, 'farms'=> $farms));
+        
+            return $dataTable->render('admin/siklus');
+    
+            return view('admin/siklus',['siklus'=>$siklus]);
         }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function exportPDF() 
+ 
+    public function export_excel()
     {
+        return Excel::download(new SiklusExport, 'Siklus.xlsx');
+    }
+
+        /**
+         * Show the form for creating a new resource.
+         *
+         * @return \Illuminate\Http\Response
+         */
+        
+    // public function exportPDF() 
+    // {
        
-        $sikluses = Siklus::all();
+    //     $sikluses = Siklus::all();
   
-        $pdf = PDF::loadView('admin/siklus', ['sikluses' => $sikluses]);
+    //     $pdf = PDF::loadView('admin/siklus', ['sikluses' => $sikluses]);
         
-        return $pdf->download('siklus.pdf');
+    //     return $pdf->download('siklus.pdf');
         
-    }    
+    // }    
 
     public function create()
     {

@@ -7,6 +7,9 @@ use App\Models\Vitamin;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\VitaminDataTable;
+use App\Exports\VitaminExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VitaminController extends Controller
 {
@@ -15,12 +18,21 @@ class VitaminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(VitaminDataTable $dataTable)
     {
-        $vitamins = Vitamin::all();
-        $sikluses = Siklus::all();
+        // $vitamins = Vitamin::all();
+        // $sikluses = Siklus::all();
 
-        return view('admin/vitamin')->with(array('vitamins'=> $vitamins, 'sikluses'=> $sikluses));
+        // return view('admin/vitamin')->with(array('vitamins'=> $vitamins, 'sikluses'=> $sikluses));
+        
+        return $dataTable->render('admin/vitamin');
+    
+        return view('admin/vitamin',['vitamin'=>$vitamin]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new VitaminExport, 'Vitamin.xlsx');
     }
 
     /**

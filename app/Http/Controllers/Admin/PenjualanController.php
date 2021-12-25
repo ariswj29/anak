@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use File;
+use App\DataTables\PenjualanDataTable;
+use App\Exports\PenjualanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PenjualanController extends Controller
 {
@@ -17,12 +20,20 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PenjualanDataTable $dataTable)
     {
-        $penjualans = Penjualan::all();
-        $sikluses = Siklus::all();
+        // $penjualans = Penjualan::all();
+        // $sikluses = Siklus::all();
 
-        return view('admin/penjualan')->with(array('penjualans'=> $penjualans, 'sikluses'=> $sikluses));
+        // return view('admin/penjualan')->with(array('penjualans'=> $penjualans, 'sikluses'=> $sikluses));
+        return $dataTable->render('admin/penjualan');
+    
+        return view('admin/penjualan',['penjualan'=>$penjualan]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new PenjualanExport, 'Penjualan.xlsx');
     }
 
     /**

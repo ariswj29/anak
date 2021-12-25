@@ -18,6 +18,9 @@ use App\Models\Satuan;
 use App\Models\Kategori;
 use App\Models\Opex;
 use Auth;
+use App\DataTables\KasDataTable;
+use App\Exports\KasExport;
+use Maatwebsite\Excel\Facades\Excel;
 // user DB;
 
 class KasController extends \app\Http\Controllers\Controller
@@ -92,7 +95,7 @@ class KasController extends \app\Http\Controllers\Controller
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
         LEFT JOIN kas ON kas.id = kas.siklus_id
         LEFT JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id
-    WHERE kas.deleted_at IS NULL
+    WHERE siklus.deleted_at IS NULL
     GROUP BY 
         mitra.mitra_id,
         pjub.nama,
@@ -117,57 +120,45 @@ class KasController extends \app\Http\Controllers\Controller
         return view('admin/kas')->with('summary', $summary);
     }
 
-    public function detail($siklus_id)
+    public function detail(KasDataTable $dataTable, $siklus_id)
     {
-        $sikluses = \DB::select(\DB::raw(" 
-    SELECT
-        siklus.siklus_id,
-        siklus.nama_siklus,
-        siklus.kode,
-        mitra.nama,
-        farm.nama_farm	
-    FROM
-        siklus 
-        LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
-        LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
-    WHERE
-        siklus.siklus_id = $siklus_id"));
+        // $sikluses = Siklus::get('siklus_id');
 
-        $recording = \DB::select(\DB::raw(" 
-    SELECT ROW_NUMBER
-        ( ) OVER ( ORDER BY kas.tanggal ASC ) AS NO,
-        siklus.siklus_id,
-        kas.ID,
-        kas.tanggal,
-        kas.nama,
-        kas.vol,
-        satuan.satuan,
-        kas.harga_satuan,
-        kategori.kategori,
-    --         jenis_transaksi.jenis_transaksi,
-        CASE 
-            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
-            saldo ELSE 0 
-        END as pemasukan,
+    //     $recording = \DB::select(\DB::raw(" 
+    // SELECT ROW_NUMBER
+    //     ( ) OVER ( ORDER BY kas.tanggal ASC ) AS NO,
+    //     siklus.siklus_id,
+    //     kas.ID,
+    //     kas.tanggal,
+    //     kas.nama,
+    //     kas.vol,
+    //     satuan.satuan,
+    //     kas.harga_satuan,
+    //     kategori.kategori,
+    // --         jenis_transaksi.jenis_transaksi,
+    //     CASE 
+    //         WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
+    //         saldo ELSE 0 
+    //     END as pemasukan,
 
-        CASE
-            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
-            saldo ELSE 0 
-        END  as pengeluaran,
-        -- ( saldo - (kas.vol * kas.harga_satuan ) + (kas.vol * kas.harga_satuan ) ) as jml_saldo,
-        kas.keterangan 
-    FROM
-        kas
-        JOIN siklus ON siklus.siklus_id = kas.siklus_id
-        JOIN satuan ON satuan.satuan_id = kas.satuan_id
-        JOIN kategori ON kategori.kategori_id = kas.kategori_id
-        JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id 
-    WHERE
-        kas.siklus_id = $siklus_id 
-        AND kas.deleted_at IS NULL"));
+    //     CASE
+    //         WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
+    //         saldo ELSE 0 
+    //     END  as pengeluaran,
+    //     -- ( saldo - (kas.vol * kas.harga_satuan ) + (kas.vol * kas.harga_satuan ) ) as jml_saldo,
+    //     kas.keterangan 
+    // FROM
+    //     kas
+    //     JOIN siklus ON siklus.siklus_id = kas.siklus_id
+    //     JOIN satuan ON satuan.satuan_id = kas.satuan_id
+    //     JOIN kategori ON kategori.kategori_id = kas.kategori_id
+    //     JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id 
+    // WHERE
+    //     kas.siklus_id = $siklus_id 
+    //     AND kas.deleted_at IS NULL"));
 
-        $pjub = Pjub::where('pjub_id')->first();
-        $mitras = Mitra::all();
+        // $pjub = Pjub::where('pjub_id')->first();
+        // $mitras = Mitra::all();
         // $siklus = Siklus::where('siklus_id', $siklus_id)->first();
        
        
@@ -176,27 +167,34 @@ class KasController extends \app\Http\Controllers\Controller
         // $kematian = Kematian::where('siklus_id', $siklus_id)->first();
         // $minum = Minum::where('siklus_id', $siklus_id)->first();
         // $vitamin = Vitamin::where('siklus_id', $siklus_id)->first();
-        // var_dump($recording[0]);
-        // die;
-        $recordings=[]; 
-        $i=0;
-        // $a=0;
-        // $saldoPrevTest = $recordings[0]->saldo;    
-        $saldoPrev=0;
-        foreach ($recording as $r ) {
-            if($i!==0){
-                $saldoPrev = $recordings[($i-1)]->saldo;    
-                // $saldoPrevTest = $recordings[0]->saldo;    
-            }
-            $rTmp = json_decode(json_encode($r), true);
-            $rTmp['saldo']=$rTmp['pemasukan']-$rTmp['pengeluaran']+$saldoPrev; 
-            $recordings[]=(object)$rTmp; 
-            $i++;
-        }
-        // var_dump($recordings);
-        // die;
-        return view('admin/detail_kas')->with('pjub', $pjub)->with('mitras', $mitras)->with('recording', $recordings)->with('sikluses', $sikluses);
+        
+            // $recordings=[]; 
+            // $i=0;
+            // $saldoPrev=0;
+            // foreach ($recording as $r ) {
+            //     if($i!==0){
+            //         $saldoPrev = $recordings[($i-1)]->saldo;      
+            //     }
+            //     $rTmp = json_decode(json_encode($r), true);
+            //     $rTmp['saldo']=$rTmp['pemasukan']-$rTmp['pengeluaran']+$saldoPrev; 
+            //     $recordings[]=(object)$rTmp; 
+            //     $i++;
+            // }
+
+        return $dataTable->render('admin/detail_kas')->with('siklus_id', $siklus_id);
+        
+        return view('admin/detail_kas')->with('siklus_id', $siklus_id);
+        
+        
+
+        // return view('admin/detail_kas',['kas'=>$kas])->with('pjub', $pjub)->with('mitras', $mitras)->with('recording', $recordings)->with('sikluses', $sikluses);
     }
+
+    public function export_excel()
+    {
+        return Excel::download(new KasExport, 'Buku Kas.xlsx');
+    }
+
 
     // public function lpj($siklus_id)
     // {

@@ -7,6 +7,9 @@ use App\Models\Berat;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\BeratDataTable;
+use App\Exports\BeratExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BeratController extends Controller
 {
@@ -15,12 +18,21 @@ class BeratController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BeratDataTable $dataTable)
     {
-        $berats = Berat::all();
-        $sikluses = Siklus::all();
+        // $berats = Berat::all();
+        // $sikluses = Siklus::all();
 
-        return view('admin/berat')->with(array('berats'=> $berats, 'sikluses'=> $sikluses));
+        // return view('admin/berat')->with(array('berats'=> $berats, 'sikluses'=> $sikluses));
+
+        return $dataTable->render('admin/berat');
+    
+        return view('admin/berat',['berat'=>$berat]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new BeratExport, 'Berat.xlsx');
     }
 
     /**

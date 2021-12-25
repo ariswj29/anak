@@ -7,6 +7,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^0.9.0",
+        "datatables.net/datatables.net-buttons-dt": "dev-master",
+        "datatables.net/datatables.net-dt": "dev-master",
+        "datatables.net/datatables.net-rowgroup-dt": "dev-master",
+        "datatables.net/datatables.net-scroller-dt": "dev-master",
+        "datatables.net/datatables.net-select-dt": "dev-master",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jeroennoten/laravel-adminlte": "^3.7",
@@ -14,7 +19,10 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "thomaswelton/laravel-gravatar": "~1.0"
+        "maatwebsite/excel": "^3.1",
+        "thomaswelton/laravel-gravatar": "~1.0",
+        "yajra/laravel-datatables-buttons": "^4.13",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

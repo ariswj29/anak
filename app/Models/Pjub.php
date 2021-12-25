@@ -14,6 +14,10 @@ class Pjub extends Model
     use SoftDeletes ;
     protected $primaryKey = 'pjub_id';
     protected $table = 'pjub';
+    protected $fillable = [
+        'pjub_id',
+        'nama',
+    ];
 
     public function mitras()
     {

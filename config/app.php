@@ -164,6 +164,8 @@ return [
 
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        // Yajra\DataTables\DataTablesServiceProvider::class,
+        // Yajra\DataTables\ButtonsServiceProvider::class,
 
 
         /*
@@ -235,6 +237,7 @@ return [
 
         'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

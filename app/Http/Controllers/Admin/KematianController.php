@@ -7,6 +7,9 @@ use App\Models\Kematian;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\KematianDataTable;
+use App\Exports\KematianExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KematianController extends Controller
 {
@@ -15,12 +18,21 @@ class KematianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(KematianDataTable $dataTable)
     {
-        $kematians = Kematian::all();
-        $sikluses = Siklus::all();
+        // $kematians = Kematian::all();
+        // $sikluses = Siklus::all();
 
-        return view('admin/kematian')->with(array('kematians'=> $kematians, 'sikluses'=> $sikluses));
+        // return view('admin/kematian')->with(array('kematians'=> $kematians, 'sikluses'=> $sikluses));
+
+        return $dataTable->render('admin/kematian');
+    
+        return view('admin/kematian',['kematian'=>$kematian]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new KematianExport, 'Kematian.xlsx');
     }
 
     /**

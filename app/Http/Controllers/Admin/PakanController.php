@@ -7,6 +7,9 @@ use App\Models\Pakan;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\PakanDataTable;
+use App\Exports\PakanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PakanController extends Controller
 {
@@ -15,12 +18,21 @@ class PakanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PakanDataTable $dataTable)
     {
-        $pakans = Pakan::all();
-        $sikluses = Siklus::all();
+        // $pakans = Pakan::all();
+        // $sikluses = Siklus::all();
 
-        return view('admin/pakan')->with(array('pakans'=> $pakans, 'sikluses'=> $sikluses));
+        // return view('admin/pakan')->with(array('pakans'=> $pakans, 'sikluses'=> $sikluses));
+    
+        return $dataTable->render('admin/pakan');
+    
+        return view('admin/pakan',['pakan'=>$pakan]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new PakanExport, 'Pakan.xlsx');
     }
 
     /**

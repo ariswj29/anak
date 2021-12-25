@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
+use App\DataTables\UserDataTable;
+use App\Exports\UserExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class UserController extends Controller
 {
@@ -15,14 +19,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserDataTable $dataTable)
     {
-        
-        $users = user::all();
-
-        return view('admin/user')->with(array('users'=> $users));
-
+     return $dataTable->render('admin/user');
+    
+    return view('admin/user',['user'=>$user]);
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new UserExport, 'User.xlsx');
+	}
 
     /**
      * Show the form for creating a new resource.

@@ -41,7 +41,7 @@
                         <div class="col" style="color:grey">Subtotal Operasional</div>
                     </div> 
                     <div class="row">
-                        <div class="col"><b>{{ $sum->nama_pjub  }}</b></div>  
+                        <div class="col"><b>{{ $sum->nama  }}</b></div>  
                         <div class="col"><b>{{ $sum->nama_mitra  }}</b></div>  
                         <div class="col"><b>{{ $sum->mata_uang }}. {{ number_format($sum->jml_subtotal, 0, ',', '.') }} </b></div>
                     </div>

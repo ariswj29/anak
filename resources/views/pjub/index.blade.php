@@ -41,7 +41,7 @@
                         <div class="col" style="color:grey">Jenis Ternak</div>
                     </div> 
                     <div class="row">
-                        <div class="col"><b>{{ $sum->pjub  }}</b></div>
+                        <div class="col"><b>{{ $sum->nama  }}</b></div>
                         <div class="col"><b>{{ number_format($sum->jml_rata, 0, ',', '.') }} g </b></div>
                         <div class="col"><b>{{ $sum->jenis_ternak }}</b></div>  
                     </div> <p>
