@@ -7,8 +7,8 @@ use App\Models\Mitra;
 use App\Models\Pjub;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\DataTables\MitraDataTable;
-use App\Exports\MitraExport;
+use App\DataTables\Admin\MitraDataTable;
+use App\Exports\Admin\MitraExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
@@ -24,13 +24,13 @@ class MitraController extends Controller
         
         // $mitras =array(array('id'=>1,'nama'=>'om aris'),array('id'=>2,'nama'=>'aris'));
 
-        // $mitras = Mitra::all();
-        // $pjubs = Pjub::all();
+        $mitras = Mitra::all();
+        $pjubs = Pjub::all();
 
         // var_dump($mitras);
         // die;
 
-        return $dataTable->render('admin/mitra');
+        return $dataTable->render('admin/mitra',['mitras'=>$mitras],['pjubs'=>$pjubs]);
     
         return view('admin/mitra',['mitra'=>$mitra],['pjub'=>$pjub]);
     }

@@ -10,11 +10,13 @@ class kas extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'kas_id';
+    protected $siklus_id;
     protected $table = 'kas';
+    // protected $dates = ['tanggal', 'created_at', 'updated_at'];
 
     protected $fillable = [
-        'id',
+        'kas_id',
         'siklus_id',
         'tanggal',
         'nama',

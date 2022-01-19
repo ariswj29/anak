@@ -47,8 +47,13 @@
             <input type="text" class="form-control" id="exampleControlInput1" name="kode" placeholder="Isi Kode Siklus!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-            <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal" placeholder="Isi Tanggal!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <label for="exampleFormControlInput1" class="form-label">Tanggal Mulai</label>
+            <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal_mulai" placeholder="Isi tanggal mulai!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Tanggal Selesai</label>
+            <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal_selesai">
+            <label style="font-size:11px; color:grey;">* Isi jika tau tanggal selesai!</label>
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jenis Ternak</label>

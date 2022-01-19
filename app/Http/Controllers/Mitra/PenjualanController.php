@@ -8,6 +8,9 @@ use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use App\DataTables\Mitra\PenjualanDataTable;
+use App\Exports\Mitra\PenjualanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use File;
 use Auth;
 
@@ -18,10 +21,10 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PenjualanDataTable $dataTable)
     {
-        $sikluses = Siklus::all();
-        $recording = \DB::select(\DB::raw("
+        // $sikluses = Siklus::all();
+        $penjualans = \DB::select(\DB::raw("
         SELECT 
             ROW_NUMBER ( ) OVER ( ORDER BY penjualan.tanggal ASC ) AS NO,
             penjualan.penjualan_id,
@@ -32,7 +35,8 @@ class PenjualanController extends Controller
             farm.nama_farm,
             penjualan.jumlah_nominal,
             penjualan.tanggal, 
-            penjualan.foto 
+            penjualan.foto, 
+            mitra.email 
         FROM
             penjualan
             JOIN siklus ON penjualan.siklus_id = siklus.siklus_id
@@ -43,7 +47,16 @@ class PenjualanController extends Controller
             mitra.email = '".Auth::user()->email."'
             and penjualan.deleted_at IS Null"));
 
-        return view('mitra/penjualan')->with(array('recording'=> $recording, 'sikluses'=> $sikluses));
+        // return view('mitra/penjualan')->with(array('recording'=> $recording, 'sikluses'=> $sikluses));
+
+        return $dataTable->render('mitra/penjualan',['penjualans'=>$penjualans]);
+    
+        return view('mitra/penjualan',['penjualan'=>$penjualan]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new PenjualanExport, 'Penjualan.xlsx');
     }
 
     /**
@@ -65,7 +78,7 @@ class PenjualanController extends Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id 
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
-            mitra.email = '".Auth::user()->email."' "));
+            mitra.email = '".Auth::user()->email."' AND siklus.deleted_at IS NULL"));
         return view('mitra/tambah_penjualan')->with('sikluses', $sikluses)->with('penjualan', $penjualan);
     }
 

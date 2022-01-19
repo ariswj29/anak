@@ -7,8 +7,8 @@ use App\Models\Kematian;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\DataTables\KematianDataTable;
-use App\Exports\KematianExport;
+use App\DataTables\Admin\KematianDataTable;
+use App\Exports\Admin\KematianExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KematianController extends Controller
@@ -56,6 +56,7 @@ class KematianController extends Controller
         $this->validate(request(),[
             'siklus_id' => 'required',
             'tanggal' => 'required',
+            'penyebab' => 'required',
             'jumlah_kematian' => 'required',
             ]);
 
@@ -64,6 +65,7 @@ class KematianController extends Controller
         $kematian = new Kematian();
         $kematian->siklus_id = $data['siklus_id'];
         $kematian->tanggal = $data['tanggal'];
+        $kematian->penyebab = $data['penyebab'];
         $kematian->jumlah_kematian = $data['jumlah_kematian'];
 
         $kematian->save();
@@ -110,6 +112,7 @@ class KematianController extends Controller
         $this->validate(request(),[
             'siklus_id' => 'required',
             'tanggal' => 'required',
+            'penyebab' => 'required',
             'jumlah_kematian' => 'required',
             ]);
 
@@ -118,6 +121,7 @@ class KematianController extends Controller
         $kematian = Kematian::find($kematian_id);
         $kematian->siklus_id = $data['siklus_id'];
         $kematian->tanggal = $data['tanggal'];
+        $kematian->penyebab = $data['penyebab'];
         $kematian->jumlah_kematian = $data['jumlah_kematian'];
 
         $kematian->save();

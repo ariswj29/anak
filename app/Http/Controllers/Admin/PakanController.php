@@ -7,8 +7,8 @@ use App\Models\Pakan;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\DataTables\PakanDataTable;
-use App\Exports\PakanExport;
+use App\DataTables\Admin\PakanDataTable;
+use App\Exports\Admin\PakanExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PakanController extends Controller

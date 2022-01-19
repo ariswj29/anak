@@ -16,12 +16,14 @@ use App\Models\Minum;
 use App\Models\Kas;
 use App\Models\Satuan;
 use App\Models\Kategori;
+use App\Models\Transaksi;
+// use App\Models\Kategori;
 use App\Models\Opex;
 use Auth;
-use App\DataTables\KasDataTable;
-use App\Exports\KasExport;
+use App\DataTables\Admin\KasDataTable;
+use App\Exports\Admin\KasExport;
 use Maatwebsite\Excel\Facades\Excel;
-// user DB;
+use DB;
 
 class KasController extends \app\Http\Controllers\Controller
 {   
@@ -76,16 +78,7 @@ class KasController extends \app\Http\Controllers\Controller
         siklus.siklus_id,
         farm.mata_uang,
         farm.alamat_farm,
-        CASE 
-            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
-            saldo ELSE 0 
-        END as pemasukan,
-
-        CASE
-            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
-            saldo ELSE 0 
-        END  as pengeluaran,
-        kas.saldo,
+        kas.jumlah,
         pjub.nama
     FROM
         siklus
@@ -93,7 +86,7 @@ class KasController extends \app\Http\Controllers\Controller
         JOIN farm ON farm.farm_id = siklus.farm_id 
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
-        LEFT JOIN kas ON kas.id = kas.siklus_id
+        LEFT JOIN kas ON kas.kas_id = kas.siklus_id
         LEFT JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id
     WHERE siklus.deleted_at IS NULL
     GROUP BY 
@@ -104,15 +97,7 @@ class KasController extends \app\Http\Controllers\Controller
         farm.alamat_farm,
         siklus.nama_siklus,
         siklus.siklus_id,
-        CASE 
-            WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
-            saldo ELSE 0 
-        END,
-        CASE
-            WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
-            saldo ELSE 0 
-        END ,
-        kas.saldo,
+        kas.jumlah,
         farm.mata_uang"
         ));
 
@@ -122,40 +107,53 @@ class KasController extends \app\Http\Controllers\Controller
 
     public function detail(KasDataTable $dataTable, $siklus_id)
     {
-        // $sikluses = Siklus::get('siklus_id');
+        // $siklus_id = Siklus::find('siklus_id');
+        $sikluses = Siklus::all();
 
-    //     $recording = \DB::select(\DB::raw(" 
-    // SELECT ROW_NUMBER
-    //     ( ) OVER ( ORDER BY kas.tanggal ASC ) AS NO,
-    //     siklus.siklus_id,
-    //     kas.ID,
-    //     kas.tanggal,
-    //     kas.nama,
-    //     kas.vol,
-    //     satuan.satuan,
-    //     kas.harga_satuan,
-    //     kategori.kategori,
-    // --         jenis_transaksi.jenis_transaksi,
-    //     CASE 
-    //         WHEN jenis_transaksi.jenis_transaksi = 'Pemasukan' THEN
-    //         saldo ELSE 0 
-    //     END as pemasukan,
+        $kases = \DB::select(\DB::raw(" 
+    SELECT ROW_NUMBER
+        ( ) OVER ( ORDER BY kas.tanggal ASC ) AS NO,
+        siklus.siklus_id,
+        siklus.nama_siklus,
+        kas.kas_id,
+        kas.tanggal,
+        kas.uraian,
+        kas.vol,
+        satuan.satuan,
+        kas.harga_satuan,
+        kategori.kategori,
+        jenis_transaksi.jenis_transaksi,
+        kas.keterangan 
+    FROM
+        kas
+        JOIN siklus ON siklus.siklus_id = kas.siklus_id
+        JOIN satuan ON satuan.satuan_id = kas.satuan_id
+        JOIN kategori ON kategori.kategori_id = kas.kategori_id
+        JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id 
+    WHERE
+        kas.siklus_id = $siklus_id AND kas.deleted_at IS NULL"));
 
-    //     CASE
-    //         WHEN jenis_transaksi.jenis_transaksi = 'Pengeluaran' THEN
-    //         saldo ELSE 0 
-    //     END  as pengeluaran,
-    //     -- ( saldo - (kas.vol * kas.harga_satuan ) + (kas.vol * kas.harga_satuan ) ) as jml_saldo,
-    //     kas.keterangan 
-    // FROM
-    //     kas
-    //     JOIN siklus ON siklus.siklus_id = kas.siklus_id
-    //     JOIN satuan ON satuan.satuan_id = kas.satuan_id
-    //     JOIN kategori ON kategori.kategori_id = kas.kategori_id
-    //     JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id 
-    // WHERE
-    //     kas.siklus_id = $siklus_id 
-    //     AND kas.deleted_at IS NULL"));
+        $data = DB::table('kas')->select('siklus.siklus_id',
+            'kas.kas_id',
+            'kas.siklus_id',
+            'kas.tanggal',
+            'kas.uraian',
+            'kas.vol',
+            'kas.deleted_at',
+            DB::raw('kas.vol*kas.harga_satuan as jumlah'),
+            'satuan.satuan_id',
+            'kas.harga_satuan',
+            // 'kategori.kategori_id' 
+            'jenis_transaksi.jenis_transaksi_id' )
+        ->join('siklus','siklus.siklus_id', '=', 'kas.siklus_id')
+        ->join('satuan','satuan.satuan_id', '=', 'kas.satuan_id')
+        ->join('kategori','kategori.kategori_id', '=', 'kas.kategori_id')
+        ->join('jenis_transaksi','jenis_transaksi.jenis_transaksi_id', '=', 'kas.jenis_transaksi_id')
+        ->where('kas.siklus_id', '=', $siklus_id)
+        ->whereNull('kas.deleted_at')
+        // ->where('kas.siklus_id', '=', Siklus::get('siklus_id') )
+        // ->where('kas.siklus_id', '=', $siklus_id )
+        ->get();
 
         // $pjub = Pjub::where('pjub_id')->first();
         // $mitras = Mitra::all();
@@ -181,18 +179,52 @@ class KasController extends \app\Http\Controllers\Controller
             //     $i++;
             // }
 
-        return $dataTable->render('admin/detail_kas')->with('siklus_id', $siklus_id);
+        return $dataTable->render('admin/detail_kas',['kases'=>$kases],['siklus_id'=>$siklus_id],['sikluses'=>$sikluses]);
         
-        return view('admin/detail_kas')->with('siklus_id', $siklus_id);
+        return view('admin/detail_kas',['siklus_id'=>$siklus_id]);
         
         
 
         // return view('admin/detail_kas',['kas'=>$kas])->with('pjub', $pjub)->with('mitras', $mitras)->with('recording', $recordings)->with('sikluses', $sikluses);
     }
 
-    public function export_excel()
+    public function get_data_kas($siklus_id)
     {
-        return Excel::download(new KasExport, 'Buku Kas.xlsx');
+        // $data = KasDataTable::query();   
+        // return (array)$datatable;
+        $data = DB::table('kas')->select('siklus.siklus_id',
+            'kas.kas_id',
+            'kas.siklus_id',
+            'kas.tanggal',
+            'kas.uraian',
+            'jenis_transaksi.jenis_transaksi',
+            'kas.vol',
+            'kas.deleted_at',
+            DB::raw('kas.vol*kas.harga_satuan as jumlah'),
+            'satuan.satuan_id',
+            'kas.harga_satuan',
+            'siklus.kode',
+            'siklus.nama_siklus',
+            'siklus.tanggal_mulai',
+            'siklus.tanggal_selesai',
+            // 'kategori.kategori_id' 
+            'jenis_transaksi.jenis_transaksi_id' )
+        ->join('siklus','siklus.siklus_id', '=', 'kas.siklus_id')
+        ->join('satuan','satuan.satuan_id', '=', 'kas.satuan_id')
+        ->join('kategori','kategori.kategori_id', '=', 'kas.kategori_id')
+        ->join('jenis_transaksi','jenis_transaksi.jenis_transaksi_id', '=', 'kas.jenis_transaksi_id')
+        ->where('kas.siklus_id', '=', $siklus_id)
+        ->whereNull('kas.deleted_at')
+        // ->where('kas.siklus_id', '=', Siklus::get('siklus_id') )
+        // ->where('kas.siklus_id', '=', $siklus_id )
+        ->get();
+
+        return ['data' => $data,'recordsTotal'=>ceil(count($data)/10)]; 
+    }
+
+    public function export_excel(Request $request)
+    {
+        return Excel::download(new KasExport($request->siklus_id), 'Buku Kas.xlsx');
     }
 
 
@@ -214,9 +246,9 @@ class KasController extends \app\Http\Controllers\Controller
 
     //     $recording = \DB::select(\DB::raw(" 
     // SELECT ROW_NUMBER
-    //     ( ) OVER ( ORDER BY kas.ID ASC ) AS NO,
+    //     ( ) OVER ( ORDER BY kas.kas_id ASC ) AS NO,
     //     siklus.siklus_id,
-    //     kas.ID,
+    //     kas.kas_id,
     //     kas.tanggal,
     //     kas.nama,
     //     kas.vol,
@@ -250,35 +282,40 @@ class KasController extends \app\Http\Controllers\Controller
 
     public function create($siklus_id)
     {            
-        $sikluses = \DB::select(\DB::raw("
-    SELECT
-        siklus.siklus_id,
-        siklus.nama_siklus,
-        opex.opex_id
-    FROM
-        siklus
-        LEFT JOIN opex ON opex.opex_id = opex.siklus_id
-    WHERE
-        siklus.siklus_id = $siklus_id"));
+        $sikluses = Siklus::all();
+        $satuanes = Satuan::all();
+        $kategories = Kategori::all();
+        $transaksies = Transaksi::all();
 
-        $kategories = \DB::select(\DB::raw("
-    SELECT
-        kategori.kategori_id,
-        kategori.kategori
-    FROM
-        kategori"));
-        $satuanes = \DB::select(\DB::raw("
-    SELECT
-        satuan.satuan_id,
-        satuan.satuan
-    FROM
-        satuan"));
-        $transaksies = \DB::select(\DB::raw("
-    SELECT
-        jenis_transaksi.jenis_transaksi_id,
-        jenis_transaksi.jenis_transaksi
-    FROM
-        jenis_transaksi"));
+    //     $sikluses = \DB::select(\DB::raw("
+    // SELECT
+    //     siklus.siklus_id,
+    //     siklus.nama_siklus,
+    //     kas.kas_id
+    // FROM
+    //     siklus
+    //     LEFT JOIN kas ON kas.kas_id = kas.siklus_id
+    // WHERE
+    //     siklus.siklus_id = $siklus_id"));
+
+    //     $kategories = \DB::select(\DB::raw("
+    // SELECT
+    //     kategori.kategori_id,
+    //     kategori.kategori
+    // FROM
+    //     kategori"));
+    //     $satuanes = \DB::select(\DB::raw("
+    // SELECT
+    //     satuan.satuan_id,
+    //     satuan.satuan
+    // FROM
+    //     satuan"));
+    //     $transaksies = \DB::select(\DB::raw("
+    // SELECT
+    //     jenis_transaksi.jenis_transaksi_id,
+    //     jenis_transaksi.jenis_transaksi
+    // FROM
+    //     jenis_transaksi"));
 
 
         return view('admin/tambah_kas')->with('sikluses', $sikluses)->with('satuanes', $satuanes)->with('kategories', $kategories)->with('transaksies', $transaksies);
@@ -292,16 +329,23 @@ class KasController extends \app\Http\Controllers\Controller
         $data['created_at'] = request()->get('created_at') ?  request()->get('created_at') : $currentDateTime ;  
         $data['updated_at'] = request()->get('updated_at') ?  request()->get('updated_at') : $currentDateTime ;  
 
+        // if (isset($_POST["jumlah"])) {
+            $vol = $_POST['vol'];
+            $harga_satuan = $_POST['harga_satuan'];
+            $jumlah = $vol + $harga_satuan;
+            // echo "<input type=text name=jumlah value='$jumlah'>";                            
+        // }          
+
         $this->validate(request(),[
             'siklus_id' => 'required',
             'tanggal' => '',
-            'nama' => '',
+            'uraian' => '',
             'vol' => '',
             'satuan_id' => '',
             'harga_satuan' => '',
             'kategori_id' => '',
             'jenis_transaksi_id' => '',
-            'saldo' => '',
+            // 'jumlah' => '',
             'keterangan' => '',
         ]);
 
@@ -310,13 +354,13 @@ class KasController extends \app\Http\Controllers\Controller
         $kas = new Kas();
         $kas->siklus_id = $data['siklus_id'];
         $kas->tanggal = $data['tanggal'];
-        $kas->nama = $data['nama'];
+        $kas->uraian = $data['uraian'];
         $kas->vol = $data['vol'];
         $kas->satuan_id = $data['satuan_id'];
         $kas->harga_satuan = $data['harga_satuan'];
         $kas->kategori_id = $data['kategori_id'];
         $kas->jenis_transaksi_id = $data['jenis_transaksi_id'];
-        $kas->saldo = $data['saldo'];
+        // $kas->jumlah = $data['jumlah'];
         $kas->keterangan = $data['keterangan'];
 
         $kas->save();
@@ -336,47 +380,63 @@ class KasController extends \app\Http\Controllers\Controller
         SELECT
             siklus.siklus_id,
             siklus.nama_siklus,
-            kas.id 
+            kas.kas_id 
         FROM
             kas
             JOIN siklus ON siklus.siklus_id = kas.siklus_id
         WHERE
-            kas.id = $kas_id"));
+            kas.kas_id = $kas_id"));
     $satuanes = \DB::select(\DB::raw("
         SELECT
             satuan.satuan_id,
-            satuan.satuan
+            satuan.satuan,
+            kas.kas_id
         FROM
-            satuan"));
+            kas
+            JOIN satuan ON satuan.satuan_id = kas.satuan_id
+        WHERE
+            kas.kas_id = $kas_id"));
     $kategories = \DB::select(\DB::raw("
         SELECT
             kategori.kategori_id,
-            kategori.kategori
+            kategori.kategori,
+            kas.kas_id
         FROM
-            kategori"));
+            kas
+            JOIN kategori ON kategori.kategori_id = kas.kategori_id
+        WHERE
+            kas.kas_id = $kas_id"));
     $transaksies = \DB::select(\DB::raw("
         SELECT
             jenis_transaksi.jenis_transaksi_id,
-            jenis_transaksi.jenis_transaksi
+            jenis_transaksi.jenis_transaksi,
+            kas.kas_id
         FROM
-            jenis_transaksi"));
+            kas
+            JOIN jenis_transaksi ON jenis_transaksi.jenis_transaksi_id = kas.jenis_transaksi_id
+        WHERE
+            kas.kas_id = $kas_id"));
 
         return view('admin/edit_kas')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('farms', $farms)->with('sikluses', $sikluses)->with('kases', $kases)->with('satuanes', $satuanes)->with('kategories', $kategories)->with('transaksies', $transaksies);
     }
     
     public function update(Request $request, $kas_id)
     {
+        $vol = $_POST['vol'];
+        $harga_satuan = $_POST['harga_satuan'];
+        $jumlah = $vol + $harga_satuan;
+        
         $siklus_id = request('siklus_id');
         $this->validate(request(),[
             'siklus_id' => 'required',
             'tanggal' => '',
-            'nama' => '',
+            'uraian' => '',
             'vol' => '',
             'satuan_id' => '',
             'harga_satuan' => '',
             'kategori_id' => '',
             'jenis_transaksi_id' => '',
-            'saldo' => '',
+            // 'jumlah' => '',
             'keterangan' => '',
         ]);
 
@@ -385,13 +445,13 @@ class KasController extends \app\Http\Controllers\Controller
         $kas = Kas::find($kas_id);
         $kas->siklus_id = $data['siklus_id'];
         $kas->tanggal = $data['tanggal'];
-        $kas->nama = $data['nama'];
+        $kas->uraian = $data['uraian'];
         $kas->vol = $data['vol'];
         $kas->satuan_id = $data['satuan_id'];
         $kas->harga_satuan = $data['harga_satuan'];
         $kas->kategori_id = $data['kategori_id'];
         $kas->jenis_transaksi_id = $data['jenis_transaksi_id'];
-        $kas->saldo = $data['saldo'];
+        // $kas->jumlah = $data['jumlah'];
         $kas->keterangan = $data['keterangan'];
 
         $kas->save();
@@ -413,6 +473,7 @@ class KasController extends \app\Http\Controllers\Controller
     {
         //
         $kas = kas::find($kas_id);
+        // $siklus = Kas::find($siklus_id);
 
         $kas->delete();
 

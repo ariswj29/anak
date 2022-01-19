@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Pjub;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\DataTables\PjubDataTable;
-use App\Exports\PjubExport;
+use App\DataTables\Admin\PjubDataTable;
+use App\Exports\Admin\PjubExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PjubController extends Controller
@@ -22,10 +22,10 @@ class PjubController extends Controller
         
         // $pjubs =array(array('id'=>1,'nama'=>'om aris'),array('id'=>2,'nama'=>'aris'));
 
-        // $pjubs = Pjub::all();
+        $pjubs = Pjub::all();
         // return view('admin/pjub')->with('pjubs', $pjubs);
         
-        return $dataTable->render('admin/pjub');
+        return $dataTable->render('admin/pjub',['pjubs'=>$pjubs]);
     
         return view('admin/pjub',['pjub'=>$pjub]);
     }

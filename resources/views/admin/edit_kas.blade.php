@@ -24,7 +24,7 @@
         </div>
     @endif
 
-    <form action="/admin/kas/{{ $kases->id }}/update" method="POST">
+    <form action="/admin/kas/{{ $kases->kas_id }}/update" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row"> 
@@ -53,14 +53,14 @@
             <input type="date" class="form-control" id="exampleControlInput1" name="tanggal" value="{{ $kases->tanggal }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nama</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="nama" value="{{ $kases->nama }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <label for="exampleFormControlInput1" class="form-label">Uraian</label>
+            <input type="text" class="form-control" id="exampleControlInput1" name="uraian" value="{{ $kases->uraian }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Volume</label>
             <input type="number" class="form-control" id="exampleControlInput1" name="vol" value="{{ $kases->vol }}">
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Satuan</label>
             <select name="satuan_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
                 @foreach ($satuanes as $satuan)
@@ -70,7 +70,7 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Harga Satuan</label>
             <input type="number" class="form-control" id="exampleFormControlInput1" name="harga_satuan" value="{{ $kases->harga_satuan }}">
         </div>
@@ -84,10 +84,10 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Saldo</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="saldo" value="{{ $kases->saldo }}">
-        </div>
+        <!-- <div class="col-md-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Jumlah Harga</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="jumlah" value="{{ $kases->jumlah }}">
+        </div> -->
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Keterangan</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" value="{{ $kases->keterangan }}" placeholder="Jika perlu isi Keterangan!">

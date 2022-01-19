@@ -23,14 +23,15 @@
             </ul>
         </div>
     @endif
-
-    <form action="/pjub/kas/store" method="POST">
+    <!-- action="/pjub/kas/store" -->
+    <form action="" method="post">
 		@csrf
     <div class="card-body">
       <div class="row"> 
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Siklus</label>
             <select name="siklus_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <option selected="" disabled="" >-- Pilih siklus transaksi --</option>
                 @foreach ($sikluses as $siklus)
                     <option value="{{ $siklus->siklus_id }}">
                         {{ $siklus->nama_siklus }}
@@ -41,6 +42,7 @@
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jenis Transaksi</label>
             <select name="jenis_transaksi_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <option selected="" disabled="" >-- Pilih jenis transaksi --</option>
                 @foreach ($transaksies as $transaksi)
                     <option value="{{ $transaksi->jenis_transaksi_id }}">
                         {{ $transaksi->jenis_transaksi }} 
@@ -54,7 +56,7 @@
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Uraian</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="nama" placeholder="Isi Uraian!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <input type="text" class="form-control" id="exampleControlInput1" name="uraian" placeholder="Isi uraian transaksi!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-4 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Volume</label>
@@ -63,6 +65,7 @@
         <div class="col-md-4 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Satuan</label>
             <select name="satuan_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <option selected="" disabled="" >-- Pilih satuan transaksi --</option>
                 @foreach ($satuanes as $satuan)
                     <option value="{{ $satuan->satuan_id }}">
                         {{ $satuan->satuan }} 
@@ -77,6 +80,7 @@
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Kategori</label>
             <select name="kategori_id" class="form-control" id="exampleControlInput1" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <option selected="" disabled="" >-- Pilih kategori transaksi --</option>
                 @foreach ($kategories as $kategori)
                     <option value="{{ $kategori->kategori_id }}">
                         {{ $kategori->kategori }} 
@@ -92,13 +96,13 @@
             <label for="exampleFormControlInput1" class="form-label">Pemasukan</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Isi Keterangan">
         </div> -->
+        <!-- <div class="col-md-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Jumlah Harga</label>
+            
+        </div> -->
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="saldo" placeholder="Isi Jumlah dari harga satuan">
-        </div>
-        <div class="col-md-12 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Keterangan</label>
-            <textarea type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Jika perlu isi Keterangan!"></textarea>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="keterangan" placeholder="Jika perlu isi Keterangan!">
         </div>
         <div class="col-md-6 mb-3">
             <button class="btn btn-success mt-2">Simpan Data</button>

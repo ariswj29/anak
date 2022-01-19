@@ -7,8 +7,8 @@ use App\Models\Minum;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\DataTables\MinumDataTable;
-use App\Exports\MinumExport;
+use App\DataTables\Admin\MinumDataTable;
+use App\Exports\Admin\MinumExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\View\View\filterColumn;
 

@@ -7,6 +7,9 @@ use App\Models\Vitamin;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Pjub\VitaminDataTable;
+use App\Exports\Pjub\VitaminExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class VitaminController extends Controller
@@ -16,32 +19,41 @@ class VitaminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(VitaminDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-        SELECT 
-            ROW_NUMBER ( ) OVER ( ORDER BY vitamin.tanggal ASC ) AS NO,
-            vitamin.vitamin_id,
-            siklus.nama_siklus,
-            farm.nama_farm,
-            mitra.nama,
-            vitamin.jenis_vitamin,
-            vitamin.jumlah_vitamin,
-            vitamin.tanggal 
-        FROM
-            vitamin
-            JOIN siklus ON vitamin.siklus_id = siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
-            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
-        WHERE
-            pjub.email = '".Auth::user()->email."'
-            and vitamin.deleted_at IS Null"));
+        // $recording = \DB::select(\DB::raw("
+        // SELECT 
+        //     ROW_NUMBER ( ) OVER ( ORDER BY vitamin.tanggal ASC ) AS NO,
+        //     vitamin.vitamin_id,
+        //     siklus.nama_siklus,
+        //     farm.nama_farm,
+        //     mitra.nama,
+        //     vitamin.jenis_vitamin,
+        //     vitamin.jumlah_vitamin,
+        //     vitamin.tanggal 
+        // FROM
+        //     vitamin
+        //     JOIN siklus ON vitamin.siklus_id = siklus.siklus_id
+        //     JOIN farm ON siklus.farm_id = farm.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+        //     LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        // WHERE
+        //     pjub.email = '".Auth::user()->email."'
+        //     and vitamin.deleted_at IS Null"));
 
-        $vitamins = Vitamin::all();
-        $sikluses = Siklus::all();
+        // $vitamins = Vitamin::all();
+        // $sikluses = Siklus::all();
 
-        return view('pjub/vitamin')->with(array('vitamins'=> $vitamins, 'sikluses'=> $sikluses, 'recording'=> $recording));
+        // return view('pjub/vitamin')->with(array('vitamins'=> $vitamins, 'sikluses'=> $sikluses, 'recording'=> $recording));
+
+        return $dataTable->render('pjub/vitamin');
+    
+        return view('pjub/vitamin',['vitamin'=>$vitamin]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new VitaminExport, 'Vitamin.xlsx');
     }
 
     /**
@@ -142,8 +154,8 @@ class VitaminController extends Controller
     {
         $this->validate(request(),[
             'siklus_id' => 'required',
-            'jenis_vitamin' => 'required',
-            'jumlah_vitamin' => 'required',
+            'jenis_vitamin' => '',
+            'jumlah_vitamin' => '',
             'tanggal' => 'required',
             ]);
 

@@ -58,10 +58,10 @@
             <label for="exampleFormControlInput1" class="form-label">Mata Uang</label>
             <input type="text" class="form-control" id="exampleControlInput1" name="mata_uang" value="{{ $farms->mata_uang }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
-        <div class="col-md-6 mb-3">
+        <!-- <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Satuan Berat (Kg)</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="satuan_berat" value="{{ $farms->satuan_berat }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
-        </div>
+        </div> -->
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Kapasitas Rak Telur</label>
             <input type="number" class="form-control" id="exampleFormControlInput1" name="kapasitas_rak_telur" value="{{ $farms->kapasitas_rak_telur }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -75,7 +75,7 @@
             <input type="number" class="form-control" id="exampleFormControlInput1" name="kapasitas_kandang_grower" value="{{ $farms->kapasitas_kandang_grower }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
-            <button class="btn btn-success mt-2">Perbarui Data</button>
+            <br><button class="btn btn-success mt-2">Perbarui Data</button>
             <a href="/pjub/farm" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>

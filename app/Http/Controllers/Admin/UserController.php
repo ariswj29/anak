@@ -7,8 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
-use App\DataTables\UserDataTable;
-use App\Exports\UserExport;
+use App\DataTables\Admin\UserDataTable;
+use App\Exports\Admin\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 

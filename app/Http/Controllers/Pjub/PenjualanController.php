@@ -8,6 +8,9 @@ use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use App\DataTables\Pjub\PenjualanDataTable;
+use App\Exports\Pjub\PenjualanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use File;
 use Auth;
 
@@ -18,10 +21,10 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PenjualanDataTable $dataTable)
     {
-        $sikluses = Siklus::all();
-        $recording = \DB::select(\DB::raw("
+        // $sikluses = Siklus::all();
+        $penjualans = \DB::select(\DB::raw("
         SELECT 
             ROW_NUMBER ( ) OVER ( ORDER BY penjualan.tanggal ASC ) AS NO,
             penjualan.penjualan_id,
@@ -44,7 +47,16 @@ class PenjualanController extends Controller
             pjub.email = '".Auth::user()->email."'
             and penjualan.deleted_at IS Null"));
 
-        return view('pjub/penjualan')->with(array('recording'=> $recording, 'sikluses'=> $sikluses));
+        // return view('pjub/penjualan')->with(array('recording'=> $recording, 'sikluses'=> $sikluses));
+
+        return $dataTable->render('pjub/penjualan',['penjualans'=>$penjualans]);
+    
+        return view('pjub/penjualan',['penjualan'=>$penjualan]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new PenjualanExport, 'Penjualan.xlsx');
     }
 
     /**

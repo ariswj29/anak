@@ -33,7 +33,7 @@
             <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Rata-rata Bobot Ternak</label>
                 <div class="input-group">
-                    <input type="text" name="rata_rata_berat" pattern="[0-9-,]{1-5}" class="form-control" id="rupiah1">
+                    <input type="text" name="rata_rata_berat" placeholder="Isi rata-rata bobot ternak!" pattern="[0-9-,]{1-5}" class="form-control" id="rupiah1">
                     <div class="input-group-append">
                         <label class="input-group-text" style="background-color:white;" for="inputGroupSelect02">gram</label>
                     </div>
@@ -42,25 +42,25 @@
             <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Tambah Stok Pakan</label>
                 <div class="input-group">
-                    <input type="number" name="jumlah_pakan" class="form-control" id="angka1">
+                    <input type="number" name="jumlah_pakan" placeholder="Isi jika stok pakan ditambah!" class="form-control" id="angka1">
                     <div class="input-group-append">
                         <label class="input-group-text" style="background-color:white;" for="inputGroupSelect02">gram</label>
                     </div>
                 </div>
             </div>
             <div class="col-6 md-3 mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Pakan yang digunakan</label>
+                <label for="exampleFormControlTextarea1" class="form-label">Pakan Harian</label>
                 <div class="input-group">
-                    <input type="text" name="pakan_digunakan" pattern="[0-9-,]{1-7}" class="form-control" id="angka2">
+                    <input type="text" name="pakan_digunakan" placeholder="Isi pakan per hari!" pattern="[0-9-,]{1-7}" class="form-control" id="angka2">
                     <div class="input-group-append">
                         <label class="input-group-text" style="background-color:white;" for="inputGroupSelect02">gram</label>
                     </div>
                 </div>
             </div>
             <div class="col-6 md-3 mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Minum yang digunakan</label>
+                <label for="exampleFormControlTextarea1" class="form-label">Minum Harian</label>
                 <div class="input-group">
-                    <input type="text" name="jumlah_minum" pattern="[0-9-,]{1-7}" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" name="jumlah_minum" placeholder="Isi minum per hari!" pattern="[0-9-,]{1-7}" class="form-control" id="exampleFormControlInput1">
                     <div class="input-group-append">
                         <label class="input-group-text" style="background-color:white;" for="inputGroupSelect02">liter</label>
                     </div>
@@ -69,13 +69,13 @@
             <div class="col-md-6 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Vitamin</label>
                 <div class="input-group">
-                    <input type="text" name="jenis_vitamin" placeholder="Isi Jika diberi Vitamin" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" name="jenis_vitamin" placeholder="Isi jika diberi vitamin!" class="form-control" id="exampleFormControlInput1">
                 </div>
             </div>
             <div class="col-6 md-3 mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Vitamin digunakan</label>
+                <label for="exampleFormControlTextarea1" class="form-label">Vitamin Digunakan</label>
                 <div class="input-group">
-                    <input type="number" name="jumlah_vitamin" class="form-control" id="exampleFormControlInput1">
+                    <input type="number" name="jumlah_vitamin" placeholder="Isi jika diberi vitamin!" class="form-control" id="exampleFormControlInput1">
                     <div class="input-group-append">
                         <label class="input-group-text" style="background-color:white;" for="inputGroupSelect02">butir/liter</label>
                     </div>
@@ -84,7 +84,7 @@
             <div class="col-6 md-3 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Kematian</label>
                 <div class="input-group">
-                    <input type="number" name="jumlah_kematian" class="form-control" id="exampleFormControlInput1">
+                    <input type="number" name="jumlah_kematian" placeholder="Isi jika ada kematian!" class="form-control" id="exampleFormControlInput1">
                     <div class="input-group-append">
                         <label class="input-group-text" style="background-color:white;" for="inputGroupSelect02">ekor</label>
                     </div>
@@ -93,7 +93,7 @@
             <div class="col-md-6 mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Penyebab Kematian</label>
                 <div class="input-group">
-                    <textarea name="penyebab" placeholder="Isi Jika Ada Kematian" class="form-control" id="exampleFormControlInput1"></textarea>
+                    <textarea name="penyebab" placeholder="Isi jika ada kematian!" class="form-control" id="exampleFormControlInput1"></textarea>
                 </div>
             </div>
             <div class="col-md-12 mb-3">

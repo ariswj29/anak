@@ -58,10 +58,10 @@
             <label for="exampleFormControlInput1" class="form-label">Mata Uang</label>
             <input type="text" class="form-control" id="exampleControlInput1" name="mata_uang" placeholder="Isi Mata Uang!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
-        <div class="col-md-6 mb-3">
+        <!-- <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Satuan Berat</label>
             <input type="text" class="form-control" id="exampleControlInput1" name="satuan_berat" placeholder="Isi Satuan Berat!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
-        </div>
+        </div> -->
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">kapasitas Rak Telur</label>
             <input type="number" class="form-control" id="exampleControlInput1" name="kapasitas_rak_telur" placeholder="Isi kapasitas Rak Telur!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
@@ -75,7 +75,7 @@
             <input type="number" class="form-control" id="exampleFormControlInput1" name="kapasitas_kandang_grower" placeholder="Isi Kapasitas Kandang Grower" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
-            <button class="btn btn-success mt-2">Simpan Data</button>
+            <br><button class="btn btn-success mt-2">Simpan Data</button>
             <a href="/pjub/farm" class="btn btn-danger mt-2 ml-2">Kembali</a>
         </div>
       </div>

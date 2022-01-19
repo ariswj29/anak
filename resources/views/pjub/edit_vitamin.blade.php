@@ -24,7 +24,7 @@
         </div>
     @endif
 
-    <form action="/pjub/vitamin/{{ $vitamins }}/update" method="POST">
+    <form action="/pjub/vitamin/{{ $vitamins->vitamin_id }}/update" method="POST">
 		@csrf
     <div class="card-body">
       <div class="row">

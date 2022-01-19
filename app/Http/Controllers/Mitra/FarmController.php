@@ -8,6 +8,9 @@ use App\Models\Mitra;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Mitra\FarmDataTable;
+use App\Exports\Mitra\FarmExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class FarmController extends Controller
@@ -17,31 +20,37 @@ class FarmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FarmDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-    SELECT
-        row_number() over(ORDER BY farm ASC) AS no,
-        farm.farm_id,
-        farm.nama_farm,
-        farm.alamat_farm,
-        farm.mata_uang,
-        farm.satuan_berat,
-        farm.kapasitas_kandang_doc,
-        farm.kapasitas_kandang_grower,
-        farm.kapasitas_rak_telur,
-        mitra.nama
-    FROM
-        farm
-        JOIN mitra ON farm.mitra_id = mitra.mitra_id 
-    WHERE
-	    mitra.email = '".Auth::user()->email."' AND farm.deleted_at IS NULL"));
+        $farms = \DB::select(\DB::raw("
+        SELECT ROW_NUMBER
+            ( ) OVER ( ORDER BY farm ASC ) AS NO,
+            farm.farm_id,
+            farm.nama_farm,
+            farm.alamat_farm,
+            farm.mata_uang,
+            farm.satuan_berat,
+            farm.kapasitas_kandang_doc,
+            farm.kapasitas_kandang_grower,
+            farm.kapasitas_rak_telur,
+            mitra.nama 
+        FROM
+            farm
+            JOIN mitra ON farm.mitra_id = mitra.mitra_id
+            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id 
+        "));
 
-        // $farms = Farm::all();
-        // $mitras = mitra::all();
+        // return view('admin/farm')->with('farm', $farm);
 
-        return view('mitra/farm', ['recording'=>$recording]);
+        return $dataTable->render('mitra/farm', ['farms'=>$farms]);
+    
+        return view('mitra/farm', ['farm'=>$farm]);
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new FarmExport, 'Farm.xlsx');
+	}
 
     /**
      * Show the form for creating a new resource.

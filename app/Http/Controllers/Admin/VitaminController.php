@@ -7,8 +7,8 @@ use App\Models\Vitamin;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\DataTables\VitaminDataTable;
-use App\Exports\VitaminExport;
+use App\DataTables\Admin\VitaminDataTable;
+use App\Exports\Admin\VitaminExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class VitaminController extends Controller
@@ -111,8 +111,8 @@ class VitaminController extends Controller
     {
         $this->validate(request(),[
             'siklus_id' => 'required',
-            'jenis_vitamin' => 'required',
-            'jumlah_vitamin' => 'required',
+            'jenis_vitamin' => '',
+            'jumlah_vitamin' => '',
             'tanggal' => 'required',
             ]);
 

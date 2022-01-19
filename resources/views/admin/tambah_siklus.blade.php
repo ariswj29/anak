@@ -40,27 +40,32 @@
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nama Siklus</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="nama_siklus" placeholder="Isi Nama Siklus!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <input type="text" class="form-control" id="exampleControlInput1" name="nama_siklus" placeholder="Isi nama siklus!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-            <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal" placeholder="Isi Tanggal!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <label for="exampleFormControlInput1" class="form-label">Tanggal Mulai</label>
+            <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal_mulai" placeholder="Isi tanggal mulai!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Tanggal Selesai</label>
+            <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal_selesai">
+            <label style="font-size:11px; color:grey;">* Isi jika tau tanggal selesai!</label>
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jenis Ternak</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="jenis_ternak" placeholder="Isi Jenis Ternak!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <input type="text" class="form-control" id="exampleControlInput1" name="jenis_ternak" placeholder="Isi jenis ternak!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Ternak</label>
-            <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_ternak" placeholder="Isi Jumlah Ternak!"required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_ternak" placeholder="Isi jumlah ternak!"required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Harga Satuan DOC</label>
-            <input type="number" class="form-control" id="exampleControlInput1" name="harga_satuan_doc" placeholder="Isi Harga Satuan DOC!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')"> 
+            <input type="number" class="form-control" id="exampleControlInput1" name="harga_satuan_doc" placeholder="Isi harga satuan DOC!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')"> 
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Supplier</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="supplier" placeholder="Isi Supplier!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <input type="text" class="form-control" id="exampleControlInput1" name="supplier" placeholder="Isi supplier!" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
         </div>
         <div class="col-md-6 mb-3">
             <br><button class="btn btn-success mt-2">Tambah Data</button>

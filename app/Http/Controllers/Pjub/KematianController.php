@@ -7,6 +7,9 @@ use App\Models\Kematian;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Pjub\KematianDataTable;
+use App\Exports\Pjub\KematianExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class KematianController extends Controller
@@ -16,32 +19,41 @@ class KematianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(KematianDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-        SELECT 
-            ROW_NUMBER ( ) OVER ( ORDER BY kematian.tanggal ASC ) AS NO,
-            kematian.kematian_id,
-            siklus.nama_siklus,
-            mitra.nama,
-            kematian.jumlah_kematian,
-            kematian.tanggal, 
-            kematian.penyebab, 
-            farm.nama_farm
-        FROM
-            kematian
-            JOIN siklus ON kematian.siklus_id = siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
-            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
-        WHERE
-            pjub.email = '".Auth::user()->email."'
-            and kematian.deleted_at IS Null"));
+        // $recording = \DB::select(\DB::raw("
+        // SELECT 
+        //     ROW_NUMBER ( ) OVER ( ORDER BY kematian.tanggal ASC ) AS NO,
+        //     kematian.kematian_id,
+        //     siklus.nama_siklus,
+        //     mitra.nama,
+        //     kematian.jumlah_kematian,
+        //     kematian.tanggal, 
+        //     kematian.penyebab, 
+        //     farm.nama_farm
+        // FROM
+        //     kematian
+        //     JOIN siklus ON kematian.siklus_id = siklus.siklus_id
+        //     JOIN farm ON siklus.farm_id = farm.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+        //     LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        // WHERE
+        //     pjub.email = '".Auth::user()->email."'
+        //     and kematian.deleted_at IS Null"));
 
-        $kematians = Kematian::all();
-        $sikluses = Siklus::all();
+        // $kematians = Kematian::all();
+        // $sikluses = Siklus::all();
 
-        return view('pjub/kematian')->with(array('kematians'=> $kematians, 'recording'=> $recording, 'sikluses'=> $sikluses));
+        // return view('pjub/kematian')->with(array('kematians'=> $kematians, 'recording'=> $recording, 'sikluses'=> $sikluses));
+
+        return $dataTable->render('pjub/kematian');
+    
+        return view('pjub/kematian',['kematian'=>$kematian]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new KematianExport, 'Kematian.xlsx');
     }
 
     /**

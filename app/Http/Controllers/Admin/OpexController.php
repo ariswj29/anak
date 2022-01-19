@@ -15,8 +15,8 @@ use App\Models\Vitamin;
 use App\Models\Minum;
 use App\Models\Opex;
 use Auth;
-use App\DataTables\OpexDataTable;
-use App\Exports\OpexExport;
+use App\DataTables\Admin\OpexDataTable;
+use App\Exports\Admin\OpexExport;
 use Maatwebsite\Excel\Facades\Excel;
 // user DB;
 

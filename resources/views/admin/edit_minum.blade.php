@@ -41,8 +41,12 @@
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Minum (l)</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="jumlah_minum" value="{{ $minums->jumlah_minum }}" pattern="[0-9-,]{5}" autofocus required oninvalid="setCustomValidity('Tolong Isi dengan angka untuk jumlah air minum!')" onchange="try{setCustomValidity('')}catch(e){}"/>
+            <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_minum" value="{{ $minums->jumlah_minum }}" pattern="[0-9-,]{1}" autofocus required oninvalid="setCustomValidity('Tolong Isi dengan angka untuk jumlah air minum!')" onchange="try{setCustomValidity('')}catch(e){}"/>
         </div>
+        <!-- <div class="col-md-6 mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Jumlah Minum (l)</label>
+            <input type="text" class="form-control" id="exampleControlInput1" name="jumlah_minum" value="{{ $minums->jumlah_minum }}" pattern="[0-9-,]{1}" autofocus required oninvalid="setCustomValidity('Tolong Isi dengan angka untuk jumlah air minum!')" onchange="try{setCustomValidity('')}catch(e){}"/>
+        </div> -->
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
             <input type="date" class="form-control" id="exampleFormControlInput1" name="tanggal" value="{{ $minums->tanggal }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">

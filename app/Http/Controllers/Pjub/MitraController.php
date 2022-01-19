@@ -7,6 +7,9 @@ use App\Models\Mitra;
 use App\Models\Pjub;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Pjub\MitraDataTable;
+use App\Exports\Pjub\MitraExport;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Auth;
 
@@ -17,16 +20,17 @@ class MitraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MitraDataTable $dataTable)
     {
         
         // $mitras =array(array('id'=>1,'nama'=>'om aris'),array('id'=>2,'nama'=>'aris'));
 
-        $recording = \DB::select(\DB::raw("
+        $mitras = \DB::select(\DB::raw("
     SELECT ROW_NUMBER
         ( ) OVER ( ORDER BY mitra ASC ) AS NO,
         mitra.mitra_id,
         pjub.pjub_id,
+        pjub.nama as pjub,
         mitra.nama,
         mitra.nik,
         mitra.tempat_lahir,
@@ -40,13 +44,20 @@ class MitraController extends Controller
     WHERE
 	    pjub.email = '".Auth::user()->email."' and mitra.deleted_at IS Null"));
 
-        // var_dump($mitras);
-        // die;
+    //     // var_dump($mitras);
+    //     // die;
 
-        return view('pjub/mitra')->with(array('recording'=> $recording));
+    //     return view('pjub/mitra')->with(array('recording'=> $recording));
 
+    return $dataTable->render('pjub/mitra',['mitras'=>$mitras]);
+    
+    return view('pjub/mitra',['pjub'=>$pjub]);
         
-        
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new MitraExport, 'Mitra.xlsx');
     }
 
     /**

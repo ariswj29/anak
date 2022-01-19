@@ -46,7 +46,7 @@
             <th>Satuan</th>
             <th>Subtotal</th>
             <th>Keterangan</th>
-            <th>Aksi</th>
+            <th style="width:45px">Aksi</th>
             </tr>
         </thead>
         <tbody>

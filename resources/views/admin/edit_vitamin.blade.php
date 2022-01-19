@@ -41,11 +41,11 @@
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jenis Vitamin</label>
-            <input type="text" class="form-control" id="exampleControlInput1" name="jenis_vitamin" value="{{ $vitamins->jenis_vitamin }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <input type="text" class="form-control" id="exampleControlInput1" name="jenis_vitamin" value="{{ $vitamins->jenis_vitamin }}" >
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jumlah Vitamin (l/butir)</label>
-            <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_vitamin" value="{{ $vitamins->jumlah_vitamin }}" required oninvalid="this.setCustomValidity('Data tidak boleh kosong!')" oninput="setCustomValidity('')">
+            <input type="number" class="form-control" id="exampleControlInput1" name="jumlah_vitamin" value="{{ $vitamins->jumlah_vitamin }}" >
         </div>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>

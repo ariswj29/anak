@@ -7,6 +7,9 @@ use App\Models\Pakan;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Mitra\PakanDataTable;
+use App\Exports\Mitra\PakanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class PakanController extends Controller
@@ -16,30 +19,39 @@ class PakanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PakanDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-        SELECT
-            row_number() over(ORDER BY pakan.tanggal DESC) AS no,
-            pakan.pakan_id,
-            siklus.nama_siklus,
-            farm.nama_farm,
-            pakan.tanggal,
-            pakan.jenis_pakan,
-            pakan.jumlah_pakan,
-            pakan.pakan_digunakan
-        FROM
-        pakan
-            JOIN siklus on pakan.siklus_id =  siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
-        WHERE
-            mitra.email = '".Auth::user()->email."'
-            AND pakan.deleted_at IS NULL"));
-        $pakans = Pakan::all();
-        $sikluses = Siklus::all();
+        // $recording = \DB::select(\DB::raw("
+        // SELECT
+        //     row_number() over(ORDER BY pakan.tanggal DESC) AS no,
+        //     pakan.pakan_id,
+        //     siklus.nama_siklus,
+        //     farm.nama_farm,
+        //     pakan.tanggal,
+        //     pakan.jenis_pakan,
+        //     pakan.jumlah_pakan,
+        //     pakan.pakan_digunakan
+        // FROM
+        // pakan
+        //     JOIN siklus on pakan.siklus_id =  siklus.siklus_id
+        //     JOIN farm ON siklus.farm_id = farm.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+        // WHERE
+        //     mitra.email = '".Auth::user()->email."'
+        //     AND pakan.deleted_at IS NULL"));
+        // $pakans = Pakan::all();
+        // $sikluses = Siklus::all();
 
-        return view('mitra/pakan')->with(array('pakans'=> $pakans, 'recording'=> $recording, 'sikluses'=> $sikluses));
+        // return view('mitra/pakan')->with(array('pakans'=> $pakans, 'recording'=> $recording, 'sikluses'=> $sikluses));
+
+        return $dataTable->render('mitra/pakan');
+    
+        return view('mitra/pakan',['pakan'=>$pakan]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new PakanExport, 'Pakan.xlsx');
     }
 
     /**

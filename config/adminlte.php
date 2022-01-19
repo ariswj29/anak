@@ -129,7 +129,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-light-white',
     'classes_sidebar_nav' => '',    
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-yellow navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 

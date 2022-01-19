@@ -7,6 +7,9 @@ use App\Models\Minum;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Pjub\MinumDataTable;
+use App\Exports\Pjub\MinumExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class MinumController extends Controller
@@ -16,31 +19,40 @@ class MinumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MinumDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-        SELECT
-            row_number() over(ORDER BY minum ASC) AS no,
-            minum.minum_id,
-            siklus.nama_siklus,
-            farm.nama_farm,
-            mitra.nama,
-            minum.jumlah_minum,
-            minum.tanggal
-        FROM
-            minum
-            JOIN siklus on minum.siklus_id = siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
-            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
-        WHERE
-            pjub.email = '".Auth::user()->email."'
-            and minum.deleted_at IS Null"));
+        // $recording = \DB::select(\DB::raw("
+        // SELECT
+        //     row_number() over(ORDER BY minum ASC) AS no,
+        //     minum.minum_id,
+        //     siklus.nama_siklus,
+        //     farm.nama_farm,
+        //     mitra.nama,
+        //     minum.jumlah_minum,
+        //     minum.tanggal
+        // FROM
+        //     minum
+        //     JOIN siklus on minum.siklus_id = siklus.siklus_id
+        //     JOIN farm ON siklus.farm_id = farm.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+        //     LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        // WHERE
+        //     pjub.email = '".Auth::user()->email."'
+        //     and minum.deleted_at IS Null"));
 
-        $minums = Minum::all();
-        $sikluses = Siklus::all();
+        // $minums = Minum::all();
+        // $sikluses = Siklus::all();
 
-        return view('pjub/minum')->with(array('minums'=> $minums, 'sikluses'=> $sikluses, 'recording'=> $recording));
+        // return view('pjub/minum')->with(array('minums'=> $minums, 'sikluses'=> $sikluses, 'recording'=> $recording));
+
+        return $dataTable->render('pjub/minum');
+
+        return view('pjub/minum',['minum'=>$minum]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new MinumExport, 'Minum.xlsx');
     }
 
     /**

@@ -9,8 +9,8 @@ use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
-use App\DataTables\SiklusDataTable;
-use App\Exports\SiklusExport;
+use App\DataTables\Admin\SiklusDataTable;
+use App\Exports\Admin\SiklusExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SiklusController extends Controller
@@ -22,12 +22,12 @@ class SiklusController extends Controller
      */
     public function index(SiklusDataTable $dataTable)
         {
-            // $sikluses = Siklus::all();
-            // $farms = farm::all();
+            $sikluses = Siklus::all();
+            $farms = farm::all();
 
             // return view('admin/siklus')->with(array('sikluses'=> $sikluses, 'farms'=> $farms));
         
-            return $dataTable->render('admin/siklus');
+            return $dataTable->render('admin/siklus',['sikluses'=>$sikluses],['farms'=>$farms]);
     
             return view('admin/siklus',['siklus'=>$siklus]);
         }
@@ -74,7 +74,8 @@ class SiklusController extends Controller
         $this->validate(request(),[
             'farm_id' => 'required',
             'nama_siklus' => 'required',
-            'tanggal' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => '',
             'jenis_ternak' => 'required',
             'jumlah_ternak' => 'required|max:4',
             'harga_satuan_doc' => 'required|max:6',
@@ -86,7 +87,8 @@ class SiklusController extends Controller
         $siklus = new Siklus();
         $siklus->farm_id = $data['farm_id'];
         $siklus->nama_siklus = $data['nama_siklus'];
-        $siklus->tanggal = $data['tanggal'];
+        $siklus->tanggal_mulai = $data['tanggal_mulai'];
+        $siklus->tanggal_selesai = $data['tanggal_selesai'];
         $siklus->jenis_ternak = $data['jenis_ternak'];
         $siklus->jumlah_ternak = $data['jumlah_ternak'];
         $siklus->harga_satuan_doc = $data['harga_satuan_doc'];
@@ -138,7 +140,8 @@ class SiklusController extends Controller
         $this->validate(request(),[
             'farm_id' => 'required',
             'nama_siklus' => 'required',
-            'tanggal' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => '',
             'jenis_ternak' => 'required',
             'jumlah_ternak' => 'required|max:4',
             'harga_satuan_doc' => 'required|max:6',
@@ -150,7 +153,8 @@ class SiklusController extends Controller
         $siklus = Siklus::Find($siklus_id);
         $siklus->farm_id = $data['farm_id'];
         $siklus->nama_siklus = $data['nama_siklus'];
-        $siklus->tanggal = $data['tanggal'];
+        $siklus->tanggal_mulai = $data['tanggal_mulai'];
+        $siklus->tanggal_selesai = $data['tanggal_selesai'];
         $siklus->jenis_ternak = $data['jenis_ternak'];
         $siklus->jumlah_ternak = $data['jumlah_ternak'];
         $siklus->harga_satuan_doc = $data['harga_satuan_doc'];

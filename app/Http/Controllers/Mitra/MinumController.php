@@ -7,6 +7,9 @@ use App\Models\Minum;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Mitra\MinumDataTable;
+use App\Exports\Mitra\MinumExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class MinumController extends Controller
@@ -16,31 +19,40 @@ class MinumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MinumDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-        SELECT
-            row_number() over(ORDER BY minum.tanggal DESC) AS no,
-            minum.minum_id,
-            siklus.nama_siklus,
-            minum.jumlah_minum,
-            minum.tanggal,
-            farm.nama_farm
-        FROM
-            minum
-            JOIN siklus on minum.siklus_id = siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
-        WHERE
-            mitra.email = '".Auth::user()->email."'
-            AND minum.deleted_at IS NULL"));
+        // $recording = \DB::select(\DB::raw("
+        // SELECT
+        //     row_number() over(ORDER BY minum.tanggal DESC) AS no,
+        //     minum.minum_id,
+        //     siklus.nama_siklus,
+        //     minum.jumlah_minum,
+        //     minum.tanggal,
+        //     farm.nama_farm
+        // FROM
+        //     minum
+        //     JOIN siklus on minum.siklus_id = siklus.siklus_id
+        //     JOIN farm ON siklus.farm_id = farm.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+        // WHERE
+        //     mitra.email = '".Auth::user()->email."'
+        //     AND minum.deleted_at IS NULL"));
 
-        $minums = Minum::all();
-        $sikluses = Siklus::all();
+        // $minums = Minum::all();
+        // $sikluses = Siklus::all();
 
-        return view('mitra/minum')->with(array('minums'=> $minums, 'sikluses'=> $sikluses, 'recording'=> $recording));
+        // return view('mitra/minum')->with(array('minums'=> $minums, 'sikluses'=> $sikluses, 'recording'=> $recording));
+
+        return $dataTable->render('mitra/minum');
+    
+        return view('mitra/minum',['minum'=>$minum]);
     }
 
+    public function export_excel()
+    {
+        return Excel::download(new MinumExport, 'Minum.xlsx');
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

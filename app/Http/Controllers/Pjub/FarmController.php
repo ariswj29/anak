@@ -8,6 +8,9 @@ use App\Models\Mitra;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Pjub\FarmDataTable;
+use App\Exports\Pjub\FarmExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class FarmController extends Controller
@@ -17,9 +20,9 @@ class FarmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FarmDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
+        $farms = \DB::select(\DB::raw("
     SELECT ROW_NUMBER
         ( ) OVER ( ORDER BY farm ASC ) AS NO,
         farm.farm_id,
@@ -38,11 +41,20 @@ class FarmController extends Controller
     WHERE
 	    pjub.email = '".Auth::user()->email."' AND farm.deleted_at IS Null"));
 
-        // $farms = Farm::all();
-        // $mitras = mitra::all();
+    //     // $farms = Farm::all();
+    //     // $mitras = mitra::all();
 
-        return view('pjub/farm', ['recording'=>$recording]);
+    //     return view('pjub/farm', ['recording'=>$recording]);
+
+    return $dataTable->render('pjub/farm',['farms'=>$farms]);
+    
+    return view('pjub/farm',['farm'=>$farm]);
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new FarmExport, 'Farm.xlsx');
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -78,7 +90,7 @@ class FarmController extends Controller
             'nama_farm' => 'required',
             'alamat_farm' => 'required',
             'mata_uang' => 'required',
-            'satuan_berat' => 'required',
+            // 'satuan_berat' => 'required',
             'kapasitas_rak_telur' => 'required',
             'kapasitas_kandang_doc' => 'required',
             'kapasitas_kandang_grower' => 'required',
@@ -91,7 +103,7 @@ class FarmController extends Controller
         $farm->nama_farm = $data['nama_farm'];
         $farm->alamat_farm = $data['alamat_farm'];
         $farm->mata_uang = $data['mata_uang'];
-        $farm->satuan_berat = $data['satuan_berat'];
+        // $farm->satuan_berat = $data['satuan_berat'];
         $farm->kapasitas_rak_telur = $data['kapasitas_rak_telur'];
         $farm->kapasitas_kandang_doc = $data['kapasitas_kandang_doc'];
         $farm->kapasitas_kandang_grower = $data['kapasitas_kandang_grower'];
@@ -156,7 +168,7 @@ class FarmController extends Controller
             // 'no_hp' => 'required',
             // 'email' => 'required',
             'mata_uang' => 'required',
-            'satuan_berat' => 'required',
+            // 'satuan_berat' => 'required',
             'kapasitas_rak_telur' => 'required',
             'kapasitas_kandang_doc' => 'required',
             'kapasitas_kandang_grower' => 'required',
@@ -171,7 +183,7 @@ class FarmController extends Controller
         // $farm->no_hp = $data['no_hp'];
         // $farm->email = $data['email'];
         $farm->mata_uang = $data['mata_uang'];
-        $farm->satuan_berat = $data['satuan_berat'];
+        // $farm->satuan_berat = $data['satuan_berat'];
         $farm->kapasitas_rak_telur = $data['kapasitas_rak_telur'];
         $farm->kapasitas_kandang_doc = $data['kapasitas_kandang_doc'];
         $farm->kapasitas_kandang_grower = $data['kapasitas_kandang_grower'];

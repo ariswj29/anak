@@ -8,6 +8,9 @@ use App\Models\Farm;
 use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Pjub\SiklusDataTable;
+use App\Exports\Pjub\SiklusExport;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Auth;
 
@@ -18,9 +21,9 @@ class SiklusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SiklusDataTable $dataTable)
         {
-            $recording = \DB::select(\DB::raw("
+            $sikluses = \DB::select(\DB::raw("
         SELECT
             row_number() over(ORDER BY siklus ASC) AS no,
             siklus.siklus_id,
@@ -28,7 +31,8 @@ class SiklusController extends Controller
             farm.nama_farm,
             farm.mata_uang,
             siklus.nama_siklus,
-            siklus.tanggal,
+            siklus.tanggal_mulai,
+            siklus.tanggal_selesai,
             siklus.jenis_ternak,
             siklus.jumlah_ternak,
             siklus.harga_satuan_doc,
@@ -40,11 +44,20 @@ class SiklusController extends Controller
             LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
         WHERE
 	        pjub.email = '".Auth::user()->email."' and siklus.deleted_at IS Null"));
-            $sikluses = Siklus::all();
-            $farms = farm::all();
+        //     $sikluses = Siklus::all();
+        //     $farms = farm::all();
 
-            return view('pjub/siklus')->with(array('sikluses'=> $sikluses, 'farms'=> $farms, 'recording'=> $recording));
+        //     return view('pjub/siklus')->with(array('sikluses'=> $sikluses, 'farms'=> $farms, 'recording'=> $recording));
+
+        return $dataTable->render('pjub/siklus',['sikluses'=>$sikluses]);
+    
+        return view('pjub/siklus',['siklus'=>$siklus]);
         }
+
+    public function export_excel()
+    {
+        return Excel::download(new SiklusExport, 'Siklus.xlsx');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -93,7 +106,8 @@ class SiklusController extends Controller
         $this->validate(request(),[
             'farm_id' => 'required',
             'nama_siklus' => 'required',
-            'tanggal' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => '',
             'jenis_ternak' => 'required',
             'jumlah_ternak' => 'required|max:4',
             'harga_satuan_doc' => 'required|max:6',
@@ -105,7 +119,8 @@ class SiklusController extends Controller
         $siklus = new Siklus();
         $siklus->farm_id = $data['farm_id'];
         $siklus->nama_siklus = $data['nama_siklus'];
-        $siklus->tanggal = $data['tanggal'];
+        $siklus->tanggal_mulai = $data['tanggal_mulai'];
+        $siklus->tanggal_selesai = $data['tanggal_selesai'];
         $siklus->jenis_ternak = $data['jenis_ternak'];
         $siklus->jumlah_ternak = $data['jumlah_ternak'];
         $siklus->harga_satuan_doc = $data['harga_satuan_doc'];
@@ -167,7 +182,8 @@ class SiklusController extends Controller
         $this->validate(request(),[
             'farm_id' => 'required',
             'nama_siklus' => 'required',
-            'tanggal' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => '',
             'jenis_ternak' => 'required',
             'jumlah_ternak' => 'required|max:4',
             'harga_satuan_doc' => 'required|max:6',
@@ -179,7 +195,8 @@ class SiklusController extends Controller
         $siklus = Siklus::Find($siklus_id);
         $siklus->farm_id = $data['farm_id'];
         $siklus->nama_siklus = $data['nama_siklus'];
-        $siklus->tanggal = $data['tanggal'];
+        $siklus->tanggal_mulai = $data['tanggal_mulai'];
+        $siklus->tanggal_selesai = $data['tanggal_selesai'];
         $siklus->jenis_ternak = $data['jenis_ternak'];
         $siklus->jumlah_ternak = $data['jumlah_ternak'];
         $siklus->harga_satuan_doc = $data['harga_satuan_doc'];

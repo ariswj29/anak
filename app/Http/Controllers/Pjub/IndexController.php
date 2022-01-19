@@ -77,9 +77,9 @@ class IndexController extends \app\Http\Controllers\Controller
         SUM ( berat.rata_rata_berat ) jml_rata 
     FROM
         siklus
-        LEFT JOIN pakan ON ( pakan.siklus_id = siklus.siklus_id AND pakan.tanggal = siklus.tanggal )
-        LEFT JOIN kematian ON ( kematian.siklus_id = siklus.siklus_id AND kematian.tanggal = siklus.tanggal )
-        LEFT JOIN berat ON ( berat.siklus_id = siklus.siklus_id AND berat.tanggal = siklus.tanggal )
+        LEFT JOIN pakan ON ( pakan.siklus_id = siklus.siklus_id AND pakan.tanggal = siklus.tanggal_mulai )
+        LEFT JOIN kematian ON ( kematian.siklus_id = siklus.siklus_id AND kematian.tanggal = siklus.tanggal_mulai )
+        LEFT JOIN berat ON ( berat.siklus_id = siklus.siklus_id AND berat.tanggal = siklus.tanggal_mulai )
         LEFT JOIN farm ON ( farm.farm_id = siklus.farm_id )
         LEFT JOIN mitra ON ( mitra.mitra_id = farm.mitra_id )
         LEFT JOIN pjub ON ( pjub.pjub_id = mitra.pjub_id )  
@@ -182,7 +182,7 @@ class IndexController extends \app\Http\Controllers\Controller
             JOIN mitra ON farm.mitra_id = mitra.mitra_id
             JOIN pjub ON mitra.pjub_id = pjub.pjub_id
         WHERE
-            pjub.email = '".Auth::user()->email."' "));
+            pjub.email = '".Auth::user()->email."' and siklus.deleted_at IS NULL "));
 
         return view('pjub/perbarui')->with('pjubs', $pjubs)->with('mitras', $mitras)->with('pakans', $pakans)->with('berats', $berats)->with('farms', $farms)->with('sikluses', $sikluses)->with('kematians', $kematians)->with('minums', $minums)->with('vitamins', $vitamins);
     }

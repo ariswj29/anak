@@ -63,7 +63,7 @@ Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/pjub/{pjub}/delete', [App\Http\Controllers\Admin\PjubController::class, 'destroy']);
 });
 
-// Mitra
+// Mitra Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/mitra', [App\Http\Controllers\Admin\MitraController::class, 'index'])->name('admin/mitra');
     Route::get('/admin/mitra/export_excel', [App\Http\Controllers\Admin\MitraController::class, 'export_excel']);
@@ -179,17 +179,18 @@ Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kematian/{kematian}/delete', [App\Http\Controllers\Admin\KematianController::class, 'destroy']);
 });
 
-// Kas Mitra
+// Kas Admin
 Route::middleware(['auth','administrator'])->group(function () {
     Route::get('/admin/kas', [App\Http\Controllers\Admin\KasController::class, 'index'])->name('admin/kas');
     Route::get('/admin/kas/{siklus}/detail', [App\Http\Controllers\Admin\KasController::class, 'detail'])->name('admin/detail_kas');
-    Route::get('/admin/kas/{siklus}/detail/export_excel', [App\Http\Controllers\Admin\KasController::class, 'export_excel']);
+    Route::get('/admin/kas/{siklus_id}/detail/export_excel', [App\Http\Controllers\Admin\KasController::class, 'export_excel']);
     Route::get('/admin/kas/{siklus}/lpj', [App\Http\Controllers\Admin\KasController::class, 'lpj'])->name('admin/lpj_kas');
     Route::get('/admin/kas/{siklus}/tambah', [App\Http\Controllers\Admin\KasController::class, 'create'])->name('admin/tambah_kas');
     Route::post('/admin/kas/store', [App\Http\Controllers\Admin\KasController::class, 'store'])->name('admin/tambah_kas');
     Route::get('/admin/kas/{kas}/edit', [App\Http\Controllers\Admin\KasController::class, 'edit'])->name('admin/edit_kas');
     Route::post('/admin/kas/{kas}/update', [App\Http\Controllers\Admin\KasController::class, 'update'])->name('admin/edit_kas');
-    Route::get('/admin/kas/{kas}/{siklus}/delete', [App\Http\Controllers\Admin\KasController::class, 'destroy']);
+    Route::get('/admin/kas/{kas}/{siklus_id}/delete', [App\Http\Controllers\Admin\KasController::class, 'destroy']);
+    Route::get('/admin/kas/{siklus}/get_data_kas', [App\Http\Controllers\Admin\KasController::class, 'get_data_kas']);
 });
 
 // Penjualan Admin
@@ -219,6 +220,7 @@ Route::get('/mitra/index', function() {
 // Farm Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/farm', [App\Http\Controllers\Mitra\FarmController::class, 'index'])->name('mitra/farm');
+    Route::get('/mitra/farm/export_excel', [App\Http\Controllers\Mitra\FarmController::class, 'export_excel']);
     Route::get('/mitra/farm/tambah', [App\Http\Controllers\Mitra\FarmController::class, 'create'])->name('mitra/tambah_farm');
     Route::post('/mitra/farm/store', [App\Http\Controllers\Mitra\FarmController::class, 'store'])->name('mitra/tambah_farm');
     Route::get('/mitra/farm/{farm}/edit', [App\Http\Controllers\Mitra\FarmController::class, 'edit'])->name('mitra/edit_farm');
@@ -229,6 +231,7 @@ Route::get('/mitra/index', function() {
 // Siklus Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/siklus', [App\Http\Controllers\Mitra\SiklusController::class, 'index'])->name('mitra/siklus');
+    Route::get('/mitra/siklus/export_excel', [App\Http\Controllers\Mitra\SiklusController::class, 'export_excel']);
     Route::get('/mitra/siklus/tambah', [App\Http\Controllers\Mitra\SiklusController::class, 'create'])->name('mitra/tambah_siklus');
     Route::post('/mitra/siklus/store', [App\Http\Controllers\Mitra\SiklusController::class, 'store'])->name('mitra/tambah_siklus');
     // Route::get('/mitra/siklus/{siklus}', [App\Http\Controllers\Mitra\SiklusController::class, 'show']);
@@ -264,6 +267,7 @@ Route::get('/mitra/index', function() {
 // Penjualan Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/penjualan', [App\Http\Controllers\Mitra\PenjualanController::class, 'index'])->name('mitra/penjualan');
+    Route::get('/mitra/penjualan/export_excel', [App\Http\Controllers\Mitra\PenjualanController::class, 'export_excel']);
     Route::get('/mitra/penjualan/tambah', [App\Http\Controllers\Mitra\PenjualanController::class, 'create'])->name('mitra/tambah_penjualan');
     Route::post('/mitra/penjualan/store', [App\Http\Controllers\Mitra\PenjualanController::class, 'store'])->name('mitra/tambah_penjualan');
     Route::get('/mitra/penjualan/{penjualan}/edit', [App\Http\Controllers\Mitra\PenjualanController::class, 'edit'])->name('mitra/edit_penjualan');
@@ -275,17 +279,20 @@ Route::get('/mitra/index', function() {
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/kas', [App\Http\Controllers\Mitra\KasController::class, 'index'])->name('mitra/kas');
     Route::get('/mitra/kas/{siklus}/detail', [App\Http\Controllers\Mitra\KasController::class, 'detail'])->name('mitra/detail_kas');
+    Route::get('/mitra/kas/{siklus_id}/detail/export_excel', [App\Http\Controllers\Mitra\KasController::class, 'export_excel']);
     Route::get('/mitra/kas/{siklus}/lpj', [App\Http\Controllers\Mitra\KasController::class, 'lpj'])->name('mitra/lpj_kas');
     Route::get('/mitra/kas/{siklus}/tambah', [App\Http\Controllers\Mitra\KasController::class, 'create'])->name('mitra/tambah_kas');
     Route::post('/mitra/kas/store', [App\Http\Controllers\Mitra\KasController::class, 'store'])->name('mitra/tambah_kas');
     Route::get('/mitra/kas/{kas}/edit', [App\Http\Controllers\Mitra\KasController::class, 'edit'])->name('mitra/edit_kas');
     Route::post('/mitra/kas/{kas}/update', [App\Http\Controllers\Mitra\KasController::class, 'update'])->name('mitra/edit_kas');
     Route::get('/mitra/kas/{kas}/{siklus}/delete', [App\Http\Controllers\Mitra\KasController::class, 'destroy']);
+    Route::get('/mitra/kas/{siklus}/get_data_kas', [App\Http\Controllers\Mitra\KasController::class, 'get_data_kas']);
 // });
 
 // Pakan Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/pakan', [App\Http\Controllers\Mitra\PakanController::class, 'index'])->name('mitra/pakan');
+    Route::get('/mitra/pakan/export_excel', [App\Http\Controllers\Mitra\PakanController::class, 'export_excel']);
     Route::get('/mitra/pakan/tambah', [App\Http\Controllers\Mitra\PakanController::class, 'create'])->name('mitra/tambah_pakan');
     Route::post('/mitra/pakan/store', [App\Http\Controllers\Mitra\PakanController::class, 'store'])->name('mitra/tambah_pakan');
     Route::get('/mitra/pakan/{pakan}/edit', [App\Http\Controllers\Mitra\PakanController::class, 'edit'])->name('mitra/edit_pakan');
@@ -296,6 +303,7 @@ Route::get('/mitra/index', function() {
 // Minum Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/minum', [App\Http\Controllers\Mitra\MinumController::class, 'index'])->name('mitra/minum');
+    Route::get('/mitra/minum/export_excel', [App\Http\Controllers\Mitra\MinumController::class, 'export_excel']);
     Route::get('/mitra/minum/tambah', [App\Http\Controllers\Mitra\MinumController::class, 'create'])->name('mitra/tambah_minum');
     Route::post('/mitra/minum/store', [App\Http\Controllers\Mitra\MinumController::class, 'store'])->name('mitra/tambah_minum');
     Route::get('/mitra/minum/{minum}/edit', [App\Http\Controllers\Mitra\MinumController::class, 'edit'])->name('mitra/edit_minum');
@@ -306,6 +314,7 @@ Route::get('/mitra/index', function() {
 // Berat Ayam Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/berat', [App\Http\Controllers\Mitra\BeratController::class, 'index'])->name('mitra/berat');
+    Route::get('/mitra/berat/export_excel', [App\Http\Controllers\Mitra\BeratController::class, 'export_excel']);
     Route::get('/mitra/berat/tambah', [App\Http\Controllers\Mitra\BeratController::class, 'create'])->name('mitra/tambah_berat');
     Route::post('/mitra/berat/store', [App\Http\Controllers\Mitra\BeratController::class, 'store'])->name('mitra/tambah_berat');
     Route::get('/mitra/berat/{berat}/edit', [App\Http\Controllers\Mitra\BeratController::class, 'edit'])->name('mitra/edit_berat');
@@ -316,6 +325,7 @@ Route::get('/mitra/index', function() {
 // Kematian Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/kematian', [App\Http\Controllers\Mitra\KematianController::class, 'index'])->name('mitra/kematian');
+    Route::get('/mitra/kematian/export_excel', [App\Http\Controllers\Mitra\KematianController::class, 'export_excel']);
     Route::get('/mitra/kematian/tambah', [App\Http\Controllers\Mitra\KematianController::class, 'create'])->name('mitra/tambah_kematian');
     Route::post('/mitra/kematian/store', [App\Http\Controllers\Mitra\KematianController::class, 'store'])->name('mitra/tambah_kematian');
     Route::get('/mitra/kematian/{kematian}/edit', [App\Http\Controllers\Mitra\KematianController::class, 'edit'])->name('mitra/edit_kematian');
@@ -326,6 +336,7 @@ Route::get('/mitra/index', function() {
 // Vitamin Mitra
 // Route::middleware(['auth','mitra'])->group(function () {
     Route::get('/mitra/vitamin', [App\Http\Controllers\Mitra\VitaminController::class, 'index'])->name('mitra/vitamin');
+    Route::get('/mitra/vitamin/export_excel', [App\Http\Controllers\Mitra\VitaminController::class, 'export_excel']);
     Route::get('/mitra/vitamin/tambah', [App\Http\Controllers\Mitra\VitaminController::class, 'create'])->name('mitra/tambah_vitamin');
     Route::post('/mitra/vitamin/store', [App\Http\Controllers\Mitra\VitaminController::class, 'store'])->name('mitra/tambah_vitamin');
     Route::get('/mitra/vitamin/{vitamin}/edit', [App\Http\Controllers\Mitra\VitaminController::class, 'edit'])->name('mitra/edit_vitamin');
@@ -350,6 +361,7 @@ Route::get('/mitra/index', function() {
 // Mitra PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/mitra', [App\Http\Controllers\Pjub\MitraController::class, 'index'])->name('pjub/mitra');
+    Route::get('/pjub/mitra/export_excel', [App\Http\Controllers\Pjub\MitraController::class, 'export_excel']);
     Route::get('/pjub/mitra/tambah', [App\Http\Controllers\Pjub\MitraController::class, 'create'])->name('pjub/tambah_mitra');
     Route::post('/pjub/mitra/store', [App\Http\Controllers\Pjub\MitraController::class, 'store'])->name('pjub/tambah_mitra');
     Route::get('/pjub/mitra/{mitra}/edit', [App\Http\Controllers\Pjub\MitraController::class, 'edit'])->name('pjub/edit_mitra');
@@ -360,6 +372,7 @@ Route::get('/mitra/index', function() {
 // Farm PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/farm', [App\Http\Controllers\Pjub\FarmController::class, 'index'])->name('pjub/farm');
+    Route::get('/pjub/farm/export_excel', [App\Http\Controllers\Pjub\FarmController::class, 'export_excel']);
     Route::get('/pjub/farm/tambah', [App\Http\Controllers\Pjub\FarmController::class, 'create'])->name('pjub/tambah_farm');
     Route::post('/pjub/farm/store', [App\Http\Controllers\Pjub\FarmController::class, 'store'])->name('pjub/tambah_farm');
     Route::get('/pjub/farm/{farm}/edit', [App\Http\Controllers\Pjub\FarmController::class, 'edit'])->name('pjub/edit_farm');
@@ -393,17 +406,20 @@ Route::get('/mitra/index', function() {
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/kas', [App\Http\Controllers\Pjub\KasController::class, 'index'])->name('pjub/kas');
     Route::get('/pjub/kas/{siklus}/detail', [App\Http\Controllers\Pjub\KasController::class, 'detail'])->name('pjub/detail_kas');
+    Route::get('/pjub/kas/{siklus_id}/detail/export_excel', [App\Http\Controllers\Pjub\KasController::class, 'export_excel']);
     Route::get('/pjub/kas/{siklus}/lpj', [App\Http\Controllers\Pjub\KasController::class, 'lpj'])->name('pjub/lpj_kas');
     Route::get('/pjub/kas/{siklus}/tambah', [App\Http\Controllers\Pjub\KasController::class, 'create'])->name('pjub/tambah_kas');
     Route::post('/pjub/kas/store', [App\Http\Controllers\Pjub\KasController::class, 'store'])->name('pjub/tambah_kas');
     Route::get('/pjub/kas/{kas}/edit', [App\Http\Controllers\Pjub\KasController::class, 'edit'])->name('pjub/edit_kas');
     Route::post('/pjub/kas/{kas}/update', [App\Http\Controllers\Pjub\KasController::class, 'update'])->name('pjub/edit_kas');
     Route::get('/pjub/kas/{kas}/{siklus}/delete', [App\Http\Controllers\Pjub\KasController::class, 'destroy']);
+    Route::get('/pjub/kas/{siklus}/get_data_kas', [App\Http\Controllers\Pjub\KasController::class, 'get_data_kas']);
 // });
 
 // Penjualan PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/penjualan', [App\Http\Controllers\Pjub\PenjualanController::class, 'index'])->name('pjub/penjualan');
+    Route::get('/pjub/penjualan/export_excel', [App\Http\Controllers\Pjub\PenjualanController::class, 'export_excel']);
     Route::get('/pjub/penjualan/tambah', [App\Http\Controllers\Pjub\PenjualanController::class, 'create'])->name('pjub/tambah_penjualan');
     Route::post('/pjub/penjualan/store', [App\Http\Controllers\Pjub\PenjualanController::class, 'store'])->name('pjub/tambah_penjualan');
     Route::get('/pjub/penjualan/{penjualan}/edit', [App\Http\Controllers\Pjub\PenjualanController::class, 'edit'])->name('pjub/edit_penjualan');
@@ -414,6 +430,7 @@ Route::get('/mitra/index', function() {
 // Siklus PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/siklus', [App\Http\Controllers\Pjub\SiklusController::class, 'index'])->name('pjub/siklus');
+    Route::get('/pjub/siklus/export_excel', [App\Http\Controllers\Pjub\SiklusController::class, 'export_excel']);
     Route::get('/pjub/siklus/tambah', [App\Http\Controllers\Pjub\SiklusController::class, 'create'])->name('pjub/tambah_siklus');
     Route::post('/pjub/siklus/store', [App\Http\Controllers\Pjub\SiklusController::class, 'store'])->name('pjub/tambah_siklus');
     // Route::get('/pjub/siklus/{siklus}', [App\Http\Controllers\pjub\SiklusController::class, 'show']);
@@ -427,6 +444,7 @@ Route::get('/mitra/index', function() {
 // Pakan PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/pakan', [App\Http\Controllers\Pjub\PakanController::class, 'index'])->name('pjub/pakan');
+    Route::get('/pjub/pakan/export_excel', [App\Http\Controllers\Pjub\PakanController::class, 'export_excel']);
     Route::get('/pjub/pakan/tambah', [App\Http\Controllers\Pjub\PakanController::class, 'create'])->name('pjub/tambah_pakan');
     Route::post('/pjub/pakan/store', [App\Http\Controllers\Pjub\PakanController::class, 'store'])->name('pjub/tambah_pakan');
     Route::get('/pjub/pakan/{pakan}/edit', [App\Http\Controllers\Pjub\PakanController::class, 'edit'])->name('pjub/edit_pakan');
@@ -437,6 +455,7 @@ Route::get('/mitra/index', function() {
 // Minum PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/minum', [App\Http\Controllers\Pjub\MinumController::class, 'index'])->name('pjub/minum');
+    Route::get('/pjub/minum/export_excel', [App\Http\Controllers\Pjub\MinumController::class, 'export_excel']);
     Route::get('/pjub/minum/tambah', [App\Http\Controllers\Pjub\MinumController::class, 'create'])->name('pjub/tambah_minum');
     Route::post('/pjub/minum/store', [App\Http\Controllers\Pjub\MinumController::class, 'store'])->name('pjub/tambah_minum');
     Route::get('/pjub/minum/{minum}/edit', [App\Http\Controllers\Pjub\MinumController::class, 'edit'])->name('pjub/edit_minum');
@@ -447,6 +466,7 @@ Route::get('/mitra/index', function() {
 // Berat Ayam PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/berat', [App\Http\Controllers\Pjub\BeratController::class, 'index'])->name('pjub/berat');
+    Route::get('/pjub/berat/export_excel', [App\Http\Controllers\Pjub\BeratController::class, 'export_excel']);
     Route::get('/pjub/berat/tambah', [App\Http\Controllers\Pjub\BeratController::class, 'create'])->name('pjub/tambah_berat');
     Route::post('/pjub/berat/store', [App\Http\Controllers\Pjub\BeratController::class, 'store'])->name('pjub/tambah_berat');
     Route::get('/pjub/berat/{berat}/edit', [App\Http\Controllers\Pjub\BeratController::class, 'edit'])->name('pjub/edit_berat');
@@ -457,6 +477,7 @@ Route::get('/mitra/index', function() {
 // Kematian PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/kematian', [App\Http\Controllers\Pjub\KematianController::class, 'index'])->name('pjub/kematian');
+    Route::get('/pjub/kematian/export_excel', [App\Http\Controllers\Pjub\KematianController::class, 'export_excel']);
     Route::get('/pjub/kematian/tambah', [App\Http\Controllers\Pjub\KematianController::class, 'create'])->name('pjub/tambah_kematian');
     Route::post('/pjub/kematian/store', [App\Http\Controllers\Pjub\KematianController::class, 'store'])->name('pjub/tambah_kematian');
     Route::get('/pjub/kematian/{kematian}/edit', [App\Http\Controllers\Pjub\KematianController::class, 'edit'])->name('pjub/edit_kematian');
@@ -467,6 +488,7 @@ Route::get('/mitra/index', function() {
 // Vitamin PJUB
 // Route::middleware(['auth','pjub'])->group(function () {
     Route::get('/pjub/vitamin', [App\Http\Controllers\Pjub\VitaminController::class, 'index'])->name('pjub/vitamin');
+    Route::get('/pjub/vitamin/export_excel', [App\Http\Controllers\Pjub\VitaminController::class, 'export_excel']);
     Route::get('/pjub/vitamin/tambah', [App\Http\Controllers\Pjub\VitaminController::class, 'create'])->name('pjub/tambah_vitamin');
     Route::post('/pjub/vitamin/store', [App\Http\Controllers\Pjub\VitaminController::class, 'store'])->name('pjub/tambah_vitamin');
     Route::get('/pjub/vitamin/{vitamin}/edit', [App\Http\Controllers\Pjub\VitaminController::class, 'edit'])->name('pjub/edit_vitamin');

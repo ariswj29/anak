@@ -7,6 +7,9 @@ use App\Models\Berat;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Mitra\BeratDataTable;
+use App\Exports\Mitra\BeratExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class BeratController extends Controller
@@ -16,29 +19,38 @@ class BeratController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BeratDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-        SELECT 
-            ROW_NUMBER ( ) OVER ( ORDER BY berat.tanggal DESC ) AS NO,
-            berat.berat_id,
-            siklus.nama_siklus,
-            berat.rata_rata_berat,
-            berat.tanggal,
-            farm.nama_farm
-        FROM
-            berat
-            JOIN siklus ON berat.siklus_id = siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id
-        WHERE
-            mitra.email = '".Auth::user()->email."'
-            AND berat.deleted_at IS NULL"));
+        // $recording = \DB::select(\DB::raw("
+        // SELECT 
+        //     ROW_NUMBER ( ) OVER ( ORDER BY berat.tanggal DESC ) AS NO,
+        //     berat.berat_id,
+        //     siklus.nama_siklus,
+        //     berat.rata_rata_berat,
+        //     berat.tanggal,
+        //     farm.nama_farm
+        // FROM
+        //     berat
+        //     JOIN siklus ON berat.siklus_id = siklus.siklus_id
+        //     JOIN farm ON siklus.farm_id = farm.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id
+        // WHERE
+        //     mitra.email = '".Auth::user()->email."'
+        //     AND berat.deleted_at IS NULL"));
 
-        $berats = Berat::all();
-        $sikluses = Siklus::all();
+        // $berats = Berat::all();
+        // $sikluses = Siklus::all();
 
-        return view('mitra/berat')->with(array('berats'=> $berats, 'sikluses'=> $sikluses, 'recording'=> $recording));
+        // return view('mitra/berat')->with(array('berats'=> $berats, 'sikluses'=> $sikluses, 'recording'=> $recording));
+
+        return $dataTable->render('mitra/berat');
+    
+        return view('mitra/berat',['berat'=>$berat]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new BeratExport, 'Berat.xlsx');
     }
 
     /**

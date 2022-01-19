@@ -8,6 +8,9 @@ use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use App\DataTables\Pjub\PakanDataTable;
+use App\Exports\Pjub\PakanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class PakanController extends Controller
@@ -17,35 +20,42 @@ class PakanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PakanDataTable $dataTable)
     {
-        // $batas = 10;
-        // $data = Pakan::orderBy('pakan_id', 'desc')->paginate($batas);
-        $recording = \DB::select(\DB::raw("
-        SELECT
-            row_number() over(ORDER BY pakan.tanggal ASC) AS no,
-            pakan.pakan_id,
-            siklus.nama_siklus,
-            farm.nama_farm,
-            mitra.nama,
-            pakan.tanggal,
-            pakan.jenis_pakan,
-            pakan.jumlah_pakan,
-            pakan.pakan_digunakan
-        FROM
-        pakan
-            JOIN siklus on pakan.siklus_id =  siklus.siklus_id
-            LEFT JOIN farm ON farm.farm_id = siklus.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id 
-            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
-        WHERE
-            pjub.email = '".Auth::user()->email."' 
-            and pakan.deleted_at IS Null
-            "));
-        $pakans = Pakan::all();
-        $sikluses = Siklus::all();
+        // $recording = \DB::select(\DB::raw("
+        // SELECT
+        //     row_number() over(ORDER BY pakan.tanggal ASC) AS no,
+        //     pakan.pakan_id,
+        //     siklus.nama_siklus,
+        //     farm.nama_farm,
+        //     mitra.nama,
+        //     pakan.tanggal,
+        //     pakan.jenis_pakan,
+        //     pakan.jumlah_pakan,
+        //     pakan.pakan_digunakan
+        // FROM
+        // pakan
+        //     JOIN siklus on pakan.siklus_id =  siklus.siklus_id
+        //     LEFT JOIN farm ON farm.farm_id = siklus.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id 
+        //     LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        // WHERE
+        //     pjub.email = '".Auth::user()->email."' 
+        //     and pakan.deleted_at IS Null
+        //     "));
+        // $pakans = Pakan::all();
+        // $sikluses = Siklus::all();
 
-        return view('pjub/pakan', ['pakan' => DB::table('pakan')->paginate(10)])->with(array('pakans'=> $pakans, 'recording'=> $recording, 'sikluses'=> $sikluses));
+        // return view('pjub/pakan', ['pakan' => DB::table('pakan')->paginate(10)])->with(array('pakans'=> $pakans, 'recording'=> $recording, 'sikluses'=> $sikluses));
+    
+        return $dataTable->render('pjub/pakan');
+    
+        return view('pjub/pakan',['pakan'=>$pakan]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new PakanExport, 'Pakan.xlsx');
     }
 
     /**
@@ -183,7 +193,7 @@ class PakanController extends Controller
 
         $pakan->delete();
 
-        session()->flash('success', 'Data Berhasil Dihapus ABC '.$pakan_id);
+        session()->flash('success', 'Data Berhasil Dihapus ');
 
         return redirect('/pjub/pakan');
     }

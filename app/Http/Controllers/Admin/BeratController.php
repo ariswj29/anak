@@ -7,8 +7,8 @@ use App\Models\Berat;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\DataTables\BeratDataTable;
-use App\Exports\BeratExport;
+use App\DataTables\Admin\BeratDataTable;
+use App\Exports\Admin\BeratExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BeratController extends Controller

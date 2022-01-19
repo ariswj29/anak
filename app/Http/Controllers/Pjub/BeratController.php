@@ -7,6 +7,9 @@ use App\Models\Berat;
 use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\DataTables\Pjub\BeratDataTable;
+use App\Exports\Pjub\BeratExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class BeratController extends Controller
@@ -16,31 +19,40 @@ class BeratController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BeratDataTable $dataTable)
     {
-        $recording = \DB::select(\DB::raw("
-        SELECT 
-            ROW_NUMBER ( ) OVER ( ORDER BY berat.tanggal ASC ) AS NO,
-            berat.berat_id,
-            siklus.nama_siklus,
-            farm.nama_farm,
-            mitra.nama,
-            berat.rata_rata_berat,
-            berat.tanggal 
-        FROM
-            berat
-            JOIN siklus ON berat.siklus_id = siklus.siklus_id
-            JOIN farm ON siklus.farm_id = farm.farm_id
-            JOIN mitra ON farm.mitra_id = mitra.mitra_id
-            LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
-        WHERE
-            pjub.email = '".Auth::user()->email."'
-            and berat.deleted_at IS Null"));
+        // $recording = \DB::select(\DB::raw("
+        // SELECT 
+        //     ROW_NUMBER ( ) OVER ( ORDER BY berat.tanggal ASC ) AS NO,
+        //     berat.berat_id,
+        //     siklus.nama_siklus,
+        //     farm.nama_farm,
+        //     mitra.nama,
+        //     berat.rata_rata_berat,
+        //     berat.tanggal 
+        // FROM
+        //     berat
+        //     JOIN siklus ON berat.siklus_id = siklus.siklus_id
+        //     JOIN farm ON siklus.farm_id = farm.farm_id
+        //     JOIN mitra ON farm.mitra_id = mitra.mitra_id
+        //     LEFT JOIN pjub ON pjub.pjub_id = mitra.pjub_id
+        // WHERE
+        //     pjub.email = '".Auth::user()->email."'
+        //     and berat.deleted_at IS Null"));
 
-        $berats = Berat::all();
-        $sikluses = Siklus::all();
+        // $berats = Berat::all();
+        // $sikluses = Siklus::all();
 
-        return view('pjub/berat')->with(array('berats'=> $berats, 'sikluses'=> $sikluses, 'recording'=> $recording));
+        // return view('pjub/berat')->with(array('berats'=> $berats, 'sikluses'=> $sikluses, 'recording'=> $recording));
+
+        return $dataTable->render('pjub/berat');
+    
+        return view('pjub/berat',['berat'=>$berat]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new BeratExport, 'Berat.xlsx');
     }
 
     /**

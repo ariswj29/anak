@@ -8,9 +8,10 @@ use App\Models\Siklus;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Blade;
 use File;
-use App\DataTables\PenjualanDataTable;
-use App\Exports\PenjualanExport;
+use App\DataTables\Admin\PenjualanDataTable;
+use App\Exports\Admin\PenjualanExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PenjualanController extends Controller
@@ -22,11 +23,11 @@ class PenjualanController extends Controller
      */
     public function index(PenjualanDataTable $dataTable)
     {
-        // $penjualans = Penjualan::all();
-        // $sikluses = Siklus::all();
+        $penjualans = Penjualan::all();
+        $sikluses = Siklus::all();
 
         // return view('admin/penjualan')->with(array('penjualans'=> $penjualans, 'sikluses'=> $sikluses));
-        return $dataTable->render('admin/penjualan');
+        return $dataTable->render('admin/penjualan',['penjualans'=>$penjualans],['sikluses'=>$sikluses]);
     
         return view('admin/penjualan',['penjualan'=>$penjualan]);
     }
